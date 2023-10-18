@@ -107,7 +107,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 1,
             FirstName = "Bryanty",
             LastName = "Luckett",
-            DOB = new DateOnly(1977,09,19),
+            DOB = new DateTime(1977,09,19),
             GenderId = 1
             },
             new Patient
@@ -115,7 +115,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 2,
             FirstName = "Alanson",
             LastName = "Surpliss",
-            DOB = new DateOnly(1986,12,02),
+            DOB = new DateTime(1986,12,02),
             GenderId = 2
             },
             new Patient
@@ -123,7 +123,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 3,
             FirstName = "Marquita",
             LastName = "Gabbotts",
-            DOB = new DateOnly(1961,02,10),
+            DOB = new DateTime(1961,02,10),
             GenderId = 2
             },
             new Patient
@@ -131,7 +131,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 4,
             FirstName = "Ashlie",
             LastName = "Bertouloume",
-            DOB = new DateOnly(1959,09,13),
+            DOB = new DateTime(1959,09,13),
             GenderId = 2
             },
             new Patient
@@ -139,7 +139,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 5,
             FirstName = "Matias",
             LastName = "Jannings",
-            DOB = new DateOnly(1999,05,01),
+            DOB = new DateTime(1999,05,01),
             GenderId = 1
             },
             new Patient
@@ -147,7 +147,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 6,
             FirstName = "Harley",
             LastName = "Dreger",
-            DOB = new DateOnly(1949,07,11),
+            DOB = new DateTime(1949,07,11),
             GenderId = 1
             },
             new Patient
@@ -155,7 +155,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 7,
             FirstName = "Marlin",
             LastName = "Briddock",
-            DOB = new DateOnly(1986,05,17),
+            DOB = new DateTime(1986,05,17),
             GenderId = 1
             },
             new Patient
@@ -163,7 +163,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 8,
             FirstName = "Sheffy",
             LastName = "McVeighty",
-            DOB = new DateOnly(1982,08,07),
+            DOB = new DateTime(1982,08,07),
             GenderId = 2
             },
             new Patient
@@ -171,7 +171,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 9,
             FirstName = "Nata",
             LastName = "Attle",
-            DOB = new DateOnly(1947,10,13),
+            DOB = new DateTime(1947,10,13),
             GenderId = 2
             },
             new Patient
@@ -179,7 +179,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 10,
             FirstName = "Hodge",
             LastName = "Pilkinton",
-            DOB = new DateOnly(1970,01,30),
+            DOB = new DateTime(1970,01,30),
             GenderId = 1
             },
             new Patient
@@ -187,7 +187,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 11,
             FirstName = "Terrance",
             LastName = "Barthram",
-            DOB = new DateOnly(1972,07,12),
+            DOB = new DateTime(1972,07,12),
             GenderId = 1
             },
             new Patient
@@ -195,7 +195,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 12,
             FirstName = "Monti",
             LastName = "Rominov",
-            DOB = new DateOnly(1942,06,03),
+            DOB = new DateTime(1942,06,03),
             GenderId = 2
             },
             new Patient
@@ -203,7 +203,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 13,
             FirstName = "Gerik",
             LastName = "Street",
-            DOB = new DateOnly(1950,06,16),
+            DOB = new DateTime(1950,06,16),
             GenderId = 1
             },
             new Patient
@@ -211,7 +211,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 14,
             FirstName = "Cassaundra",
             LastName = "McKmurrie",
-            DOB = new DateOnly(1952,10,11),
+            DOB = new DateTime(1952,10,11),
             GenderId = 2
             },
             new Patient
@@ -219,7 +219,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             Id = 15,
             FirstName = "Panther",
             LastName = "Moons",
-            DOB = new DateOnly(1945,09,26),
+            DOB = new DateTime(1945,09,26),
             GenderId = 2
             }
         });

@@ -267,8 +267,8 @@ namespace ADLTracker.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateOnly>("DOB")
-                        .HasColumnType("date");
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("timestamp without time zone");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
@@ -291,7 +291,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 1,
-                            DOB = new DateOnly(1977, 9, 19),
+                            DOB = new DateTime(1977, 9, 19, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Bryanty",
                             GenderId = 1,
                             LastName = "Luckett"
@@ -299,7 +299,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 2,
-                            DOB = new DateOnly(1986, 12, 2),
+                            DOB = new DateTime(1986, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Alanson",
                             GenderId = 2,
                             LastName = "Surpliss"
@@ -307,7 +307,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 3,
-                            DOB = new DateOnly(1961, 2, 10),
+                            DOB = new DateTime(1961, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Marquita",
                             GenderId = 2,
                             LastName = "Gabbotts"
@@ -315,7 +315,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 4,
-                            DOB = new DateOnly(1959, 9, 13),
+                            DOB = new DateTime(1959, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Ashlie",
                             GenderId = 2,
                             LastName = "Bertouloume"
@@ -323,7 +323,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 5,
-                            DOB = new DateOnly(1999, 5, 1),
+                            DOB = new DateTime(1999, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Matias",
                             GenderId = 1,
                             LastName = "Jannings"
@@ -331,7 +331,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 6,
-                            DOB = new DateOnly(1949, 7, 11),
+                            DOB = new DateTime(1949, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Harley",
                             GenderId = 1,
                             LastName = "Dreger"
@@ -339,7 +339,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 7,
-                            DOB = new DateOnly(1986, 5, 17),
+                            DOB = new DateTime(1986, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Marlin",
                             GenderId = 1,
                             LastName = "Briddock"
@@ -347,7 +347,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 8,
-                            DOB = new DateOnly(1982, 8, 7),
+                            DOB = new DateTime(1982, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Sheffy",
                             GenderId = 2,
                             LastName = "McVeighty"
@@ -355,7 +355,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 9,
-                            DOB = new DateOnly(1947, 10, 13),
+                            DOB = new DateTime(1947, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Nata",
                             GenderId = 2,
                             LastName = "Attle"
@@ -363,7 +363,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 10,
-                            DOB = new DateOnly(1970, 1, 30),
+                            DOB = new DateTime(1970, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Hodge",
                             GenderId = 1,
                             LastName = "Pilkinton"
@@ -371,7 +371,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 11,
-                            DOB = new DateOnly(1972, 7, 12),
+                            DOB = new DateTime(1972, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Terrance",
                             GenderId = 1,
                             LastName = "Barthram"
@@ -379,7 +379,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 12,
-                            DOB = new DateOnly(1942, 6, 3),
+                            DOB = new DateTime(1942, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Monti",
                             GenderId = 2,
                             LastName = "Rominov"
@@ -387,7 +387,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 13,
-                            DOB = new DateOnly(1950, 6, 16),
+                            DOB = new DateTime(1950, 6, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Gerik",
                             GenderId = 1,
                             LastName = "Street"
@@ -395,7 +395,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 14,
-                            DOB = new DateOnly(1952, 10, 11),
+                            DOB = new DateTime(1952, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Cassaundra",
                             GenderId = 2,
                             LastName = "McKmurrie"
@@ -403,7 +403,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 15,
-                            DOB = new DateOnly(1945, 9, 26),
+                            DOB = new DateTime(1945, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             FirstName = "Panther",
                             GenderId = 2,
                             LastName = "Moons"
@@ -938,52 +938,52 @@ namespace ADLTracker.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7fd9c29e-753a-437a-b37f-b933fc9d4717",
+                            ConcurrencyStamp = "98622c61-a55f-4802-8822-da3544cb73dc",
                             Email = "good@nurse.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAECD/gPW+yAOdynyKNAvG1qv9xPjHVd6LtoKUX/tPQqbKGSi7voG47/dygQTjrB/jzQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEK54InEwT0knn9hdpQskT6nbsYJamsuXziMwcyIesdQMIn+l+gpdWxquv5koXl0kBg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a2aadf47-5c20-49d6-9638-39921405d808",
+                            SecurityStamp = "68d44ea5-e2c6-4c04-8a6d-3ccbb9417eb3",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "f575a7b0-384c-4c94-abe1-945ec9d041a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fd10c408-9ee5-42b0-aba9-0dfd9b4a0a4a",
+                            ConcurrencyStamp = "c40182e4-d4b7-4b8d-a276-7366408774a0",
                             Email = "good@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEHiwGVl3HLlsbaElZT+ocNbfRrnINPQHnHPYKPTmdasPDqKl/M6z8CLQgfvb5E5GzQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJl1MyyYRJA8MD+7UN6XwKd3lDVL2pU5Yw2lr9VnDsB/3pedFTmEU9ZT69X+O31VqQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "41c92fc0-9514-4828-b28c-265578ce56b1",
+                            SecurityStamp = "c98ecac2-8f4f-4e05-871b-c96b790739ba",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "bca05837-8000-4631-ad3a-f59060078257",
+                            ConcurrencyStamp = "c29f0ae7-9a4d-4cc3-a148-e4d745f17a4e",
                             Email = "mid@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEOWfvtrCmUZ3KSuTzHuJsXtT/ghLsS+srnQAQxrjCHf8xK2G4OihfOljD/S+GMWt6g==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECAZqaRXN2AhSQFeAMKcLUfkvinrlEKV2r/jv5SEjIqvORMS7HR/69YjETX5mjHGNw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5d77766d-24be-4ccf-97bc-307821ea1075",
+                            SecurityStamp = "c6d0a6e6-4763-425d-bf90-3483fbd67473",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "555401a5-2862-4e4c-89db-b462bc2d2e1c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "063e9995-ac01-4c73-9488-92ea83bfd17a",
+                            ConcurrencyStamp = "cf6c96ee-44eb-4b7b-a5d5-f9dfaebe0182",
                             Email = "bad@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEMEYbXIosgwFJACdnKpZtlkrhHFvCTTyay3aKOk7hI/brHfI/+vwL26qB3lRvLWkMg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEAYLXpN2B6Y9p9beFQ2+RlfvD8qNiUF6eWaosHi8XA7wa9gzQtO7b7Y7HRgct1057Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "36b4b735-d239-4ad7-aea2-5481bc766de0",
+                            SecurityStamp = "d0ec6543-c646-4d84-b868-9e154a95451b",
                             TwoFactorEnabled = false
                         });
                 });
