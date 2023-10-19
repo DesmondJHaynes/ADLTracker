@@ -6,9 +6,9 @@ import { Button, FormFeedback, FormGroup, Input, Label } from "reactstrap";
 export default function Register({ setLoggedInUser }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [userName, setUserName] = useState("");
+  // const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
-  const [address, setAddress] = useState("");
+  // const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -25,9 +25,9 @@ export default function Register({ setLoggedInUser }) {
       const newUser = {
         firstName,
         lastName,
-        userName,
+        // userName,
         email,
-        address,
+        // address,
         password,
       };
       register(newUser).then((user) => {
@@ -70,7 +70,7 @@ export default function Register({ setLoggedInUser }) {
           }}
         />
       </FormGroup>
-      <FormGroup>
+      {/* <FormGroup>
         <Label>User Name</Label>
         <Input
           type="text"
@@ -79,8 +79,8 @@ export default function Register({ setLoggedInUser }) {
             setUserName(e.target.value);
           }}
         />
-      </FormGroup>
-      <FormGroup>
+      </FormGroup> */}
+      {/* <FormGroup>
         <Label>Address</Label>
         <Input
           type="text"
@@ -89,7 +89,7 @@ export default function Register({ setLoggedInUser }) {
             setAddress(e.target.value);
           }}
         />
-      </FormGroup>
+      </FormGroup> */}
       <FormGroup>
         <Label>Password</Label>
         <Input

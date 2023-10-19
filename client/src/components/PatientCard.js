@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import {
   getPatientById,
-  getPatientList,
+  getPatientProfileList,
 } from "../managers/patientProfileManager.js";
 
 export const PatientCard = ({ patient, setPatientProfile }) => {

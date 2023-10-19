@@ -10,10 +10,9 @@ export default function ApplicationViews({ loggedInUser, setLoggedInUser }) {
         <Route
           index
           element={
-            // <AuthorizedRoute loggedInUser={loggedInUser}>
-            <p>Hello Moto</p>
-
-            // </AuthorizedRoute>
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <p>Hello Moto</p>
+            </AuthorizedRoute>
           }
         />
         <Route

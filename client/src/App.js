@@ -3,9 +3,11 @@ import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Spinner } from "reactstrap";
 import { tryGetLoggedInUser } from "./managers/authManager.js";
-import ApplicationViews from "./components/ApplicationViews";
-import { PatientList } from "./components/PatientList.js";
-import { PatientProfileCard } from "./components/PatientProfileCard.js";
+import { AuthorizedRoute } from "./components/auth/AuthorizedRoute.js";
+import Login from "./components/auth/Login.js";
+import Register from "./components/auth/Register.js";
+import { Workspace } from "./components/Workspace.js";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState();
@@ -17,25 +19,35 @@ function App() {
     });
   }, []);
 
-  // if (loggedInUser === undefined) {
-  //   return <Spinner />;
-  // }
+  if (loggedInUser === undefined) {
+    return <Spinner />;
+  }
 
   return (
-    <>
-      <div className="App-container">
-        <div className="container--patients flexCol center">
-          <PatientList setPatientProfile={setPatientProfile} />
-        </div>
-        <div className="container--patientProfiles center">
-          <PatientProfileCard patientProfile={patientProfile} />
-          {/* <ApplicationViews
-            loggedInUser={loggedInUser}
-            setLoggedInUser={setLoggedInUser}
-          /> */}
-        </div>
-      </div>
-    </>
+    <Routes>
+      <Route path="/">
+        <Route
+          index
+          element={
+            <AuthorizedRoute loggedInUser={loggedInUser}>
+              <Workspace
+                patientProfile={patientProfile}
+                userId={loggedInUser.id}
+                setPatientProfile={setPatientProfile}
+              />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="login"
+          element={<Login setLoggedInUser={setLoggedInUser} />}
+        />
+        <Route
+          path="register"
+          element={<Register setLoggedInUser={setLoggedInUser} />}
+        />
+      </Route>
+    </Routes>
   );
 }
 

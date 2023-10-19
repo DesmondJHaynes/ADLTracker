@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Button, Spinner } from "reactstrap";
-import { getPatientList } from "../managers/patientProfileManager.js";
+import { getPatientProfileList } from "../managers/patientProfileManager.js";
 import { PatientCard } from "./PatientCard.js";
 
 export const PatientList = ({ setPatientProfile }) => {
@@ -9,7 +9,7 @@ export const PatientList = ({ setPatientProfile }) => {
   const [acitveToggle, setActiveToggle] = useState(true);
 
   useEffect(() => {
-    getPatientList().then(setPatientList);
+    getPatientProfileList().then(setPatientList);
   }, []);
 
   useEffect(() => {

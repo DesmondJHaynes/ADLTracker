@@ -18,14 +18,14 @@ public class ProviderController : ControllerBase
     }
 
     [HttpGet]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Nurse")]
     public IActionResult Get()
     {
         return Ok(_dbContext.Providers.ToList());
     }
 
     [HttpGet("withroles")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Nurse")]
     public IActionResult GetWithRoles()
     {
         return Ok(_dbContext.Providers.Include(up => up.IdentityUser)
@@ -44,10 +44,10 @@ public class ProviderController : ControllerBase
     }
 
     [HttpPost("promote/{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Nurse")]
     public IActionResult Promote(string id)
     {
-        IdentityRole role = _dbContext.Roles.SingleOrDefault(r => r.Name == "Admin");
+        IdentityRole role = _dbContext.Roles.SingleOrDefault(r => r.Name == "Nurse");
         // This will create a new row in the many-to-many UserRoles table.
         _dbContext.UserRoles.Add(new IdentityUserRole<string>
         {
@@ -59,11 +59,11 @@ public class ProviderController : ControllerBase
     }
 
     [HttpPost("demote/{id}")]
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "Nurse")]
     public IActionResult Demote(string id)
     {
         IdentityRole role = _dbContext.Roles
-            .SingleOrDefault(r => r.Name == "Admin");
+            .SingleOrDefault(r => r.Name == "Nurse");
         IdentityUserRole<string> userRole = _dbContext
             .UserRoles
             .SingleOrDefault(ur =>
@@ -84,7 +84,9 @@ public class ProviderController : ControllerBase
         .Include(p => p.IdentityUser)
         .FirstOrDefault(p => p.Id == id);
         if (found == null)
-        { return NotFound(); }
+        {
+            return NotFound();
+        }
         return Ok(found);
     }
 }

@@ -1,9 +1,8 @@
 const _api = "/api/patientprofile";
 
-export const getPatientList = () => {
+export const getPatientProfileList = () => {
   return fetch(_api).then((res) => res.json());
 };
 export const getPatientById = (id) => {
-  return fetch(`${_api}/id?id=${id}`).then((res) => res.json());
-  //There's something wrong with the controller route for sure...
+  return fetch(`${_api}/${id}`).then((res) => res.json());
 };

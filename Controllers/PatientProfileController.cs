@@ -16,8 +16,8 @@ public class PatientProfileController : ControllerBase
         _dbContext = context;
     }
 
-    // [Authorize]
     [HttpGet]
+    [Authorize]
     public IActionResult GetPatientList()
     {
         return Ok(
@@ -30,8 +30,8 @@ public class PatientProfileController : ControllerBase
         );
     }
 
-    // [Authorize]
-    [HttpGet("id")]
+    [HttpGet("{id}")]
+    [Authorize]
     public IActionResult GetPatientById(int id)
     {
         PatientProfile found = _dbContext.PatientProfiles
