@@ -256,7 +256,7 @@ namespace ADLTracker.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
-                    DOB = table.Column<DateOnly>(type: "date", nullable: false),
+                    DOB = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     GenderId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
@@ -348,10 +348,10 @@ namespace ADLTracker.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "063e9995-ac01-4c73-9488-92ea83bfd17a", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEMEYbXIosgwFJACdnKpZtlkrhHFvCTTyay3aKOk7hI/brHfI/+vwL26qB3lRvLWkMg==", null, false, "36b4b735-d239-4ad7-aea2-5481bc766de0", false, null },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "7fd9c29e-753a-437a-b37f-b933fc9d4717", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECD/gPW+yAOdynyKNAvG1qv9xPjHVd6LtoKUX/tPQqbKGSi7voG47/dygQTjrB/jzQ==", null, false, "a2aadf47-5c20-49d6-9638-39921405d808", false, null },
-                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "bca05837-8000-4631-ad3a-f59060078257", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEOWfvtrCmUZ3KSuTzHuJsXtT/ghLsS+srnQAQxrjCHf8xK2G4OihfOljD/S+GMWt6g==", null, false, "5d77766d-24be-4ccf-97bc-307821ea1075", false, null },
-                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "fd10c408-9ee5-42b0-aba9-0dfd9b4a0a4a", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEHiwGVl3HLlsbaElZT+ocNbfRrnINPQHnHPYKPTmdasPDqKl/M6z8CLQgfvb5E5GzQ==", null, false, "41c92fc0-9514-4828-b28c-265578ce56b1", false, null }
+                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "cf6c96ee-44eb-4b7b-a5d5-f9dfaebe0182", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEAYLXpN2B6Y9p9beFQ2+RlfvD8qNiUF6eWaosHi8XA7wa9gzQtO7b7Y7HRgct1057Q==", null, false, "d0ec6543-c646-4d84-b868-9e154a95451b", false, null },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "98622c61-a55f-4802-8822-da3544cb73dc", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEK54InEwT0knn9hdpQskT6nbsYJamsuXziMwcyIesdQMIn+l+gpdWxquv5koXl0kBg==", null, false, "68d44ea5-e2c6-4c04-8a6d-3ccbb9417eb3", false, null },
+                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "c29f0ae7-9a4d-4cc3-a148-e4d745f17a4e", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECAZqaRXN2AhSQFeAMKcLUfkvinrlEKV2r/jv5SEjIqvORMS7HR/69YjETX5mjHGNw==", null, false, "c6d0a6e6-4763-425d-bf90-3483fbd67473", false, null },
+                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "c40182e4-d4b7-4b8d-a276-7366408774a0", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEJl1MyyYRJA8MD+7UN6XwKd3lDVL2pU5Yw2lr9VnDsB/3pedFTmEU9ZT69X+O31VqQ==", null, false, "c98ecac2-8f4f-4e05-871b-c96b790739ba", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -418,21 +418,21 @@ namespace ADLTracker.Migrations
                 columns: new[] { "Id", "DOB", "FirstName", "GenderId", "LastName" },
                 values: new object[,]
                 {
-                    { 1, new DateOnly(1977, 9, 19), "Bryanty", 1, "Luckett" },
-                    { 2, new DateOnly(1986, 12, 2), "Alanson", 2, "Surpliss" },
-                    { 3, new DateOnly(1961, 2, 10), "Marquita", 2, "Gabbotts" },
-                    { 4, new DateOnly(1959, 9, 13), "Ashlie", 2, "Bertouloume" },
-                    { 5, new DateOnly(1999, 5, 1), "Matias", 1, "Jannings" },
-                    { 6, new DateOnly(1949, 7, 11), "Harley", 1, "Dreger" },
-                    { 7, new DateOnly(1986, 5, 17), "Marlin", 1, "Briddock" },
-                    { 8, new DateOnly(1982, 8, 7), "Sheffy", 2, "McVeighty" },
-                    { 9, new DateOnly(1947, 10, 13), "Nata", 2, "Attle" },
-                    { 10, new DateOnly(1970, 1, 30), "Hodge", 1, "Pilkinton" },
-                    { 11, new DateOnly(1972, 7, 12), "Terrance", 1, "Barthram" },
-                    { 12, new DateOnly(1942, 6, 3), "Monti", 2, "Rominov" },
-                    { 13, new DateOnly(1950, 6, 16), "Gerik", 1, "Street" },
-                    { 14, new DateOnly(1952, 10, 11), "Cassaundra", 2, "McKmurrie" },
-                    { 15, new DateOnly(1945, 9, 26), "Panther", 2, "Moons" }
+                    { 1, new DateTime(1977, 9, 19, 0, 0, 0, 0, DateTimeKind.Unspecified), "Bryanty", 1, "Luckett" },
+                    { 2, new DateTime(1986, 12, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Alanson", 2, "Surpliss" },
+                    { 3, new DateTime(1961, 2, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marquita", 2, "Gabbotts" },
+                    { 4, new DateTime(1959, 9, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Ashlie", 2, "Bertouloume" },
+                    { 5, new DateTime(1999, 5, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Matias", 1, "Jannings" },
+                    { 6, new DateTime(1949, 7, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Harley", 1, "Dreger" },
+                    { 7, new DateTime(1986, 5, 17, 0, 0, 0, 0, DateTimeKind.Unspecified), "Marlin", 1, "Briddock" },
+                    { 8, new DateTime(1982, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Sheffy", 2, "McVeighty" },
+                    { 9, new DateTime(1947, 10, 13, 0, 0, 0, 0, DateTimeKind.Unspecified), "Nata", 2, "Attle" },
+                    { 10, new DateTime(1970, 1, 30, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hodge", 1, "Pilkinton" },
+                    { 11, new DateTime(1972, 7, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Terrance", 1, "Barthram" },
+                    { 12, new DateTime(1942, 6, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), "Monti", 2, "Rominov" },
+                    { 13, new DateTime(1950, 6, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Gerik", 1, "Street" },
+                    { 14, new DateTime(1952, 10, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Cassaundra", 2, "McKmurrie" },
+                    { 15, new DateTime(1945, 9, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Panther", 2, "Moons" }
                 });
 
             migrationBuilder.InsertData(

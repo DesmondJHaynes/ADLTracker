@@ -5,6 +5,7 @@ public class PatientProfile
     public int Id { get; set; }
     public int PatientId { get; set; }
     public Patient Patient { get; set; }
+    // public string Diagnosis { get; set; }
     public int AssistTypeId { get; set; }
     public AssistType AssistType { get; set; }
     public int ContactPrecautionId { get; set; }

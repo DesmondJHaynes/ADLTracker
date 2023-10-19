@@ -7,7 +7,17 @@ public class Patient
     public string FirstName { get; set; }
     [Required]
     public string LastName { get; set; }
-    public DateOnly DOB { get; set; }
+    public DateTime DOB { get; set; }
     public int GenderId { get; set; }
     public Gender Gender { get; set; }
+
+    public int Age
+    {
+        get
+        {
+            DateTime now = DateTime.Now;
+            TimeSpan interval = now - DOB;
+            return interval.Days / 365;
+        }
+    }
 }

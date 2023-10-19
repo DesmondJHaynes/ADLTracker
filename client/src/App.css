@@ -36,3 +36,79 @@
     transform: rotate(360deg);
   }
 }
+
+.App-container {
+  display: flex;
+  background-color: yellow;
+  height: 100dvh;
+}
+.container--patients{
+  border: 1px solid red;
+  width: 35vw;
+}
+.container--patientProfiles{
+  border: 1px solid blue;
+  width: 65vw;
+  position: relative;
+  overflow:hidden;
+}
+.patient--card{
+  background-color: white;
+  padding: 1em 2em;
+  margin: 1em 2em;
+}
+.cards--patientList{
+  flex: 0 1 auto;
+}
+.scroll{
+  overflow: auto;
+}
+.flexRow{
+  display: flex;
+  flex-direction: row;
+}
+
+.flexCol{
+  display: flex;
+  flex-direction: column;
+}
+
+.center{
+  text-align: center;
+}
+
+.left{
+  text-align: left;
+}
+
+.selected{
+  background-color: green;
+}
+.precaution-tag--simple{
+  background-color: orange;
+  padding: 8px;
+}
+
+.fall-tag--simple{
+  background-color: Yellow;
+  padding: 8px;
+}
+
+
+
+
+
+
+
+
+.defineShape{
+  position: absolute;
+  left: 10%;
+  top: 12%;
+  /* border : 1px solid; */
+  width: 80%;
+  margin: 0, auto;
+  height: 88vh;
+  box-shadow: .5em 0em 8px rgba(0, 0, 0, 0.3);
+  background-color: white;
+}
