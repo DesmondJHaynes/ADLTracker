@@ -46,13 +46,28 @@ public class PatientProfileController : ControllerBase
             .Include(pp => pp.Outputs)
             .Include(pp => pp.Intakes)
             .SingleOrDefault(pp => pp.Id == id);
+
         if (found == null)
-        {
-            return NotFound();
-        }
-        else
-        {
-            return Ok(found);
-        }
+        { return NotFound(); }
+
+        return Ok(found);
+    }
+
+
+    [HttpPut("{id}/weight")]
+    [Authorize]
+    public IActionResult UpdateWeight(int id, PatientProfile obj)
+    {
+        if (obj.Id != id)
+        { return BadRequest(); }
+
+        PatientProfile found = _dbContext.PatientProfiles.SingleOrDefault(pp => pp.Id == id);
+
+        if (found == null)
+        { return NotFound(); }
+
+        found.Weight = obj.Weight;
+        _dbContext.SaveChanges();
+        return Ok(found.Weight);
     }
 }
