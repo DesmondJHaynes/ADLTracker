@@ -26,6 +26,9 @@ public class PatientProfileController : ControllerBase
             .ThenInclude(p => p.Gender)
             .Include(pp => pp.AssistType)
             .Include(pp => pp.ContactPrecaution)
+            .Include(pp => pp.CodeStatus)
+            .Include(pp => pp.Outputs)
+            .Include(pp => pp.Intakes)
             .OrderBy(pp => pp.RoomNumber)
         );
     }
@@ -39,6 +42,9 @@ public class PatientProfileController : ControllerBase
             .ThenInclude(p => p.Gender)
             .Include(pp => pp.AssistType)
             .Include(pp => pp.ContactPrecaution)
+            .Include(pp => pp.CodeStatus)
+            .Include(pp => pp.Outputs)
+            .Include(pp => pp.Intakes)
             .SingleOrDefault(pp => pp.Id == id);
         if (found == null)
         {

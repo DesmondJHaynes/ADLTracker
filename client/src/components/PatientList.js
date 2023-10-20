@@ -3,7 +3,12 @@ import { Button, Spinner } from "reactstrap";
 import { getPatientProfileList } from "../managers/patientProfileManager.js";
 import { PatientCard } from "./PatientCard.js";
 
-export const PatientList = ({ setPatientProfile }) => {
+export const PatientList = ({
+  setPatientProfile,
+  assignedPatients,
+  setPatientProvider,
+  userId,
+}) => {
   const [patientList, setPatientList] = useState();
   const [filteredList, setFilteredList] = useState();
   const [acitveToggle, setActiveToggle] = useState(true);
@@ -13,20 +18,27 @@ export const PatientList = ({ setPatientProfile }) => {
   }, []);
 
   useEffect(() => {
-    let clone = structuredClone(patientList);
-    clone = clone?.filter((c) => c.telemetry === true);
-    setFilteredList(clone);
-    // setFilteredList(patientList);
-  }, [patientList]);
+    handleFilter(patientList);
+  }, [patientList, assignedPatients]);
+
+  function handleFilter() {
+    const filtered = [];
+    patientList?.map((pp) => {
+      assignedPatients.forEach((ap) => {
+        if (ap.patientProfileId === pp.id) {
+          filtered.push(pp);
+        }
+      });
+    });
+    setFilteredList(filtered);
+  }
 
   function handleActiveView(target) {
     if (target.name === "all") {
       setFilteredList(patientList);
       setActiveToggle(false);
     } else if (target.name === "filter") {
-      let clone = structuredClone(patientList);
-      clone = clone.filter((c) => c.telemetry === true);
-      setFilteredList(clone);
+      handleFilter(patientList);
       setActiveToggle(true);
     }
   }
@@ -40,11 +52,15 @@ export const PatientList = ({ setPatientProfile }) => {
       <div className="toggle--patientList">
         {acitveToggle ? (
           <>
-            <button name={"all"} onClick={(e) => handleActiveView(e.target)}>
+            <button
+              className="allPatients--button toggle--button"
+              name={"all"}
+              onClick={(e) => handleActiveView(e.target)}
+            >
               All Patients
             </button>
             <button
-              className="selected"
+              className="toggle--button myPatients--button selected"
               name={"filter"}
               onClick={(e) => handleActiveView(e.target)}
             >
@@ -54,25 +70,52 @@ export const PatientList = ({ setPatientProfile }) => {
         ) : (
           <>
             <button
-              className="selected"
+              className="toggle--button allPatients--button selected"
               name={"all"}
               onClick={(e) => handleActiveView(e.target)}
             >
               All Patients
             </button>
-            <button name={"filter"} onClick={(e) => handleActiveView(e.target)}>
+            <button
+              className="toggle--button myPatients--button"
+              name={"filter"}
+              onClick={(e) => handleActiveView(e.target)}
+            >
               My Patients
             </button>
           </>
         )}
       </div>
-      <div className="cards--patientList scroll">
-        {filteredList?.map((p) => (
-          <div key={p.id}>
-            <PatientCard patient={p} setPatientProfile={setPatientProfile} />
-          </div>
-        ))}
-      </div>
+
+      {!acitveToggle ? (
+        <div className="cards--patientList scroll">
+          {patientList?.map((p) => (
+            <div key={p.id}>
+              <PatientCard
+                patient={p}
+                setPatientProfile={setPatientProfile}
+                assignedPatients={assignedPatients}
+                setPatientProvider={setPatientProvider}
+                userId={userId}
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className="cards--patientList scroll">
+          {filteredList?.map((p) => (
+            <div key={p.id}>
+              <PatientCard
+                patient={p}
+                setPatientProfile={setPatientProfile}
+                assignedPatients={assignedPatients}
+                setPatientProvider={setPatientProvider}
+                userId={userId}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

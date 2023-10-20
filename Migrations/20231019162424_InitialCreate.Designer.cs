@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ADLTracker.Migrations
 {
     [DbContext(typeof(ADLTrackerDbContext))]
-    [Migration("20231018183321_InitialCreate")]
+    [Migration("20231019162424_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -68,6 +68,41 @@ namespace ADLTracker.Migrations
                             Id = 4,
                             Simple = "x2+",
                             Type = "Total Assist"
+                        });
+                });
+
+            modelBuilder.Entity("ADLTracker.Models.CodeStatus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Type")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CodeStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Description = "Full Code",
+                            Type = "Full Code"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Description = "Do Not Resuscitate",
+                            Type = "DNR"
                         });
                 });
 
@@ -426,8 +461,15 @@ namespace ADLTracker.Migrations
                     b.Property<int>("AssistTypeId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("CodeStatusId")
+                        .HasColumnType("integer");
+
                     b.Property<int>("ContactPrecautionId")
                         .HasColumnType("integer");
+
+                    b.Property<string>("Diagnosis")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<bool>("Discharged")
                         .HasColumnType("boolean");
@@ -460,6 +502,8 @@ namespace ADLTracker.Migrations
 
                     b.HasIndex("AssistTypeId");
 
+                    b.HasIndex("CodeStatusId");
+
                     b.HasIndex("ContactPrecautionId");
 
                     b.HasIndex("PatientId");
@@ -472,7 +516,9 @@ namespace ADLTracker.Migrations
                             Id = 1,
                             AdmissionDate = new DateTime(2023, 10, 5, 10, 49, 43, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Diabetes Mellitus",
                             Discharged = false,
                             Height = 77,
                             LastBM = new DateTime(2023, 10, 16, 7, 19, 10, 0, DateTimeKind.Unspecified),
@@ -487,7 +533,9 @@ namespace ADLTracker.Migrations
                             Id = 2,
                             AdmissionDate = new DateTime(2023, 10, 12, 6, 43, 24, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 3,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Hypertensive Crisis",
                             Discharged = false,
                             Height = 65,
                             LastBM = new DateTime(2023, 10, 15, 4, 39, 32, 0, DateTimeKind.Unspecified),
@@ -502,7 +550,9 @@ namespace ADLTracker.Migrations
                             Id = 3,
                             AdmissionDate = new DateTime(2023, 10, 7, 22, 58, 47, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 3,
+                            CodeStatusId = 2,
                             ContactPrecautionId = 1,
+                            Diagnosis = "SOB Asthma",
                             Discharged = true,
                             Height = 61,
                             LastBM = new DateTime(2023, 10, 16, 22, 38, 27, 0, DateTimeKind.Unspecified),
@@ -518,7 +568,9 @@ namespace ADLTracker.Migrations
                             Id = 4,
                             AdmissionDate = new DateTime(2023, 10, 12, 19, 10, 5, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 4,
+                            CodeStatusId = 2,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Headache/ L Side Weakness",
                             Discharged = false,
                             Height = 72,
                             LastBM = new DateTime(2023, 10, 15, 5, 27, 11, 0, DateTimeKind.Unspecified),
@@ -534,7 +586,9 @@ namespace ADLTracker.Migrations
                             Id = 5,
                             AdmissionDate = new DateTime(2023, 10, 8, 23, 6, 18, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 4,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Fatigue",
                             Discharged = true,
                             Height = 50,
                             LastBM = new DateTime(2023, 10, 16, 18, 28, 0, 0, DateTimeKind.Unspecified),
@@ -549,7 +603,9 @@ namespace ADLTracker.Migrations
                             Id = 6,
                             AdmissionDate = new DateTime(2023, 10, 3, 11, 53, 50, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 3,
+                            Diagnosis = "Clostridium difficile",
                             Discharged = false,
                             Height = 73,
                             LastBM = new DateTime(2023, 10, 15, 16, 15, 3, 0, DateTimeKind.Unspecified),
@@ -565,7 +621,9 @@ namespace ADLTracker.Migrations
                             Id = 7,
                             AdmissionDate = new DateTime(2023, 10, 6, 11, 59, 57, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 3,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Fatigue",
                             Discharged = false,
                             Height = 71,
                             LastBM = new DateTime(2023, 10, 16, 11, 33, 58, 0, DateTimeKind.Unspecified),
@@ -581,7 +639,9 @@ namespace ADLTracker.Migrations
                             Id = 8,
                             AdmissionDate = new DateTime(2023, 10, 9, 5, 4, 46, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "CHF Exacerbation",
                             Discharged = false,
                             Height = 68,
                             LastBM = new DateTime(2023, 10, 15, 14, 36, 13, 0, DateTimeKind.Unspecified),
@@ -596,7 +656,9 @@ namespace ADLTracker.Migrations
                             Id = 9,
                             AdmissionDate = new DateTime(2023, 10, 15, 12, 57, 27, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 3,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "SOB Asthma",
                             Discharged = false,
                             Height = 59,
                             LastBM = new DateTime(2023, 10, 15, 13, 24, 56, 0, DateTimeKind.Unspecified),
@@ -612,7 +674,9 @@ namespace ADLTracker.Migrations
                             Id = 10,
                             AdmissionDate = new DateTime(2023, 10, 10, 4, 24, 27, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 2,
                             ContactPrecautionId = 2,
+                            Diagnosis = "LLE Cellulitis",
                             Discharged = false,
                             Height = 68,
                             LastBM = new DateTime(2023, 10, 16, 20, 19, 13, 0, DateTimeKind.Unspecified),
@@ -627,7 +691,9 @@ namespace ADLTracker.Migrations
                             Id = 11,
                             AdmissionDate = new DateTime(2023, 10, 7, 22, 19, 45, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 2,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Altered Mental Status",
                             Discharged = false,
                             Height = 52,
                             LastBM = new DateTime(2023, 10, 15, 15, 43, 9, 0, DateTimeKind.Unspecified),
@@ -642,7 +708,9 @@ namespace ADLTracker.Migrations
                             Id = 12,
                             AdmissionDate = new DateTime(2023, 10, 6, 7, 16, 38, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 1,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Chrohn's Exacerbation",
                             Discharged = false,
                             Height = 65,
                             LastBM = new DateTime(2023, 10, 16, 20, 57, 58, 0, DateTimeKind.Unspecified),
@@ -658,7 +726,9 @@ namespace ADLTracker.Migrations
                             Id = 13,
                             AdmissionDate = new DateTime(2023, 10, 8, 3, 38, 11, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 1,
+                            Diagnosis = "Fatigue",
                             Discharged = true,
                             Height = 71,
                             LastBM = new DateTime(2023, 10, 16, 8, 35, 4, 0, DateTimeKind.Unspecified),
@@ -673,7 +743,9 @@ namespace ADLTracker.Migrations
                             Id = 14,
                             AdmissionDate = new DateTime(2023, 10, 5, 0, 49, 28, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 2,
+                            CodeStatusId = 1,
                             ContactPrecautionId = 4,
+                            Diagnosis = "Influenza",
                             Discharged = false,
                             Height = 48,
                             LastBM = new DateTime(2023, 10, 15, 14, 57, 34, 0, DateTimeKind.Unspecified),
@@ -688,7 +760,9 @@ namespace ADLTracker.Migrations
                             Id = 15,
                             AdmissionDate = new DateTime(2023, 10, 13, 9, 12, 23, 0, DateTimeKind.Unspecified),
                             AssistTypeId = 3,
+                            CodeStatusId = 2,
                             ContactPrecautionId = 5,
+                            Diagnosis = "Covid",
                             Discharged = false,
                             Height = 45,
                             LastBM = new DateTime(2023, 10, 15, 21, 3, 25, 0, DateTimeKind.Unspecified),
@@ -940,52 +1014,52 @@ namespace ADLTracker.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "98622c61-a55f-4802-8822-da3544cb73dc",
+                            ConcurrencyStamp = "e89e8e73-c269-4d40-a9fa-e01d77624d31",
                             Email = "good@nurse.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEK54InEwT0knn9hdpQskT6nbsYJamsuXziMwcyIesdQMIn+l+gpdWxquv5koXl0kBg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAELpsF8gc5Jbpi9aEwpTbhxGIlZF+6ciiJSUuEZSSaNH+vda23tDc83n42dIPts6DWA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "68d44ea5-e2c6-4c04-8a6d-3ccbb9417eb3",
+                            SecurityStamp = "5aab90e2-7acb-4adb-b212-18093e5cab38",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "f575a7b0-384c-4c94-abe1-945ec9d041a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c40182e4-d4b7-4b8d-a276-7366408774a0",
+                            ConcurrencyStamp = "e8cf6a5c-eef1-43dc-a188-e2f6247db1d9",
                             Email = "good@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEJl1MyyYRJA8MD+7UN6XwKd3lDVL2pU5Yw2lr9VnDsB/3pedFTmEU9ZT69X+O31VqQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDMLHtUiTCG1bGBMhTGBBnPk6RRN8XyZSKeUhi33eVqbgb9ifdIb6oBQxmqtK3YCHg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c98ecac2-8f4f-4e05-871b-c96b790739ba",
+                            SecurityStamp = "6d477359-e1f8-47b2-bc16-fa3bb10c39f0",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c29f0ae7-9a4d-4cc3-a148-e4d745f17a4e",
+                            ConcurrencyStamp = "cf0871d2-b996-40d0-9ede-4cc73730db7b",
                             Email = "mid@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAECAZqaRXN2AhSQFeAMKcLUfkvinrlEKV2r/jv5SEjIqvORMS7HR/69YjETX5mjHGNw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECsosffprb5cqXaaG8VIoKofHj/hsKnK8+PyMGB91Uy2AsXd1IWA87nc5iKjXxVYDw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c6d0a6e6-4763-425d-bf90-3483fbd67473",
+                            SecurityStamp = "ee7b0b28-a410-4c82-8e7f-4f28cf0fc802",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "555401a5-2862-4e4c-89db-b462bc2d2e1c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf6c96ee-44eb-4b7b-a5d5-f9dfaebe0182",
+                            ConcurrencyStamp = "43671f06-a657-4509-b45f-c51569a38dd1",
                             Email = "bad@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEAYLXpN2B6Y9p9beFQ2+RlfvD8qNiUF6eWaosHi8XA7wa9gzQtO7b7Y7HRgct1057Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAECHWnz4cKGKK+GuuI7JqGwDV8PKJ/34xyQMsx8F79ruPzhrMOGfr/J4hrDwlJMp5Og==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "d0ec6543-c646-4d84-b868-9e154a95451b",
+                            SecurityStamp = "a575bf52-765d-4d00-a4ba-6b07c656c410",
                             TwoFactorEnabled = false
                         });
                 });
@@ -1097,6 +1171,12 @@ namespace ADLTracker.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("ADLTracker.Models.CodeStatus", "CodeStatus")
+                        .WithMany()
+                        .HasForeignKey("CodeStatusId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("ADLTracker.Models.ContactPrecaution", "ContactPrecaution")
                         .WithMany()
                         .HasForeignKey("ContactPrecautionId")
@@ -1110,6 +1190,8 @@ namespace ADLTracker.Migrations
                         .IsRequired();
 
                     b.Navigation("AssistType");
+
+                    b.Navigation("CodeStatus");
 
                     b.Navigation("ContactPrecaution");
 

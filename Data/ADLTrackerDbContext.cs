@@ -15,6 +15,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
     public DbSet<Output> Outputs { get; set; }
     public DbSet<Intake> Intakes { get; set; }
     public DbSet<Gender> Genders { get; set; }
+    public DbSet<CodeStatus> CodeStatuses { get; set; }
     public DbSet<ContactPrecaution> ContactPrecautions { get; set; }
     public DbSet<AssistType> AssistTypes { get; set; }
 
@@ -270,6 +271,24 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             },
         });
 
+        modelBuilder.Entity<CodeStatus>().HasData(new CodeStatus[]
+        {
+            new CodeStatus
+            {
+                Id = 1,
+                Type = "Full Code",
+                Description = "Full Code",
+
+            },
+            new CodeStatus
+            {
+                Id = 2,
+                Type = "DNR",
+                Description = "Do Not Resuscitate",
+
+            },
+        });
+
         modelBuilder.Entity<ContactPrecaution>().HasData(new ContactPrecaution[]
         {
             new ContactPrecaution
@@ -311,6 +330,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 1,
             AssistTypeId = 2,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "Diabetes Mellitus",
             RoomNumber = 1000,
             Height = 77,
             Weight = 44.5M,
@@ -326,6 +347,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 2,
             AssistTypeId = 3,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "Hypertensive Crisis",
             RoomNumber = 1001,
             Height = 65,
             Weight = 77.3M,
@@ -341,6 +364,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 3,
             AssistTypeId = 3,
             ContactPrecautionId = 1,
+            CodeStatusId = 2,
+            Diagnosis = "SOB Asthma",
             RoomNumber = 1002,
             Height = 61,
             Weight = 78.0M,
@@ -357,6 +382,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 4,
             AssistTypeId = 4,
             ContactPrecautionId = 1,
+            CodeStatusId = 2,
+            Diagnosis = "Headache/ L Side Weakness",
             RoomNumber = 1004,
             Height = 72,
             Weight = 58.8M,
@@ -373,6 +400,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 5,
             AssistTypeId = 4,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "Fatigue",
             RoomNumber = 1005,
             Height = 50,
             Weight = 46.1M,
@@ -388,6 +417,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 6,
             AssistTypeId = 2,
             ContactPrecautionId = 3,
+            CodeStatusId = 1,
+            Diagnosis = "Clostridium difficile",
             RoomNumber = 1006,
             Height = 73,
             Weight = 75.2M,
@@ -404,6 +435,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 7,
             AssistTypeId = 3,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "Fatigue",
             RoomNumber = 1007,
             Height = 71,
             Weight = 46.7M,
@@ -420,6 +453,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 8,
             AssistTypeId = 2,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "CHF Exacerbation",
             RoomNumber = 1008,
             Height = 68,
             Weight = 65.3M,
@@ -435,6 +470,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 9,
             AssistTypeId = 3,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "SOB Asthma",
             RoomNumber = 1009,
             Height = 59,
             Weight = 75.0M,
@@ -451,6 +488,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 10,
             AssistTypeId = 2,
             ContactPrecautionId = 2,
+            CodeStatusId = 2,
+            Diagnosis = "LLE Cellulitis",
             RoomNumber = 1010,
             Height = 68,
             Weight = 89.6M,
@@ -466,6 +505,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 11,
             AssistTypeId = 2,
             ContactPrecautionId = 1,
+            CodeStatusId = 2,
+            Diagnosis = "Altered Mental Status",
             RoomNumber = 1011,
             Height = 52,
             Weight = 43.6M,
@@ -481,6 +522,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 12,
             AssistTypeId = 1,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "Chrohn's Exacerbation",
             RoomNumber = 1013,
             Height = 65,
             Weight = 70.4M,
@@ -497,6 +540,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 13,
             AssistTypeId = 2,
             ContactPrecautionId = 1,
+            CodeStatusId = 1,
+            Diagnosis = "Fatigue",
             RoomNumber = 1014,
             Height = 71,
             Weight = 69.7M,
@@ -512,6 +557,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 14,
             AssistTypeId = 2,
             ContactPrecautionId = 4,
+            CodeStatusId = 1,
+            Diagnosis = "Influenza",
             RoomNumber = 1015,
             Height = 48,
             Weight = 43.2M,
@@ -527,6 +574,8 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             PatientId = 15,
             AssistTypeId = 3,
             ContactPrecautionId = 5,
+            CodeStatusId = 2,
+            Diagnosis = "Covid",
             RoomNumber = 1016,
             Height = 45,
             Weight = 88.8M,

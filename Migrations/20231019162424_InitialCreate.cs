@@ -64,6 +64,20 @@ namespace ADLTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "CodeStatuses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Type = table.Column<string>(type: "text", nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CodeStatuses", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ContactPrecautions",
                 columns: table => new
                 {
@@ -278,7 +292,9 @@ namespace ADLTracker.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     PatientId = table.Column<int>(type: "integer", nullable: false),
                     AssistTypeId = table.Column<int>(type: "integer", nullable: false),
+                    CodeStatusId = table.Column<int>(type: "integer", nullable: false),
                     ContactPrecautionId = table.Column<int>(type: "integer", nullable: false),
+                    Diagnosis = table.Column<string>(type: "text", nullable: false),
                     RoomNumber = table.Column<int>(type: "integer", nullable: false),
                     Height = table.Column<int>(type: "integer", nullable: false),
                     Weight = table.Column<decimal>(type: "numeric", nullable: false),
@@ -296,6 +312,12 @@ namespace ADLTracker.Migrations
                         name: "FK_PatientProfiles_AssistTypes_AssistTypeId",
                         column: x => x.AssistTypeId,
                         principalTable: "AssistTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_PatientProfiles_CodeStatuses_CodeStatusId",
+                        column: x => x.CodeStatusId,
+                        principalTable: "CodeStatuses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -348,10 +370,10 @@ namespace ADLTracker.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "cf6c96ee-44eb-4b7b-a5d5-f9dfaebe0182", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEAYLXpN2B6Y9p9beFQ2+RlfvD8qNiUF6eWaosHi8XA7wa9gzQtO7b7Y7HRgct1057Q==", null, false, "d0ec6543-c646-4d84-b868-9e154a95451b", false, null },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "98622c61-a55f-4802-8822-da3544cb73dc", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEK54InEwT0knn9hdpQskT6nbsYJamsuXziMwcyIesdQMIn+l+gpdWxquv5koXl0kBg==", null, false, "68d44ea5-e2c6-4c04-8a6d-3ccbb9417eb3", false, null },
-                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "c29f0ae7-9a4d-4cc3-a148-e4d745f17a4e", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECAZqaRXN2AhSQFeAMKcLUfkvinrlEKV2r/jv5SEjIqvORMS7HR/69YjETX5mjHGNw==", null, false, "c6d0a6e6-4763-425d-bf90-3483fbd67473", false, null },
-                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "c40182e4-d4b7-4b8d-a276-7366408774a0", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEJl1MyyYRJA8MD+7UN6XwKd3lDVL2pU5Yw2lr9VnDsB/3pedFTmEU9ZT69X+O31VqQ==", null, false, "c98ecac2-8f4f-4e05-871b-c96b790739ba", false, null }
+                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "43671f06-a657-4509-b45f-c51569a38dd1", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECHWnz4cKGKK+GuuI7JqGwDV8PKJ/34xyQMsx8F79ruPzhrMOGfr/J4hrDwlJMp5Og==", null, false, "a575bf52-765d-4d00-a4ba-6b07c656c410", false, null },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "e89e8e73-c269-4d40-a9fa-e01d77624d31", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAELpsF8gc5Jbpi9aEwpTbhxGIlZF+6ciiJSUuEZSSaNH+vda23tDc83n42dIPts6DWA==", null, false, "5aab90e2-7acb-4adb-b212-18093e5cab38", false, null },
+                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "cf0871d2-b996-40d0-9ede-4cc73730db7b", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECsosffprb5cqXaaG8VIoKofHj/hsKnK8+PyMGB91Uy2AsXd1IWA87nc5iKjXxVYDw==", null, false, "ee7b0b28-a410-4c82-8e7f-4f28cf0fc802", false, null },
+                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "e8cf6a5c-eef1-43dc-a188-e2f6247db1d9", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDMLHtUiTCG1bGBMhTGBBnPk6RRN8XyZSKeUhi33eVqbgb9ifdIb6oBQxmqtK3YCHg==", null, false, "6d477359-e1f8-47b2-bc16-fa3bb10c39f0", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -363,6 +385,15 @@ namespace ADLTracker.Migrations
                     { 2, "SBA", "Stand-by Assist" },
                     { 3, "x1", "1 Assist" },
                     { 4, "x2+", "Total Assist" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "CodeStatuses",
+                columns: new[] { "Id", "Description", "Type" },
+                values: new object[,]
+                {
+                    { 1, "Full Code", "Full Code" },
+                    { 2, "Do Not Resuscitate", "DNR" }
                 });
 
             migrationBuilder.InsertData(
@@ -448,24 +479,24 @@ namespace ADLTracker.Migrations
 
             migrationBuilder.InsertData(
                 table: "PatientProfiles",
-                columns: new[] { "Id", "AdmissionDate", "AssistTypeId", "ContactPrecautionId", "Discharged", "Height", "LastBM", "LastBath", "PatientId", "RoomNumber", "Telemetry", "TelemetryNumber", "Weight" },
+                columns: new[] { "Id", "AdmissionDate", "AssistTypeId", "CodeStatusId", "ContactPrecautionId", "Diagnosis", "Discharged", "Height", "LastBM", "LastBath", "PatientId", "RoomNumber", "Telemetry", "TelemetryNumber", "Weight" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 10, 5, 10, 49, 43, 0, DateTimeKind.Unspecified), 2, 1, false, 77, new DateTime(2023, 10, 16, 7, 19, 10, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 8, 51, 55, 0, DateTimeKind.Unspecified), 1, 1000, false, null, 44.5m },
-                    { 2, new DateTime(2023, 10, 12, 6, 43, 24, 0, DateTimeKind.Unspecified), 3, 1, false, 65, new DateTime(2023, 10, 15, 4, 39, 32, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 7, 6, 2, 0, DateTimeKind.Unspecified), 2, 1001, false, null, 77.3m },
-                    { 3, new DateTime(2023, 10, 7, 22, 58, 47, 0, DateTimeKind.Unspecified), 3, 1, true, 61, new DateTime(2023, 10, 16, 22, 38, 27, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 9, 1, 1, 0, DateTimeKind.Unspecified), 3, 1002, true, 345, 78.0m },
-                    { 4, new DateTime(2023, 10, 12, 19, 10, 5, 0, DateTimeKind.Unspecified), 4, 1, false, 72, new DateTime(2023, 10, 15, 5, 27, 11, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 17, 0, 37, 0, DateTimeKind.Unspecified), 4, 1004, true, 123, 58.8m },
-                    { 5, new DateTime(2023, 10, 8, 23, 6, 18, 0, DateTimeKind.Unspecified), 4, 1, true, 50, new DateTime(2023, 10, 16, 18, 28, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 15, 28, 47, 0, DateTimeKind.Unspecified), 5, 1005, false, null, 46.1m },
-                    { 6, new DateTime(2023, 10, 3, 11, 53, 50, 0, DateTimeKind.Unspecified), 2, 3, false, 73, new DateTime(2023, 10, 15, 16, 15, 3, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 12, 51, 49, 0, DateTimeKind.Unspecified), 6, 1006, true, 108, 75.2m },
-                    { 7, new DateTime(2023, 10, 6, 11, 59, 57, 0, DateTimeKind.Unspecified), 3, 1, false, 71, new DateTime(2023, 10, 16, 11, 33, 58, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 16, 39, 29, 0, DateTimeKind.Unspecified), 7, 1007, true, 499, 46.7m },
-                    { 8, new DateTime(2023, 10, 9, 5, 4, 46, 0, DateTimeKind.Unspecified), 2, 1, false, 68, new DateTime(2023, 10, 15, 14, 36, 13, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 1, 5, 32, 0, DateTimeKind.Unspecified), 8, 1008, false, null, 65.3m },
-                    { 9, new DateTime(2023, 10, 15, 12, 57, 27, 0, DateTimeKind.Unspecified), 3, 1, false, 59, new DateTime(2023, 10, 15, 13, 24, 56, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 22, 57, 40, 0, DateTimeKind.Unspecified), 9, 1009, true, 119, 75.0m },
-                    { 10, new DateTime(2023, 10, 10, 4, 24, 27, 0, DateTimeKind.Unspecified), 2, 2, false, 68, new DateTime(2023, 10, 16, 20, 19, 13, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 20, 40, 52, 0, DateTimeKind.Unspecified), 10, 1010, false, null, 89.6m },
-                    { 11, new DateTime(2023, 10, 7, 22, 19, 45, 0, DateTimeKind.Unspecified), 2, 1, false, 52, new DateTime(2023, 10, 15, 15, 43, 9, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 3, 34, 41, 0, DateTimeKind.Unspecified), 11, 1011, false, null, 43.6m },
-                    { 12, new DateTime(2023, 10, 6, 7, 16, 38, 0, DateTimeKind.Unspecified), 1, 1, false, 65, new DateTime(2023, 10, 16, 20, 57, 58, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 17, 41, 3, 0, DateTimeKind.Unspecified), 12, 1013, true, 501, 70.4m },
-                    { 13, new DateTime(2023, 10, 8, 3, 38, 11, 0, DateTimeKind.Unspecified), 2, 1, true, 71, new DateTime(2023, 10, 16, 8, 35, 4, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 5, 46, 25, 0, DateTimeKind.Unspecified), 13, 1014, false, null, 69.7m },
-                    { 14, new DateTime(2023, 10, 5, 0, 49, 28, 0, DateTimeKind.Unspecified), 2, 4, false, 48, new DateTime(2023, 10, 15, 14, 57, 34, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 9, 32, 54, 0, DateTimeKind.Unspecified), 14, 1015, false, null, 43.2m },
-                    { 15, new DateTime(2023, 10, 13, 9, 12, 23, 0, DateTimeKind.Unspecified), 3, 5, false, 45, new DateTime(2023, 10, 15, 21, 3, 25, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 1, 31, 37, 0, DateTimeKind.Unspecified), 15, 1016, true, 333, 88.8m }
+                    { 1, new DateTime(2023, 10, 5, 10, 49, 43, 0, DateTimeKind.Unspecified), 2, 1, 1, "Diabetes Mellitus", false, 77, new DateTime(2023, 10, 16, 7, 19, 10, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 8, 51, 55, 0, DateTimeKind.Unspecified), 1, 1000, false, null, 44.5m },
+                    { 2, new DateTime(2023, 10, 12, 6, 43, 24, 0, DateTimeKind.Unspecified), 3, 1, 1, "Hypertensive Crisis", false, 65, new DateTime(2023, 10, 15, 4, 39, 32, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 7, 6, 2, 0, DateTimeKind.Unspecified), 2, 1001, false, null, 77.3m },
+                    { 3, new DateTime(2023, 10, 7, 22, 58, 47, 0, DateTimeKind.Unspecified), 3, 2, 1, "SOB Asthma", true, 61, new DateTime(2023, 10, 16, 22, 38, 27, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 9, 1, 1, 0, DateTimeKind.Unspecified), 3, 1002, true, 345, 78.0m },
+                    { 4, new DateTime(2023, 10, 12, 19, 10, 5, 0, DateTimeKind.Unspecified), 4, 2, 1, "Headache/ L Side Weakness", false, 72, new DateTime(2023, 10, 15, 5, 27, 11, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 17, 0, 37, 0, DateTimeKind.Unspecified), 4, 1004, true, 123, 58.8m },
+                    { 5, new DateTime(2023, 10, 8, 23, 6, 18, 0, DateTimeKind.Unspecified), 4, 1, 1, "Fatigue", true, 50, new DateTime(2023, 10, 16, 18, 28, 0, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 15, 28, 47, 0, DateTimeKind.Unspecified), 5, 1005, false, null, 46.1m },
+                    { 6, new DateTime(2023, 10, 3, 11, 53, 50, 0, DateTimeKind.Unspecified), 2, 1, 3, "Clostridium difficile", false, 73, new DateTime(2023, 10, 15, 16, 15, 3, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 12, 51, 49, 0, DateTimeKind.Unspecified), 6, 1006, true, 108, 75.2m },
+                    { 7, new DateTime(2023, 10, 6, 11, 59, 57, 0, DateTimeKind.Unspecified), 3, 1, 1, "Fatigue", false, 71, new DateTime(2023, 10, 16, 11, 33, 58, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 16, 39, 29, 0, DateTimeKind.Unspecified), 7, 1007, true, 499, 46.7m },
+                    { 8, new DateTime(2023, 10, 9, 5, 4, 46, 0, DateTimeKind.Unspecified), 2, 1, 1, "CHF Exacerbation", false, 68, new DateTime(2023, 10, 15, 14, 36, 13, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 1, 5, 32, 0, DateTimeKind.Unspecified), 8, 1008, false, null, 65.3m },
+                    { 9, new DateTime(2023, 10, 15, 12, 57, 27, 0, DateTimeKind.Unspecified), 3, 1, 1, "SOB Asthma", false, 59, new DateTime(2023, 10, 15, 13, 24, 56, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 22, 57, 40, 0, DateTimeKind.Unspecified), 9, 1009, true, 119, 75.0m },
+                    { 10, new DateTime(2023, 10, 10, 4, 24, 27, 0, DateTimeKind.Unspecified), 2, 2, 2, "LLE Cellulitis", false, 68, new DateTime(2023, 10, 16, 20, 19, 13, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 20, 40, 52, 0, DateTimeKind.Unspecified), 10, 1010, false, null, 89.6m },
+                    { 11, new DateTime(2023, 10, 7, 22, 19, 45, 0, DateTimeKind.Unspecified), 2, 2, 1, "Altered Mental Status", false, 52, new DateTime(2023, 10, 15, 15, 43, 9, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 3, 34, 41, 0, DateTimeKind.Unspecified), 11, 1011, false, null, 43.6m },
+                    { 12, new DateTime(2023, 10, 6, 7, 16, 38, 0, DateTimeKind.Unspecified), 1, 1, 1, "Chrohn's Exacerbation", false, 65, new DateTime(2023, 10, 16, 20, 57, 58, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 17, 41, 3, 0, DateTimeKind.Unspecified), 12, 1013, true, 501, 70.4m },
+                    { 13, new DateTime(2023, 10, 8, 3, 38, 11, 0, DateTimeKind.Unspecified), 2, 1, 1, "Fatigue", true, 71, new DateTime(2023, 10, 16, 8, 35, 4, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 5, 46, 25, 0, DateTimeKind.Unspecified), 13, 1014, false, null, 69.7m },
+                    { 14, new DateTime(2023, 10, 5, 0, 49, 28, 0, DateTimeKind.Unspecified), 2, 1, 4, "Influenza", false, 48, new DateTime(2023, 10, 15, 14, 57, 34, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 9, 32, 54, 0, DateTimeKind.Unspecified), 14, 1015, false, null, 43.2m },
+                    { 15, new DateTime(2023, 10, 13, 9, 12, 23, 0, DateTimeKind.Unspecified), 3, 2, 5, "Covid", false, 45, new DateTime(2023, 10, 15, 21, 3, 25, 0, DateTimeKind.Unspecified), new DateTime(2023, 10, 16, 1, 31, 37, 0, DateTimeKind.Unspecified), 15, 1016, true, 333, 88.8m }
                 });
 
             migrationBuilder.InsertData(
@@ -521,6 +552,11 @@ namespace ADLTracker.Migrations
                 name: "IX_PatientProfiles_AssistTypeId",
                 table: "PatientProfiles",
                 column: "AssistTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PatientProfiles_CodeStatusId",
+                table: "PatientProfiles",
+                column: "CodeStatusId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PatientProfiles_ContactPrecautionId",
@@ -590,6 +626,9 @@ namespace ADLTracker.Migrations
 
             migrationBuilder.DropTable(
                 name: "AssistTypes");
+
+            migrationBuilder.DropTable(
+                name: "CodeStatuses");
 
             migrationBuilder.DropTable(
                 name: "ContactPrecautions");
