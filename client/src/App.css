@@ -39,26 +39,48 @@
 
 .App-container {
   display: flex;
-  background-color: yellow;
+  background-color: white;
   height: 100dvh;
 }
 .container--patients{
   border: 1px solid red;
-  width: 35vw;
+  width: 40vw;
 }
 .container--patientProfiles{
   border: 1px solid blue;
-  width: 65vw;
+  width: 60vw;
   position: relative;
   overflow:hidden;
 }
-.patient--card{
-  background-color: white;
-  padding: 1em 2em;
-  margin: 1em 2em;
+.toggle--patientList{
+  margin-top: 1em;
+  margin-bottom: 3em;
+  margin-left: -1em;
+}
+.toggle--button{
+  padding: .5em 5.5vw;
+  border-radius: 6px;
+  border: 1px rgb(167, 167, 167) solid;
+  font-weight: 800;
+  color: grey;
+}
+.myPatients--button{
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.allPatients--button{
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
 }
 .cards--patientList{
   flex: 0 1 auto;
+}
+.patient--card{
+  background-color: #ffffff;
+  border-radius: 3px;
+  border: lightgray solid 2px;
+  padding: 1em 2em;
+  margin: .5em 3.5em;
 }
 .scroll{
   overflow: auto;
@@ -82,7 +104,11 @@
 }
 
 .selected{
-  background-color: green;
+  background-color: rgb(255, 255, 255);
+  color: #00aeff;
+  border: 1px solid #00aeff;
+  box-shadow: 0cap 0 2px #00aeff;
+  
 }
 .precaution-tag--simple{
   background-color: orange;
@@ -93,22 +119,33 @@
   background-color: Yellow;
   padding: 8px;
 }
+.collapse{
+  animation-duration: 100ms;
+}
 
 
 
 
 
-
-
+.inner--container{
+  background-color: red;
+  padding: .5em;
+  width: 70%;
+  margin: 0 auto;
+  margin-bottom: 1.5em;
+}
 
 .defineShape{
   position: absolute;
-  left: 10%;
+  left: 15%;
   top: 12%;
-  /* border : 1px solid; */
-  width: 80%;
+  width: 70%;
   margin: 0, auto;
   height: 88vh;
   box-shadow: .5em 0em 8px rgba(0, 0, 0, 0.3);
-  background-color: white;
+  background-color: rgb(255, 255, 255);
+  overflow-y: scroll;
+  overflow-x: hidden;
+  border: rgb(228, 228, 228) 1px solid;
+  border-radius: 4px;
 }
