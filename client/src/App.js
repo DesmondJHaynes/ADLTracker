@@ -11,7 +11,6 @@ import { Route, Routes } from "react-router-dom";
 
 function App() {
   const [loggedInUser, setLoggedInUser] = useState();
-  const [patientProfile, setPatientProfile] = useState();
 
   useEffect(() => {
     tryGetLoggedInUser().then((user) => {
@@ -30,11 +29,7 @@ function App() {
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <Workspace
-                patientProfile={patientProfile}
-                userId={loggedInUser.id}
-                setPatientProfile={setPatientProfile}
-              />
+              <Workspace userId={loggedInUser.id} />
             </AuthorizedRoute>
           }
         />

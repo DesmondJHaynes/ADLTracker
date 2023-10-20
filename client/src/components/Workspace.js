@@ -4,11 +4,13 @@ import { PatientProfileCard } from "./PatientProfileCard.js";
 import { getProviderById } from "../managers/providerManager.js";
 import { getPatientProviders } from "../managers/patientProvidersManager.js";
 import { Spinner } from "reactstrap";
+import { getPatientById } from "../managers/patientProfileManager.js";
 
-export const Workspace = ({ patientProfile, setPatientProfile, userId }) => {
+export const Workspace = ({ userId }) => {
   const [patientProvider, setPatientProvider] = useState([]);
   const [assignedPatients, setAssignedPatients] = useState();
   const [assignedProviders, setAssignedProviders] = useState([]);
+  const [patientProfile, setPatientProfile] = useState();
 
   useEffect(() => {
     getPatientProviders().then(setPatientProvider);
@@ -17,6 +19,10 @@ export const Workspace = ({ patientProfile, setPatientProfile, userId }) => {
   useEffect(() => {
     userPatients();
   }, [patientProvider]);
+
+  async function refreshProfile(ppId) {
+    getPatientById(ppId).then(setPatientProfile);
+  }
 
   function singlePatientProviders() {}
 
@@ -42,7 +48,10 @@ export const Workspace = ({ patientProfile, setPatientProfile, userId }) => {
         />
       </div>
       <div className="container--patientProfiles center">
-        <PatientProfileCard patientProfile={patientProfile} />
+        <PatientProfileCard
+          patientProfile={patientProfile}
+          refreshProfile={refreshProfile}
+        />
       </div>
     </div>
   );

@@ -1,6 +1,10 @@
+import { useState } from "react";
 import { Col, Label, Row } from "reactstrap";
+import { updateWeight } from "../managers/patientProfileManager.js";
 
-export const PatientProfileCard = ({ patientProfile }) => {
+export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
+  const [weight, setWeight] = useState("");
+
   if (!patientProfile) {
     return (
       <>
@@ -13,6 +17,13 @@ export const PatientProfileCard = ({ patientProfile }) => {
     const dateOnly = dateTime.split("T")[0];
     const [year, month, date] = dateOnly.split("-");
     return `${month}.${date}.${year.slice(-2)}`;
+  }
+
+  async function handleChange(property, value) {
+    const clone = structuredClone(patientProfile);
+    clone[property] = value;
+    await updateWeight(patientProfile.id, clone);
+    await refreshProfile(patientProfile.id);
   }
 
   return (
@@ -65,12 +76,28 @@ export const PatientProfileCard = ({ patientProfile }) => {
             <div className="inner--container">
               <div>
                 <Label htmlFor="lastweight">Last Weight</Label>
-                <p name="lastweight">{patientProfile.weight}</p>
+                <p name="lastweight">{patientProfile.weight} kg</p>
               </div>
               <div>
                 <div className="hidden">
-                  <input type="text" />
-                  <button>✔️</button>
+                  <input
+                    value={weight}
+                    type="number"
+                    placeholder={patientProfile.weight}
+                    onChange={(e) => {
+                      setWeight(e.target.value);
+                    }}
+                  />{" "}
+                  <button
+                    name="weight"
+                    onClick={(e) => {
+                      handleChange(e.target.name, weight).then(() =>
+                        setWeight("")
+                      );
+                    }}
+                  >
+                    ✔️
+                  </button>
                   <button>✖️</button>
                 </div>
                 <div>icon</div>
