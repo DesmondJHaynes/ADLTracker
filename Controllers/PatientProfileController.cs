@@ -70,4 +70,38 @@ public class PatientProfileController : ControllerBase
         _dbContext.SaveChanges();
         return Ok(found.Weight);
     }
+
+    [HttpPut("{id}/bath")]
+    [Authorize]
+    public IActionResult UpdateLastBath(int id, PatientProfile obj)
+    {
+        if (obj.Id != id)
+        { return BadRequest(); }
+
+        PatientProfile found = _dbContext.PatientProfiles.SingleOrDefault(pp => pp.Id == id);
+
+        if (found == null)
+        { return NotFound(); }
+
+        found.LastBath = obj.LastBath;
+        _dbContext.SaveChanges();
+        return Ok(found.LastBath);
+    }
+
+    [HttpPut("{id}/bm")]
+    [Authorize]
+    public IActionResult UpdateLastBM(int id, PatientProfile obj)
+    {
+        if (obj.Id != id)
+        { return BadRequest(); }
+
+        PatientProfile found = _dbContext.PatientProfiles.SingleOrDefault(pp => pp.Id == id);
+
+        if (found == null)
+        { return NotFound(); }
+
+        found.LastBM = obj.LastBM;
+        _dbContext.SaveChanges();
+        return Ok(found.LastBM);
+    }
 }
