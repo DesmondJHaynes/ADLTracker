@@ -1,8 +1,19 @@
 import { useState } from "react";
-import { Col, Label, Row } from "reactstrap";
+import {
+  Button,
+  Col,
+  Input,
+  Label,
+  Modal,
+  ModalBody,
+  ModalFooter,
+  ModalHeader,
+  Row,
+} from "reactstrap";
 import {
   updateLastBM,
   updateLastBath,
+  updateTelemetry,
   updateWeight,
 } from "../managers/patientProfileManager.js";
 
@@ -10,6 +21,9 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
   const [weight, setWeight] = useState("");
   const [lastBath, setLastBath] = useState("");
   const [lastBM, setLastBM] = useState("");
+  const [modalRemoveTele, setModalRemoveTele] = useState(false);
+  const [modalNewTele, setModalNewTele] = useState(false);
+  const [boxNumber, setBoxNumber] = useState("");
 
   if (!patientProfile) {
     return (
@@ -20,6 +34,8 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
   }
 
   const today = new Date().toLocaleDateString("fr-ca");
+
+  const toggle = (setter, modal) => setter(!modal);
 
   function formatDate(dateTime) {
     const dateOnly = dateTime.split("T")[0];
@@ -32,6 +48,26 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
     clone[property] = value;
     await updateFxn(patientProfile.id, clone);
     await refreshProfile(patientProfile.id);
+  }
+
+  async function handleRemoveTele() {
+    const clone = structuredClone(patientProfile);
+    clone.telemetry = false;
+    clone.telemetryNumber = null;
+    console.log(clone);
+    await updateTelemetry(patientProfile.id, clone);
+    await refreshProfile(patientProfile.id);
+    toggle(setModalRemoveTele, modalRemoveTele);
+  }
+  async function handleNewTele(boxNumber) {
+    const clone = structuredClone(patientProfile);
+    clone.telemetry = true;
+    clone.telemetryNumber = parseInt(boxNumber);
+    console.log(clone);
+    await updateTelemetry(patientProfile.id, clone);
+    await refreshProfile(patientProfile.id);
+    setBoxNumber("");
+    toggle(setModalNewTele, modalNewTele);
   }
 
   return (
@@ -217,7 +253,84 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
             )}
             <div className="inner--container">
               <Label htmlFor="tele">Tele</Label>
-              <input type="range" max={"1"}></input>
+              <br />❌
+              <input
+                type="range"
+                max={"1"}
+                value={patientProfile.telemetry === true ? "1" : "0"}
+                onChange={(e) => {
+                  e.target.value === "0"
+                    ? toggle(setModalRemoveTele, modalRemoveTele)
+                    : toggle(setModalNewTele, modalNewTele);
+                }}
+              ></input>
+              {patientProfile.telemetry
+                ? `💟#${patientProfile.telemetryNumber}`
+                : `💟`}
+              <Modal
+                isOpen={modalRemoveTele}
+                toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
+              >
+                <ModalHeader
+                  toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
+                >
+                  Are You Sure?
+                </ModalHeader>
+                <ModalBody>
+                  <p>
+                    Are you sure want to remove{" "}
+                    {patientProfile.patient.lastName},{" "}
+                    {patientProfile.patient.firstName} from Telemetry
+                    monitoring? Be sure there's an order for removal!
+                  </p>
+                </ModalBody>
+                <ModalFooter>
+                  <Button color="danger" onClick={handleRemoveTele}>
+                    Remove Tele
+                  </Button>{" "}
+                  <Button
+                    color="secondary"
+                    onClick={() => toggle(setModalRemoveTele, modalRemoveTele)}
+                  >
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Modal>
+              <Modal
+                isOpen={modalNewTele}
+                toggle={() => toggle(setModalNewTele, modalNewTele)}
+              >
+                <ModalHeader
+                  toggle={() => toggle(setModalNewTele, modalNewTele)}
+                >
+                  New Tele Box
+                </ModalHeader>
+                <ModalBody>
+                  <p>Please enter the 3-Digit Telemetry Box# below</p>
+                  <Label htmlFor="telemetry">Box #</Label>
+                  <Input
+                    type="number"
+                    value={boxNumber}
+                    placeholder="000"
+                    max="999"
+                    onChange={(e) => setBoxNumber(e.target.value)}
+                  />
+                </ModalBody>
+                <ModalFooter>
+                  <Button
+                    color="success"
+                    onClick={() => handleNewTele(boxNumber)}
+                  >
+                    Add Tele
+                  </Button>{" "}
+                  <Button
+                    color="secondary"
+                    onClick={() => toggle(setModalNewTele, modalNewTele)}
+                  >
+                    Cancel
+                  </Button>
+                </ModalFooter>
+              </Modal>
             </div>
             <div className="inner--container">
               <h3>Assist Level</h3>

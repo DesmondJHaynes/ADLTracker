@@ -104,4 +104,22 @@ public class PatientProfileController : ControllerBase
         _dbContext.SaveChanges();
         return Ok(found.LastBM);
     }
+
+    [HttpPut("{id}/telemetry")]
+    [Authorize]
+    public IActionResult UpdateTelemetry(int id, PatientProfile obj)
+    {
+        if (obj.Id != id)
+        { return BadRequest(); }
+
+        PatientProfile found = _dbContext.PatientProfiles.SingleOrDefault(pp => pp.Id == id);
+
+        if (found == null)
+        { return NotFound(); }
+
+        found.Telemetry = obj.Telemetry;
+        found.TelemetryNumber = obj.TelemetryNumber;
+        _dbContext.SaveChanges();
+        return Ok(found.LastBM);
+    }
 }

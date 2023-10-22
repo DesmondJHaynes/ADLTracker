@@ -128,9 +128,11 @@
 
 
 .inner--container{
-  background-color: red;
+  background-color: #ffffff;
+  border: 2px solid #b8dfff;
+  border-radius: 3px;
   padding: .5em;
-  width: 70%;
+  min-width: 70%; 
   margin: 0 auto;
   margin-bottom: 1.5em;
 }

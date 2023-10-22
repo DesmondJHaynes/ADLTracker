@@ -28,3 +28,10 @@ export const updateLastBM = (id, obj) => {
     body: JSON.stringify(obj),
   });
 };
+export const updateTelemetry = (id, obj) => {
+  return fetch(`${_api}/${id}/telemetry`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(obj),
+  });
+};
