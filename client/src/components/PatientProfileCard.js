@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { Col, Label, Row } from "reactstrap";
-import { updateWeight } from "../managers/patientProfileManager.js";
+import {
+  updateLastBM,
+  updateLastBath,
+  updateWeight,
+} from "../managers/patientProfileManager.js";
 
 export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
   const [weight, setWeight] = useState("");
+  const [lastBath, setLastBath] = useState("");
+  const [lastBM, setLastBM] = useState("");
 
   if (!patientProfile) {
     return (
@@ -13,16 +19,18 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
     );
   }
 
+  const today = new Date().toLocaleDateString("fr-ca");
+
   function formatDate(dateTime) {
     const dateOnly = dateTime.split("T")[0];
     const [year, month, date] = dateOnly.split("-");
     return `${month}.${date}.${year.slice(-2)}`;
   }
 
-  async function handleChange(property, value) {
+  async function handleChange(property, value, updateFxn) {
     const clone = structuredClone(patientProfile);
     clone[property] = value;
-    await updateWeight(patientProfile.id, clone);
+    await updateFxn(patientProfile.id, clone);
     await refreshProfile(patientProfile.id);
   }
 
@@ -91,8 +99,8 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
                   <button
                     name="weight"
                     onClick={(e) => {
-                      handleChange(e.target.name, weight).then(() =>
-                        setWeight("")
+                      handleChange(e.target.name, weight, updateWeight).then(
+                        () => setWeight("")
                       );
                     }}
                   >
@@ -111,8 +119,26 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               </div>
               <div>
                 <div className="hidden">
-                  <input type="date" />
-                  <button>✔️</button>
+                  <input
+                    value={lastBath}
+                    type="date"
+                    max={today}
+                    onChange={(e) => {
+                      setLastBath(e.target.value);
+                    }}
+                  />{" "}
+                  <button
+                    name="lastBath"
+                    onClick={(e) => {
+                      handleChange(
+                        e.target.name,
+                        lastBath,
+                        updateLastBath
+                      ).then(() => setLastBath(""));
+                    }}
+                  >
+                    ✔️
+                  </button>
                   <button>✖️</button>
                 </div>
                 <div>icon</div>
@@ -126,8 +152,24 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               </div>
               <div>
                 <div className="hidden">
-                  <input type="date" />
-                  <button>✔️</button>
+                  <input
+                    value={lastBM}
+                    type="date"
+                    max={today}
+                    onChange={(e) => {
+                      setLastBM(e.target.value);
+                    }}
+                  />{" "}
+                  <button
+                    name="lastBM"
+                    onClick={(e) => {
+                      handleChange(e.target.name, lastBM, updateLastBM).then(
+                        () => setLastBM("")
+                      );
+                    }}
+                  >
+                    ✔️
+                  </button>
                   <button>✖️</button>
                 </div>
                 <div>icon</div>
