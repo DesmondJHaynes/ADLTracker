@@ -122,4 +122,38 @@ public class PatientProfileController : ControllerBase
         _dbContext.SaveChanges();
         return Ok(found.LastBM);
     }
+
+    [HttpPut("{id}/contact")]
+    [Authorize]
+    public IActionResult UpdateContactStatus(int id, PatientProfile obj)
+    {
+        if (obj.Id != id)
+        { return BadRequest(); }
+
+        PatientProfile found = _dbContext.PatientProfiles.SingleOrDefault(pp => pp.Id == id);
+
+        if (found == null)
+        { return NotFound(); }
+
+        found.ContactPrecautionId = obj.ContactPrecautionId;
+        _dbContext.SaveChanges();
+        return Ok(found.ContactPrecautionId);
+    }
+
+    [HttpPut("{id}/assist")]
+    [Authorize]
+    public IActionResult UpdateAssistLevel(int id, PatientProfile obj)
+    {
+        if (obj.Id != id)
+        { return BadRequest(); }
+
+        PatientProfile found = _dbContext.PatientProfiles.SingleOrDefault(pp => pp.Id == id);
+
+        if (found == null)
+        { return NotFound(); }
+
+        found.AssistTypeId = obj.AssistTypeId;
+        _dbContext.SaveChanges();
+        return Ok(found.AssistTypeId);
+    }
 }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -11,19 +11,35 @@ import {
   Row,
 } from "reactstrap";
 import {
+  updateAssistType,
+  updateContactPrecuation,
   updateLastBM,
   updateLastBath,
   updateTelemetry,
   updateWeight,
 } from "../managers/patientProfileManager.js";
+import { getContactPrecautionList } from "../managers/contactPrecautionManager.js";
+import { getAssistTypes } from "../managers/assistManager.js";
 
 export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
+  const [CPList, setCPList] = useState([]);
+  const [assistList, setAssistList] = useState([]);
+  const [assistId, setAssistId] = useState("");
+  const [contactId, setContactId] = useState("");
   const [weight, setWeight] = useState("");
   const [lastBath, setLastBath] = useState("");
   const [lastBM, setLastBM] = useState("");
   const [modalRemoveTele, setModalRemoveTele] = useState(false);
   const [modalNewTele, setModalNewTele] = useState(false);
+  const [modalRemoveContact, setModalRemoveContact] = useState(false);
+  const [modalNewContact, setModalNewContact] = useState(false);
+  const [modalAssist, setModalAssist] = useState(false);
   const [boxNumber, setBoxNumber] = useState("");
+
+  useEffect(() => {
+    getContactPrecautionList().then(setCPList);
+    getAssistTypes().then(setAssistList);
+  }, []);
 
   if (!patientProfile) {
     return (
@@ -59,6 +75,7 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
     await refreshProfile(patientProfile.id);
     toggle(setModalRemoveTele, modalRemoveTele);
   }
+
   async function handleNewTele(boxNumber) {
     const clone = structuredClone(patientProfile);
     clone.telemetry = true;
@@ -243,16 +260,20 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
             </div>
           </Col>
           <Col>
-            {patientProfile.contactPrecautionId > 1 ? (
-              <div className="inner--container">
-                <h3>Contact Precaution</h3>
-                <div>{patientProfile.contactPrecaution.type}</div>
-              </div>
-            ) : (
-              <></>
-            )}
             <div className="inner--container">
-              <Label htmlFor="tele">Tele</Label>
+              <h3>Contact Precaution</h3>
+              <div>{patientProfile.contactPrecaution.type}</div>
+              <Button
+                onClick={() =>
+                  toggle(setModalRemoveContact, modalRemoveContact)
+                }
+              >
+                Update
+              </Button>
+            </div>
+
+            <div className="inner--container">
+              <h2 htmlFor="tele">Tele</h2>
               <br />❌
               <input
                 type="range"
@@ -267,79 +288,196 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               {patientProfile.telemetry
                 ? `💟#${patientProfile.telemetryNumber}`
                 : `💟`}
-              <Modal
-                isOpen={modalRemoveTele}
-                toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
-              >
-                <ModalHeader
-                  toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
-                >
-                  Are You Sure?
-                </ModalHeader>
-                <ModalBody>
-                  <p>
-                    Are you sure want to remove{" "}
-                    {patientProfile.patient.lastName},{" "}
-                    {patientProfile.patient.firstName} from Telemetry
-                    monitoring? Be sure there's an order for removal!
-                  </p>
-                </ModalBody>
-                <ModalFooter>
-                  <Button color="danger" onClick={handleRemoveTele}>
-                    Remove Tele
-                  </Button>{" "}
-                  <Button
-                    color="secondary"
-                    onClick={() => toggle(setModalRemoveTele, modalRemoveTele)}
-                  >
-                    Cancel
-                  </Button>
-                </ModalFooter>
-              </Modal>
-              <Modal
-                isOpen={modalNewTele}
-                toggle={() => toggle(setModalNewTele, modalNewTele)}
-              >
-                <ModalHeader
-                  toggle={() => toggle(setModalNewTele, modalNewTele)}
-                >
-                  New Tele Box
-                </ModalHeader>
-                <ModalBody>
-                  <p>Please enter the 3-Digit Telemetry Box# below</p>
-                  <Label htmlFor="telemetry">Box #</Label>
-                  <Input
-                    type="number"
-                    value={boxNumber}
-                    placeholder="000"
-                    max="999"
-                    onChange={(e) => setBoxNumber(e.target.value)}
-                  />
-                </ModalBody>
-                <ModalFooter>
-                  <Button
-                    color="success"
-                    onClick={() => handleNewTele(boxNumber)}
-                  >
-                    Add Tele
-                  </Button>{" "}
-                  <Button
-                    color="secondary"
-                    onClick={() => toggle(setModalNewTele, modalNewTele)}
-                  >
-                    Cancel
-                  </Button>
-                </ModalFooter>
-              </Modal>
             </div>
             <div className="inner--container">
               <h3>Assist Level</h3>
               <div>{patientProfile.assistType.type}</div>
+              <Button onClick={() => toggle(setModalAssist, modalAssist)}>
+                Update
+              </Button>
               {patientProfile.assistTypeId > 1 ? <div>Fall Risk</div> : <></>}
             </div>
           </Col>
         </Row>
       </div>
+      <Modal
+        isOpen={modalRemoveContact}
+        toggle={() => toggle(setModalRemoveContact, modalRemoveContact)}
+      >
+        <ModalHeader
+          toggle={() => toggle(setModalRemoveContact, modalRemoveContact)}
+        >
+          Are You Sure?
+        </ModalHeader>
+        <ModalBody>
+          <p>
+            Are you sure want to change {patientProfile.patient.lastName},{" "}
+            {patientProfile.patient.firstName}'s contact status of{" "}
+            {patientProfile.contactPrecaution.type}?
+          </p>
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="danger"
+            onClick={() => {
+              toggle(setModalRemoveContact, modalRemoveContact);
+              toggle(setModalNewContact, modalNewContact);
+            }}
+          >
+            Yes, Update
+          </Button>{" "}
+          <Button
+            color="secondary"
+            onClick={() => toggle(setModalRemoveContact, modalRemoveContact)}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal
+        isOpen={modalNewContact}
+        toggle={() => toggle(setModalNewContact, modalNewContact)}
+      >
+        <ModalHeader toggle={() => toggle(setModalNewContact, modalNewContact)}>
+          Place in contact precautions?
+        </ModalHeader>
+        <ModalBody>
+          <p>Please select a Contact Type Listed Below</p>
+          {CPList.map((cp) => (
+            <div key={cp.id}>
+              <Input
+                value={cp.id}
+                type="radio"
+                name="contactPrecautionId"
+                onChange={(e) => {
+                  setContactId(e.target.value);
+                }}
+              />{" "}
+              {cp.type}
+            </div>
+          ))}
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="success"
+            onClick={() =>
+              handleChange(
+                "contactPrecautionId",
+                contactId,
+                updateContactPrecuation
+              ).then(() => toggle(setModalNewContact, modalNewContact))
+            }
+          >
+            Update
+          </Button>{" "}
+          <Button
+            color="secondary"
+            onClick={() => toggle(setModalNewContact, modalNewContact)}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+      <Modal
+        isOpen={modalRemoveTele}
+        toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
+      >
+        <ModalHeader toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}>
+          Are You Sure?
+        </ModalHeader>
+        <ModalBody>
+          <p>
+            Are you sure want to remove {patientProfile.patient.lastName},{" "}
+            {patientProfile.patient.firstName} from Telemetry monitoring? Be
+            sure there's an order for removal!
+          </p>
+        </ModalBody>
+        <ModalFooter>
+          <Button color="danger" onClick={handleRemoveTele}>
+            Remove Tele
+          </Button>{" "}
+          <Button
+            color="secondary"
+            onClick={() => toggle(setModalRemoveTele, modalRemoveTele)}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+      <Modal
+        isOpen={modalNewTele}
+        toggle={() => toggle(setModalNewTele, modalNewTele)}
+      >
+        <ModalHeader toggle={() => toggle(setModalNewTele, modalNewTele)}>
+          New Tele Box
+        </ModalHeader>
+        <ModalBody>
+          <p>Please enter the 3-Digit Telemetry Box# below</p>
+          <Label htmlFor="telemetry">Box #</Label>
+          <Input
+            type="number"
+            value={boxNumber}
+            placeholder="000"
+            max="999"
+            onChange={(e) => setBoxNumber(e.target.value)}
+          />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="success" onClick={() => handleNewTele(boxNumber)}>
+            Add Tele
+          </Button>{" "}
+          <Button
+            color="secondary"
+            onClick={() => toggle(setModalNewTele, modalNewTele)}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
+
+      <Modal
+        isOpen={modalAssist}
+        toggle={() => toggle(setModalAssist, modalAssist)}
+      >
+        <ModalHeader toggle={() => toggle(setModalAssist, modalAssist)}>
+          Update Assist Level
+        </ModalHeader>
+        <ModalBody>
+          <p>Please select the degree of assistance patient will need.</p>
+          {assistList.map((a) => (
+            <div key={a.id}>
+              <Input
+                value={a.id}
+                type="radio"
+                name="assistId"
+                onChange={(e) => {
+                  setAssistId(e.target.value);
+                }}
+              />{" "}
+              {a.type}
+            </div>
+          ))}
+        </ModalBody>
+        <ModalFooter>
+          <Button
+            color="success"
+            onClick={() =>
+              handleChange("assistTypeId", assistId, updateAssistType).then(
+                () => toggle(setModalAssist, modalAssist)
+              )
+            }
+          >
+            Update
+          </Button>{" "}
+          <Button
+            color="secondary"
+            onClick={() => toggle(setModalAssist, modalAssist)}
+          >
+            Cancel
+          </Button>
+        </ModalFooter>
+      </Modal>
     </>
   );
 };

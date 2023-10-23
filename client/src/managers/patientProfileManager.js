@@ -35,3 +35,17 @@ export const updateTelemetry = (id, obj) => {
     body: JSON.stringify(obj),
   });
 };
+export const updateContactPrecuation = (id, obj) => {
+  return fetch(`${_api}/${id}/contact`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(obj),
+  });
+};
+export const updateAssistType = (id, obj) => {
+  return fetch(`${_api}/${id}/assist`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(obj),
+  });
+};
