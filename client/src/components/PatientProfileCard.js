@@ -20,6 +20,8 @@ import {
 } from "../managers/patientProfileManager.js";
 import { getContactPrecautionList } from "../managers/contactPrecautionManager.js";
 import { getAssistTypes } from "../managers/assistManager.js";
+import { AddOutput } from "../managers/outputManager.js";
+import { AddIntake } from "../managers/intakeManager.js";
 
 export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
   const [CPList, setCPList] = useState([]);
@@ -29,6 +31,9 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
   const [weight, setWeight] = useState("");
   const [lastBath, setLastBath] = useState("");
   const [lastBM, setLastBM] = useState("");
+  const [intake, setIntake] = useState("");
+  const [output, setOutput] = useState("");
+
   const [modalRemoveTele, setModalRemoveTele] = useState(false);
   const [modalNewTele, setModalNewTele] = useState(false);
   const [modalRemoveContact, setModalRemoveContact] = useState(false);
@@ -74,6 +79,19 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
     await updateTelemetry(patientProfile.id, clone);
     await refreshProfile(patientProfile.id);
     toggle(setModalRemoveTele, modalRemoveTele);
+  }
+
+  async function handleOutput(output) {
+    const obj = { patientProfileId: patientProfile.id, outputAmount: output };
+    await AddOutput(obj);
+    await refreshProfile(patientProfile.id);
+    setOutput("");
+  }
+  async function handleIntake(intake) {
+    const obj = { patientProfileId: patientProfile.id, intakeAmount: intake };
+    await AddIntake(obj);
+    await refreshProfile(patientProfile.id);
+    setIntake("");
   }
 
   async function handleNewTele(boxNumber) {
@@ -232,13 +250,23 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               {" "}
               <div>
                 <Label htmlFor="total Intake">Total Intake(24hr)</Label>
-                <p name="total Intake">{patientProfile.totalIntake}</p>
+                <p name="total Intake">{patientProfile.totalIntake} mL</p>
               </div>
               <div>
                 <div className="hidden">
-                  <input type="text" />
-                  <button>✔️</button>
-                  <button>✖️</button>
+                  <input
+                    type="number"
+                    value={intake}
+                    onChange={(e) => setIntake(e.target.value)}
+                  />
+                  <button
+                    onClick={() => {
+                      handleIntake(intake);
+                    }}
+                  >
+                    ✔️
+                  </button>
+                  <button onClick={() => setIntake("")}>✖️</button>
                 </div>
                 <div>icon</div>
               </div>
@@ -247,13 +275,23 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               {" "}
               <div>
                 <Label htmlFor="total Output">Total Output(24hr)</Label>
-                <p name="total Output">{patientProfile.totalOutput}</p>
+                <p name="total Output">{patientProfile.totalOutput} mL</p>
               </div>
               <div>
                 <div className="hidden">
-                  <input type="text" />
-                  <button>✔️</button>
-                  <button>✖️</button>
+                  <input
+                    type="number"
+                    value={output}
+                    onChange={(e) => setOutput(e.target.value)}
+                  />
+                  <button
+                    onClick={() => {
+                      handleOutput(output);
+                    }}
+                  >
+                    ✔️
+                  </button>
+                  <button onClick={() => setOutput("")}>✖️</button>
                 </div>
                 <div>icon</div>
               </div>
@@ -271,9 +309,8 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
                 Update
               </Button>
             </div>
-
             <div className="inner--container">
-              <h2 htmlFor="tele">Tele</h2>
+              <h2 htmlFor="tele">Telemetry</h2>
               <br />❌
               <input
                 type="range"
@@ -379,6 +416,7 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
           </Button>
         </ModalFooter>
       </Modal>
+
       <Modal
         isOpen={modalRemoveTele}
         toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
@@ -405,6 +443,7 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
           </Button>
         </ModalFooter>
       </Modal>
+
       <Modal
         isOpen={modalNewTele}
         toggle={() => toggle(setModalNewTele, modalNewTele)}

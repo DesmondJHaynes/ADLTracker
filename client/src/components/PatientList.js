@@ -1,21 +1,16 @@
 import { useEffect, useState } from "react";
 import { Button, Spinner } from "reactstrap";
-import { getPatientProfileList } from "../managers/patientProfileManager.js";
 import { PatientCard } from "./PatientCard.js";
 
 export const PatientList = ({
   setPatientProfile,
   assignedPatients,
   setPatientProvider,
+  patientList,
   userId,
 }) => {
-  const [patientList, setPatientList] = useState();
   const [filteredList, setFilteredList] = useState();
   const [acitveToggle, setActiveToggle] = useState(true);
-
-  useEffect(() => {
-    getPatientProfileList().then(setPatientList);
-  }, []);
 
   useEffect(() => {
     handleFilter(patientList);
