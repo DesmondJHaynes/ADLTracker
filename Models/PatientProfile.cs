@@ -28,9 +28,15 @@ public class PatientProfile
         get
         {
             int total = 0;
+            DateTime now = DateTime.Now;
+            DateTime cutOffTime = now.Subtract(new TimeSpan(24, 0, 0));
+
             foreach (Intake intake in Intakes)
             {
-                total += intake.IntakeAmount;
+                if (intake.TimeRecorded > cutOffTime)
+                {
+                    total += intake.IntakeAmount;
+                }
             }
             return total;
         }
@@ -41,13 +47,18 @@ public class PatientProfile
         get
         {
             int total = 0;
+            DateTime now = DateTime.Now;
+            DateTime cutOffTime = now.Subtract(new TimeSpan(24, 0, 0));
+
             foreach (Output output in Outputs)
             {
-                total += output.OutputAmount;
+                if (output.TimeRecorded > cutOffTime)
+                {
+                    total += output.OutputAmount;
+                }
             }
             return total;
         }
-
     }
     public bool FallRisk
     {

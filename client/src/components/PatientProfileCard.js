@@ -9,6 +9,7 @@ import {
   ModalFooter,
   ModalHeader,
   Row,
+  Table,
 } from "reactstrap";
 import {
   updateAssistType,
@@ -20,8 +21,22 @@ import {
 } from "../managers/patientProfileManager.js";
 import { getContactPrecautionList } from "../managers/contactPrecautionManager.js";
 import { getAssistTypes } from "../managers/assistManager.js";
+import {
+  AddOutput,
+  DeleteOutput,
+  getOutputs,
+} from "../managers/outputManager.js";
+import {
+  AddIntake,
+  DeleteIntake,
+  getIntakes,
+} from "../managers/intakeManager.js";
 
-export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
+export const PatientProfileCard = ({
+  patientProfile,
+  refreshProfile,
+  userId,
+}) => {
   const [CPList, setCPList] = useState([]);
   const [assistList, setAssistList] = useState([]);
   const [assistId, setAssistId] = useState("");
@@ -29,6 +44,13 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
   const [weight, setWeight] = useState("");
   const [lastBath, setLastBath] = useState("");
   const [lastBM, setLastBM] = useState("");
+  const [intake, setIntake] = useState("");
+  const [intakeList, setIntakeList] = useState("");
+  const [output, setOutput] = useState("");
+  const [outputList, setOutputList] = useState("");
+
+  const [modalIntake, setModalIntake] = useState(false);
+  const [modalOutput, setModalOutput] = useState(false);
   const [modalRemoveTele, setModalRemoveTele] = useState(false);
   const [modalNewTele, setModalNewTele] = useState(false);
   const [modalRemoveContact, setModalRemoveContact] = useState(false);
@@ -58,6 +80,11 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
     const [year, month, date] = dateOnly.split("-");
     return `${month}.${date}.${year.slice(-2)}`;
   }
+  function formatTime(dateTime) {
+    const timeOnly = dateTime.split("T")[1];
+    const [hours, minutes] = timeOnly.split(":");
+    return `${hours}:${minutes}`;
+  }
 
   async function handleChange(property, value, updateFxn) {
     const clone = structuredClone(patientProfile);
@@ -74,6 +101,36 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
     await updateTelemetry(patientProfile.id, clone);
     await refreshProfile(patientProfile.id);
     toggle(setModalRemoveTele, modalRemoveTele);
+  }
+
+  async function handleOutput(output) {
+    const obj = {
+      patientProfileId: patientProfile.id,
+      providerId: userId,
+      outputAmount: output,
+    };
+    await AddOutput(obj);
+    await refreshProfile(patientProfile.id);
+    setOutput("");
+  }
+  async function handleIntake(intake) {
+    const obj = {
+      patientProfileId: patientProfile.id,
+      providerId: userId,
+      intakeAmount: intake,
+    };
+    await AddIntake(obj);
+    await refreshProfile(patientProfile.id);
+    setIntake("");
+  }
+
+  async function handleIntakeDelete(id) {
+    await DeleteIntake(id);
+    getIntakes(patientProfile.id).then(setIntakeList);
+  }
+  async function handleOutputDelete(id) {
+    await DeleteOutput(id);
+    getOutputs(patientProfile.id).then(setOutputList);
   }
 
   async function handleNewTele(boxNumber) {
@@ -144,7 +201,7 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
                   <input
                     value={weight}
                     type="number"
-                    placeholder={patientProfile.weight}
+                    placeholder={`${patientProfile.weight} kg`}
                     onChange={(e) => {
                       setWeight(e.target.value);
                     }}
@@ -232,13 +289,33 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               {" "}
               <div>
                 <Label htmlFor="total Intake">Total Intake(24hr)</Label>
-                <p name="total Intake">{patientProfile.totalIntake}</p>
+                <p name="total Intake">{patientProfile.totalIntake} mL</p>
               </div>
               <div>
                 <div className="hidden">
-                  <input type="text" />
-                  <button>✔️</button>
-                  <button>✖️</button>
+                  <input
+                    type="number"
+                    value={intake}
+                    placeholder="0 mL"
+                    onChange={(e) => setIntake(e.target.value)}
+                  />
+                  <button
+                    onClick={() => {
+                      handleIntake(intake);
+                    }}
+                  >
+                    ✔️
+                  </button>
+                  <button onClick={() => setIntake("")}>✖️</button>
+                  <button
+                    onClick={() => {
+                      getIntakes(patientProfile.id)
+                        .then(setIntakeList)
+                        .then(() => toggle(setModalIntake, modalIntake));
+                    }}
+                  >
+                    Detailed View
+                  </button>
                 </div>
                 <div>icon</div>
               </div>
@@ -247,13 +324,33 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
               {" "}
               <div>
                 <Label htmlFor="total Output">Total Output(24hr)</Label>
-                <p name="total Output">{patientProfile.totalOutput}</p>
+                <p name="total Output">{patientProfile.totalOutput} mL</p>
               </div>
               <div>
                 <div className="hidden">
-                  <input type="text" />
-                  <button>✔️</button>
-                  <button>✖️</button>
+                  <input
+                    type="number"
+                    value={output}
+                    placeholder="0 mL"
+                    onChange={(e) => setOutput(e.target.value)}
+                  />
+                  <button
+                    onClick={() => {
+                      handleOutput(output);
+                    }}
+                  >
+                    ✔️
+                  </button>
+                  <button onClick={() => setOutput("")}>✖️</button>
+                  <button
+                    onClick={() => {
+                      getOutputs(patientProfile.id)
+                        .then(setOutputList)
+                        .then(() => toggle(setModalOutput, modalOutput));
+                    }}
+                  >
+                    Detailed View
+                  </button>
                 </div>
                 <div>icon</div>
               </div>
@@ -271,9 +368,8 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
                 Update
               </Button>
             </div>
-
             <div className="inner--container">
-              <h2 htmlFor="tele">Tele</h2>
+              <h2 htmlFor="tele">Telemetry</h2>
               <br />❌
               <input
                 type="range"
@@ -300,6 +396,95 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
           </Col>
         </Row>
       </div>
+      <Modal
+        isOpen={modalIntake}
+        toggle={() => toggle(setModalIntake, modalIntake)}
+      >
+        <ModalHeader toggle={() => toggle(setModalIntake, modalIntake)}>
+          Details!
+        </ModalHeader>
+        <ModalBody>
+          {intakeList ? (
+            <Table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {intakeList.map((i) => (
+                  <tr key={`intake--${i.id}`}>
+                    <td>{formatDate(i.timeRecorded)}</td>
+                    <td>{formatTime(i.timeRecorded)}</td>
+                    <td>{i.intakeAmount} mL</td>
+                    <td>
+                      {i.providerId === userId ? (
+                        <Button
+                          color="danger"
+                          onClick={() => handleIntakeDelete(i.id)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <></>
+          )}
+        </ModalBody>
+      </Modal>
+      <Modal
+        isOpen={modalOutput}
+        toggle={() => toggle(setModalOutput, modalOutput)}
+      >
+        <ModalHeader toggle={() => toggle(setModalOutput, modalOutput)}>
+          Details!
+        </ModalHeader>
+        <ModalBody>
+          {outputList ? (
+            <Table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Time</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                {outputList.map((o) => (
+                  <tr key={`output--${o.id}`}>
+                    <td>{formatDate(o.timeRecorded)}</td>
+                    <td>{formatTime(o.timeRecorded)}</td>
+                    <td>{o.outputAmount} mL</td>
+                    <td>
+                      {o.providerId === userId ? (
+                        <Button
+                          color="danger"
+                          onClick={() => handleOutputDelete(o.id)}
+                        >
+                          x
+                        </Button>
+                      ) : (
+                        <></>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          ) : (
+            <></>
+          )}
+        </ModalBody>
+      </Modal>
+
       <Modal
         isOpen={modalRemoveContact}
         toggle={() => toggle(setModalRemoveContact, modalRemoveContact)}
@@ -379,6 +564,7 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
           </Button>
         </ModalFooter>
       </Modal>
+
       <Modal
         isOpen={modalRemoveTele}
         toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
@@ -405,6 +591,7 @@ export const PatientProfileCard = ({ patientProfile, refreshProfile }) => {
           </Button>
         </ModalFooter>
       </Modal>
+
       <Modal
         isOpen={modalNewTele}
         toggle={() => toggle(setModalNewTele, modalNewTele)}

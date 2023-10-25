@@ -106,36 +106,6 @@ namespace ADLTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Intakes",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PatientProfileId = table.Column<int>(type: "integer", nullable: false),
-                    IntakeAmount = table.Column<int>(type: "integer", nullable: false),
-                    TimeRecorded = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Intakes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Outputs",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    PatientProfileId = table.Column<int>(type: "integer", nullable: false),
-                    OutputAmount = table.Column<int>(type: "integer", nullable: false),
-                    TimeRecorded = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Outputs", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -335,6 +305,50 @@ namespace ADLTracker.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Intakes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PatientProfileId = table.Column<int>(type: "integer", nullable: false),
+                    ProviderId = table.Column<int>(type: "integer", nullable: false),
+                    IntakeAmount = table.Column<int>(type: "integer", nullable: false),
+                    TimeRecorded = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Intakes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Intakes_PatientProfiles_PatientProfileId",
+                        column: x => x.PatientProfileId,
+                        principalTable: "PatientProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Outputs",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    PatientProfileId = table.Column<int>(type: "integer", nullable: false),
+                    ProviderId = table.Column<int>(type: "integer", nullable: false),
+                    OutputAmount = table.Column<int>(type: "integer", nullable: false),
+                    TimeRecorded = table.Column<DateTime>(type: "timestamp without time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Outputs", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Outputs_PatientProfiles_PatientProfileId",
+                        column: x => x.PatientProfileId,
+                        principalTable: "PatientProfiles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "PatientProviders",
                 columns: table => new
                 {
@@ -370,10 +384,10 @@ namespace ADLTracker.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "43671f06-a657-4509-b45f-c51569a38dd1", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECHWnz4cKGKK+GuuI7JqGwDV8PKJ/34xyQMsx8F79ruPzhrMOGfr/J4hrDwlJMp5Og==", null, false, "a575bf52-765d-4d00-a4ba-6b07c656c410", false, null },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "e89e8e73-c269-4d40-a9fa-e01d77624d31", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAELpsF8gc5Jbpi9aEwpTbhxGIlZF+6ciiJSUuEZSSaNH+vda23tDc83n42dIPts6DWA==", null, false, "5aab90e2-7acb-4adb-b212-18093e5cab38", false, null },
-                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "cf0871d2-b996-40d0-9ede-4cc73730db7b", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAECsosffprb5cqXaaG8VIoKofHj/hsKnK8+PyMGB91Uy2AsXd1IWA87nc5iKjXxVYDw==", null, false, "ee7b0b28-a410-4c82-8e7f-4f28cf0fc802", false, null },
-                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "e8cf6a5c-eef1-43dc-a188-e2f6247db1d9", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDMLHtUiTCG1bGBMhTGBBnPk6RRN8XyZSKeUhi33eVqbgb9ifdIb6oBQxmqtK3YCHg==", null, false, "6d477359-e1f8-47b2-bc16-fa3bb10c39f0", false, null }
+                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "c655df25-ddc2-4226-890e-c86540b0cd10", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEGv209D1fCRV6XA8bGcLAceFrsrwLHxP9SzXdFXPBFjTY4KxLGxLyEXrwRoLMPVjzA==", null, false, "b48c6d5d-a5c2-437f-91df-d810eabb4f8d", false, null },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "6503941b-a29b-4da9-be98-d32dd3c47f0d", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEG3NtlfGQlen4H5crrfvluIJA9zP0bu0zJnxKfeXITVa8TSG+VJ0emuN0ZXEgvcWMA==", null, false, "0a2bd277-8dd9-41a3-874c-44da3c33f432", false, null },
+                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "e585e33a-7107-46aa-aa62-cf40f5e40164", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEEP75Cl0UrYoIG/UwD0GtM2XPKhDW3PwkH6ro5WAseyQJgdGDhGajP+6i3v34XL15Q==", null, false, "0d88c357-c317-4d3d-9203-b48b2147ece2", false, null },
+                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "340967ca-19bb-4101-b4f7-de2d6b990a6d", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEFF+1Bvzqtc5lN7lcXOQ/2jZUE+/DlQvmZn8ZEtx2/bFqDFTdygqRdxP7/tMCRzIWw==", null, false, "0613b255-c979-413b-ad55-da4d69f5dc5c", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -415,28 +429,6 @@ namespace ADLTracker.Migrations
                 {
                     { 1, "M", "Male" },
                     { 2, "F", "Female" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Intakes",
-                columns: new[] { "Id", "IntakeAmount", "PatientProfileId", "TimeRecorded" },
-                values: new object[,]
-                {
-                    { 1, 240, 1, new DateTime(2023, 10, 16, 5, 8, 49, 0, DateTimeKind.Unspecified) },
-                    { 2, 500, 2, new DateTime(2023, 10, 15, 3, 25, 37, 0, DateTimeKind.Unspecified) },
-                    { 3, 350, 3, new DateTime(2023, 10, 16, 9, 19, 9, 0, DateTimeKind.Unspecified) },
-                    { 4, 125, 4, new DateTime(2023, 10, 16, 20, 26, 47, 0, DateTimeKind.Unspecified) }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Outputs",
-                columns: new[] { "Id", "OutputAmount", "PatientProfileId", "TimeRecorded" },
-                values: new object[,]
-                {
-                    { 1, 50, 1, new DateTime(2023, 10, 16, 5, 8, 49, 0, DateTimeKind.Unspecified) },
-                    { 2, 64, 2, new DateTime(2023, 10, 15, 3, 25, 37, 0, DateTimeKind.Unspecified) },
-                    { 3, 51, 3, new DateTime(2023, 10, 16, 9, 19, 9, 0, DateTimeKind.Unspecified) },
-                    { 4, 64, 4, new DateTime(2023, 10, 16, 20, 26, 47, 0, DateTimeKind.Unspecified) }
                 });
 
             migrationBuilder.InsertData(
@@ -500,6 +492,28 @@ namespace ADLTracker.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Intakes",
+                columns: new[] { "Id", "IntakeAmount", "PatientProfileId", "ProviderId", "TimeRecorded" },
+                values: new object[,]
+                {
+                    { 1, 240, 1, 1, new DateTime(2023, 10, 16, 5, 8, 49, 0, DateTimeKind.Unspecified) },
+                    { 2, 500, 1, 2, new DateTime(2023, 10, 15, 3, 25, 37, 0, DateTimeKind.Unspecified) },
+                    { 3, 350, 3, 1, new DateTime(2023, 10, 16, 9, 19, 9, 0, DateTimeKind.Unspecified) },
+                    { 4, 125, 4, 1, new DateTime(2023, 10, 16, 20, 26, 47, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Outputs",
+                columns: new[] { "Id", "OutputAmount", "PatientProfileId", "ProviderId", "TimeRecorded" },
+                values: new object[,]
+                {
+                    { 1, 50, 1, 1, new DateTime(2023, 10, 16, 5, 8, 49, 0, DateTimeKind.Unspecified) },
+                    { 2, 64, 2, 2, new DateTime(2023, 10, 15, 3, 25, 37, 0, DateTimeKind.Unspecified) },
+                    { 3, 51, 3, 3, new DateTime(2023, 10, 16, 9, 19, 9, 0, DateTimeKind.Unspecified) },
+                    { 4, 64, 4, 2, new DateTime(2023, 10, 16, 20, 26, 47, 0, DateTimeKind.Unspecified) }
+                });
+
+            migrationBuilder.InsertData(
                 table: "PatientProviders",
                 columns: new[] { "Id", "PatientProfileId", "ProviderId" },
                 values: new object[,]
@@ -547,6 +561,16 @@ namespace ADLTracker.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Intakes_PatientProfileId",
+                table: "Intakes",
+                column: "PatientProfileId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Outputs_PatientProfileId",
+                table: "Outputs",
+                column: "PatientProfileId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PatientProfiles_AssistTypeId",
