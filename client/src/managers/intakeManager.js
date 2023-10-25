@@ -1,7 +1,7 @@
 const _apiUrl = "/api/intake";
 
-export const getIntakes = () => {
-  return fetch(_apiUrl).then((res) => res.json());
+export const getIntakes = (ppId) => {
+  return fetch(`${_apiUrl}/${ppId}`).then((res) => res.json());
 };
 
 export const AddIntake = (obj) => {
@@ -10,4 +10,10 @@ export const AddIntake = (obj) => {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(obj),
   }).then((res) => res.json());
+};
+
+export const DeleteIntake = async (id) => {
+  return await fetch(`${_apiUrl}/${id}`, {
+    method: "DELETE",
+  });
 };

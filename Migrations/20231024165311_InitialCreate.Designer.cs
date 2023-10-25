@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ADLTracker.Migrations
 {
     [DbContext(typeof(ADLTrackerDbContext))]
-    [Migration("20231019162424_InitialCreate")]
+    [Migration("20231024165311_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,10 +206,15 @@ namespace ADLTracker.Migrations
                     b.Property<int>("PatientProfileId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("TimeRecorded")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientProfileId");
 
                     b.ToTable("Intakes");
 
@@ -219,13 +224,15 @@ namespace ADLTracker.Migrations
                             Id = 1,
                             IntakeAmount = 240,
                             PatientProfileId = 1,
+                            ProviderId = 1,
                             TimeRecorded = new DateTime(2023, 10, 16, 5, 8, 49, 0, DateTimeKind.Unspecified)
                         },
                         new
                         {
                             Id = 2,
                             IntakeAmount = 500,
-                            PatientProfileId = 2,
+                            PatientProfileId = 1,
+                            ProviderId = 2,
                             TimeRecorded = new DateTime(2023, 10, 15, 3, 25, 37, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -233,6 +240,7 @@ namespace ADLTracker.Migrations
                             Id = 3,
                             IntakeAmount = 350,
                             PatientProfileId = 3,
+                            ProviderId = 1,
                             TimeRecorded = new DateTime(2023, 10, 16, 9, 19, 9, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -240,6 +248,7 @@ namespace ADLTracker.Migrations
                             Id = 4,
                             IntakeAmount = 125,
                             PatientProfileId = 4,
+                            ProviderId = 1,
                             TimeRecorded = new DateTime(2023, 10, 16, 20, 26, 47, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -258,10 +267,15 @@ namespace ADLTracker.Migrations
                     b.Property<int>("PatientProfileId")
                         .HasColumnType("integer");
 
+                    b.Property<int>("ProviderId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("TimeRecorded")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("PatientProfileId");
 
                     b.ToTable("Outputs");
 
@@ -271,6 +285,7 @@ namespace ADLTracker.Migrations
                             Id = 1,
                             OutputAmount = 50,
                             PatientProfileId = 1,
+                            ProviderId = 1,
                             TimeRecorded = new DateTime(2023, 10, 16, 5, 8, 49, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -278,6 +293,7 @@ namespace ADLTracker.Migrations
                             Id = 2,
                             OutputAmount = 64,
                             PatientProfileId = 2,
+                            ProviderId = 2,
                             TimeRecorded = new DateTime(2023, 10, 15, 3, 25, 37, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -285,6 +301,7 @@ namespace ADLTracker.Migrations
                             Id = 3,
                             OutputAmount = 51,
                             PatientProfileId = 3,
+                            ProviderId = 3,
                             TimeRecorded = new DateTime(2023, 10, 16, 9, 19, 9, 0, DateTimeKind.Unspecified)
                         },
                         new
@@ -292,6 +309,7 @@ namespace ADLTracker.Migrations
                             Id = 4,
                             OutputAmount = 64,
                             PatientProfileId = 4,
+                            ProviderId = 2,
                             TimeRecorded = new DateTime(2023, 10, 16, 20, 26, 47, 0, DateTimeKind.Unspecified)
                         });
                 });
@@ -1014,52 +1032,52 @@ namespace ADLTracker.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e89e8e73-c269-4d40-a9fa-e01d77624d31",
+                            ConcurrencyStamp = "6503941b-a29b-4da9-be98-d32dd3c47f0d",
                             Email = "good@nurse.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAELpsF8gc5Jbpi9aEwpTbhxGIlZF+6ciiJSUuEZSSaNH+vda23tDc83n42dIPts6DWA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEG3NtlfGQlen4H5crrfvluIJA9zP0bu0zJnxKfeXITVa8TSG+VJ0emuN0ZXEgvcWMA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "5aab90e2-7acb-4adb-b212-18093e5cab38",
+                            SecurityStamp = "0a2bd277-8dd9-41a3-874c-44da3c33f432",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "f575a7b0-384c-4c94-abe1-945ec9d041a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e8cf6a5c-eef1-43dc-a188-e2f6247db1d9",
+                            ConcurrencyStamp = "340967ca-19bb-4101-b4f7-de2d6b990a6d",
                             Email = "good@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEDMLHtUiTCG1bGBMhTGBBnPk6RRN8XyZSKeUhi33eVqbgb9ifdIb6oBQxmqtK3YCHg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFF+1Bvzqtc5lN7lcXOQ/2jZUE+/DlQvmZn8ZEtx2/bFqDFTdygqRdxP7/tMCRzIWw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d477359-e1f8-47b2-bc16-fa3bb10c39f0",
+                            SecurityStamp = "0613b255-c979-413b-ad55-da4d69f5dc5c",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cf0871d2-b996-40d0-9ede-4cc73730db7b",
+                            ConcurrencyStamp = "e585e33a-7107-46aa-aa62-cf40f5e40164",
                             Email = "mid@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAECsosffprb5cqXaaG8VIoKofHj/hsKnK8+PyMGB91Uy2AsXd1IWA87nc5iKjXxVYDw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEEP75Cl0UrYoIG/UwD0GtM2XPKhDW3PwkH6ro5WAseyQJgdGDhGajP+6i3v34XL15Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "ee7b0b28-a410-4c82-8e7f-4f28cf0fc802",
+                            SecurityStamp = "0d88c357-c317-4d3d-9203-b48b2147ece2",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "555401a5-2862-4e4c-89db-b462bc2d2e1c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "43671f06-a657-4509-b45f-c51569a38dd1",
+                            ConcurrencyStamp = "c655df25-ddc2-4226-890e-c86540b0cd10",
                             Email = "bad@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAECHWnz4cKGKK+GuuI7JqGwDV8PKJ/34xyQMsx8F79ruPzhrMOGfr/J4hrDwlJMp5Og==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEGv209D1fCRV6XA8bGcLAceFrsrwLHxP9SzXdFXPBFjTY4KxLGxLyEXrwRoLMPVjzA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "a575bf52-765d-4d00-a4ba-6b07c656c410",
+                            SecurityStamp = "b48c6d5d-a5c2-437f-91df-d810eabb4f8d",
                             TwoFactorEnabled = false
                         });
                 });
@@ -1150,6 +1168,24 @@ namespace ADLTracker.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens", (string)null);
+                });
+
+            modelBuilder.Entity("ADLTracker.Models.Intake", b =>
+                {
+                    b.HasOne("ADLTracker.Models.PatientProfile", null)
+                        .WithMany("Intakes")
+                        .HasForeignKey("PatientProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ADLTracker.Models.Output", b =>
+                {
+                    b.HasOne("ADLTracker.Models.PatientProfile", null)
+                        .WithMany("Outputs")
+                        .HasForeignKey("PatientProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("ADLTracker.Models.Patient", b =>
@@ -1277,6 +1313,13 @@ namespace ADLTracker.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("ADLTracker.Models.PatientProfile", b =>
+                {
+                    b.Navigation("Intakes");
+
+                    b.Navigation("Outputs");
                 });
 #pragma warning restore 612, 618
         }

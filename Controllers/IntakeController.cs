@@ -15,11 +15,13 @@ public class IntakeController : ControllerBase
         _dbContext = dbContext;
     }
 
-    [HttpGet]
+    [HttpGet("{ppId}")]
     [Authorize]
-    public IActionResult GetIntakes()
+    public IActionResult Get24HrPatientIntakes(int ppId)
     {
-        List<Intake> intakes = _dbContext.Intakes.ToList();
+        DateTime now = DateTime.Now;
+        DateTime cutOffTime = now.Subtract(new TimeSpan(24, 0, 0));
+        List<Intake> intakes = _dbContext.Intakes.Where(i => i.PatientProfileId == ppId && i.TimeRecorded > cutOffTime).ToList();
         return Ok(intakes);
     }
 
@@ -30,11 +32,24 @@ public class IntakeController : ControllerBase
         Intake newIntake = new Intake()
         {
             PatientProfileId = obj.PatientProfileId,
+            ProviderId = obj.ProviderId,
             IntakeAmount = obj.IntakeAmount,
             TimeRecorded = DateTime.Now
         };
         _dbContext.Intakes.Add(newIntake);
         _dbContext.SaveChanges();
         return Created($"/api/intake/{newIntake.Id}", newIntake);
+    }
+
+    [HttpDelete("{id}")]
+    [Authorize]
+    public IActionResult DeleteIntake(int id)
+    {
+        Intake found = _dbContext.Intakes.SingleOrDefault(i => i.Id == id);
+        if (found == null)
+        { return NotFound(); }
+        _dbContext.Intakes.Remove(found);
+        _dbContext.SaveChanges();
+        return NoContent();
     }
 }

@@ -29,7 +29,10 @@ function App() {
           index
           element={
             <AuthorizedRoute loggedInUser={loggedInUser}>
-              <Workspace userId={loggedInUser?.id} />
+              <Workspace
+                user={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
+              />
             </AuthorizedRoute>
           }
         />

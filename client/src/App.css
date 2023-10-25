@@ -43,11 +43,11 @@
   height: 100dvh;
 }
 .container--patients{
-  border: 1px solid red;
+  /* border: 1px solid red; */
   width: 40vw;
 }
 .container--patientProfiles{
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   width: 60vw;
   position: relative;
   overflow:hidden;
@@ -139,9 +139,9 @@
 
 .defineShape{
   position: absolute;
-  left: 15%;
+  left: 12.5%;
   top: 12%;
-  width: 70%;
+  width: 75%;
   margin: 0, auto;
   height: 88vh;
   box-shadow: .5em 0em 8px rgba(0, 0, 0, 0.3);

@@ -7,8 +7,9 @@ import {
   getPatientById,
   getPatientProfileList,
 } from "../managers/patientProfileManager.js";
+import { UserNav } from "./UserNav.js";
 
-export const Workspace = ({ userId }) => {
+export const Workspace = ({ user, setLoggedInUser }) => {
   const [patientProvider, setPatientProvider] = useState([]);
   const [assignedPatients, setAssignedPatients] = useState();
   const [patientProfile, setPatientProfile] = useState();
@@ -36,7 +37,7 @@ export const Workspace = ({ userId }) => {
 
   function userPatients() {
     const userFilter = patientProvider?.filter(
-      (pp) => pp.providerId === userId
+      (pp) => pp.providerId === user.id
     );
     setAssignedPatients(userFilter);
   }
@@ -53,11 +54,13 @@ export const Workspace = ({ userId }) => {
           setPatientProfile={setPatientProfile}
           assignedPatients={assignedPatients}
           setPatientProvider={setPatientProvider}
-          userId={userId}
+          userId={user.id}
         />
       </div>
       <div className="container--patientProfiles center">
+        <UserNav user={user} setLoggedInUser={setLoggedInUser} />
         <PatientProfileCard
+          userId={user.id}
           patientProfile={patientProfile}
           refreshProfile={refreshProfile}
         />

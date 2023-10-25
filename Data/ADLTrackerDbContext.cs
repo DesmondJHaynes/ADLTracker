@@ -594,13 +594,15 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
            {
               Id = 1,
               PatientProfileId = 1,
+              ProviderId = 1,
               IntakeAmount = 240,
               TimeRecorded = new DateTime(2023,10,16,05,08,49)
             },
             new Intake
             {
               Id = 2,
-              PatientProfileId = 2,
+              PatientProfileId = 1,
+              ProviderId = 2,
               IntakeAmount = 500,
               TimeRecorded = new DateTime(2023,10,15,03,25,37)
             },
@@ -608,6 +610,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             {
               Id = 3,
               PatientProfileId = 3,
+              ProviderId = 1,
               IntakeAmount = 350,
               TimeRecorded = new DateTime(2023,10,16,09,19,09)
             },
@@ -615,6 +618,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             {
               Id = 4,
               PatientProfileId = 4,
+              ProviderId = 1,
               IntakeAmount = 125,
               TimeRecorded = new DateTime(2023,10,16,20,26,47)
             }
@@ -627,6 +631,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
            {
               Id = 1,
               PatientProfileId = 1,
+              ProviderId = 1,
               OutputAmount = 50,
               TimeRecorded = new DateTime(2023,10,16,05,08,49)
             },
@@ -634,6 +639,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             {
               Id = 2,
               PatientProfileId = 2,
+              ProviderId = 2,
               OutputAmount = 64,
               TimeRecorded = new DateTime(2023,10,15,03,25,37)
             },
@@ -641,6 +647,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             {
               Id = 3,
               PatientProfileId = 3,
+              ProviderId = 3,
               OutputAmount = 51,
               TimeRecorded = new DateTime(2023,10,16,09,19,09)
             },
@@ -648,6 +655,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             {
               Id = 4,
               PatientProfileId = 4,
+              ProviderId = 2,
               OutputAmount = 64,
               TimeRecorded = new DateTime(2023,10,16,20,26,47)
             }
