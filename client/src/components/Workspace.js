@@ -61,6 +61,7 @@ export const Workspace = ({ user, setLoggedInUser }) => {
         <UserNav user={user} setLoggedInUser={setLoggedInUser} />
         <PatientProfileCard
           userId={user.id}
+          patientProvider={patientProvider}
           patientProfile={patientProfile}
           refreshProfile={refreshProfile}
         />

@@ -36,6 +36,7 @@ export const PatientProfileCard = ({
   patientProfile,
   refreshProfile,
   userId,
+  patientProvider,
 }) => {
   const [CPList, setCPList] = useState([]);
   const [assistList, setAssistList] = useState([]);
@@ -189,6 +190,18 @@ export const PatientProfileCard = ({
                 <option name={"provider"} value={0}>
                   Assigned Providers
                 </option>
+                {patientProvider.map((pp) => {
+                  if (pp.patientProfileId === patientProfile.id) {
+                    return (
+                      <option
+                        key={`provider--${pp.providerId}`}
+                        value={pp.providerId}
+                      >
+                        {pp.provider.lastName}, {pp.provider.firstName}
+                      </option>
+                    );
+                  }
+                })}
               </select>
             </div>
             <div className="inner--container">

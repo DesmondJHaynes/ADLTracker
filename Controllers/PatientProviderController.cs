@@ -25,7 +25,7 @@ public class PatientProviderController : ControllerBase
     {
 
         List<PatientProvider> patientProviders = _dbContext
-        .PatientProviders
+        .PatientProviders.Include(pp => pp.Provider)
         .ToList();
 
         return Ok(patientProviders);
