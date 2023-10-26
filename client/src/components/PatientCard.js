@@ -55,7 +55,7 @@ export const PatientCard = ({
         <p>Dx: {patient.diagnosis}</p>
       </div>
       {patient.contactPrecaution.id !== 1 ? (
-        <div className="precaution-tag--simple flexCol">
+        <div className="precaution-tag--simple">
           <img
             class="card-icon caution"
             src="https://static.thenounproject.com/png/4564847-200.png"

@@ -152,39 +152,49 @@ export const PatientProfileCard = ({
         className={`defineShape ${toggleProfile ? "open-card" : ""}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <header>
+        <header className="ppcard--header flexRow">
           <div>
-            <h2>{patientProfile.roomNumber}</h2>
-            <h2>{patientProfile.codeStatus.type}</h2>
+            <h2>R. {patientProfile.roomNumber}</h2>
+            <h2 className="codestatus">{patientProfile.codeStatus.type}</h2>
           </div>
 
           <div className="divider"></div>
 
-          <div>
+          <div className="left">
             <h2>
               {patientProfile.patient.lastName},{" "}
               {patientProfile.patient.firstName}
             </h2>
-            <p>DOB: {formatDate(patientProfile.patient.dob)}</p>
+            <p><span className="bold">DOB:</span> {formatDate(patientProfile.patient.dob)}</p>
             <p>
-              {patientProfile.patient.age}/
-              {patientProfile.patient.gender.simple}
+            <span className="bold">{patientProfile.patient.age}/
+              {patientProfile.patient.gender.simple}</span>
             </p>
-            <p>Diagnosis: {patientProfile.diagnosis} </p>
-            <p>Admit: {formatDate(patientProfile.admissionDate)} </p>
+            <p><span className="bold">Dx:</span> {patientProfile.diagnosis} </p>
+            <p><span className="bold">Admit:</span> {formatDate(patientProfile.admissionDate)} </p>
           </div>
 
-          <div className="absolute">
+          <div>
             {patientProfile.contactPrecaution.id === 1 ? (
               <div></div>
             ) : (
-              <div className="precaution-tag--simple"></div>
+              <div className="precaution-tag--simple flexCol">
+          <img
+            class="card-icon caution"
+            src="https://static.thenounproject.com/png/4564847-200.png"
+          ></img>
+        </div>
             )}
             {patientProfile.fallRisk === true ? (
-              <div className="fall-tag--simple"></div>
+              <div className="fall-tag--simple flexCol">
+              <img
+                class="card-icon"
+                src="https://thenounproject.com/api/private/icons/4498028/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                ></img>
+            </div>
             ) : (
-              <div></div>
-            )}
+              <div className="fall-tag--holder"></div>
+              )}
           </div>
         </header>
         <Row>

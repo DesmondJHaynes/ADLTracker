@@ -3,9 +3,22 @@
 }
 .scroll{
   overflow: auto;
-  scrollbar-width: thin 
+  scrollbar-gutter: stable;
   ;
 }
+::-webkit-scrollbar{
+  width: .5em;
+}
+::-webkit-scrollbar-track{
+  opacity: 0;
+  margin-block: .5em;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #eaeaea;
+  border-radius: 100vw;
+  
+}
+
 .flexRow{
   display: flex;
   flex-direction: row;
@@ -41,19 +54,27 @@
   margin-left: -1em;
 }
 .toggle--button{
-  padding: .5em 5.5vw;
-  border-radius: 6px;
-  border: 1px rgb(167, 167, 167) solid;
-  font-weight: 800;
-  color: grey;
+  padding: .5em 4em;
+  border-radius: 50vh;
+  border: 1px #eaeaea solid;
+  font-weight: 700;
+  color: #9b9b9b;
+  background-color: #eaeaea;
 }
 .myPatients--button{
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  transition: .25s;
 }
 .allPatients--button{
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  transition: .25s;
+}
+.selected{
+  background-color: rgb(255, 255, 255);
+  color: #00aeff;
+  border: 1px solid #00aeff;
 }
 .cards--patientList{
   flex: 0 1 auto;
@@ -61,21 +82,22 @@
 .patient--card{
   background-color: #ffffff;
   border-radius: 3px;
-  border: #acacac solid 2px;
+  border: #acacac solid 1px;
   margin: .5em auto;
   width: 70%;
   min-width: 25em;
   color: #808080;
-  transition: .2s;
+  transition: .1s;
 }
 .patient--card:hover{
-  border: #00aeff solid 2px;
+  border: #00aeff solid 1px;
+  box-shadow: 0 0 .2em rgba(0, 174, 255, .5) ;
   cursor: pointer;
   color: black;
 }
 
 .assigned-pt{
-  border: rgb(53, 53, 53) solid 2px;
+  border: rgb(53, 53, 53) solid 1px;
   color: rgb(48, 48, 48);
 }
 .patient--card div:nth-of-type(1){
@@ -96,9 +118,6 @@
   height: 5em;
   width: 5em;
 }
-.card-assigner:hover{
-  background: lightblue;
-}
 
 .card-assigner button{
   color:grey;
@@ -107,7 +126,6 @@
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: white;
   border: none;
-  /* border-radius: 50%; */
   width: 100%;
   height: 100%;
   transition: .25s
@@ -118,18 +136,15 @@
 .add-pt:hover{
   background: lightgreen;
 }
-
-.selected{
-  background-color: rgb(255, 255, 255);
-  color: #00aeff;
-  border: 1px solid #00aeff;
-  box-shadow: 0cap 0 2px #00aeff;  
-}
 .precaution-tag--simple{
+  display: flex;
+  justify-content: center;
   background-color: orange;
   padding: 0 .2em;
 }
 .fall-tag--simple{
+  display: flex;
+  justify-content: center;
   background-color: yellow;
   padding: 0 .1em;
 }
@@ -146,7 +161,9 @@
 .caution {
   width: 25px;
 }
-
+.bold{
+  font-weight: 500;
+}
 
 
 
@@ -162,19 +179,18 @@
 
 .defineShape{
   position: absolute;
-  left: 12.5%;
+  left: 10%;
   top: 100%;
-  width: 75%;
+  padding: 1em;
+  width: 80%;
   margin: 0, auto;
   height: 88vh;
-  box-shadow: .5em 0em 8px rgba(0, 0, 0, 0.3);
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
-  /* scrollbar-width: thin; */
   overflow-x: hidden;
-  border: rgb(228, 228, 228) 1px solid;
+  border: rgb(228, 228, 228) 2px solid;
   border-radius: 4px;
-  transition: 1s;
+  transition: .5s;
   opacity: 0;
 }
 
@@ -182,3 +198,64 @@
   top: 12%;
   opacity: 1;
 }
+
+.ppcard--header{
+  border: 2px #eaeaea solid;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+.ppcard--header div:nth-of-type(1){
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5em;
+  margin-left: 1em;
+}
+
+.ppcard--header div:nth-of-type(1) :nth-child(1){
+  font-size: x-large;
+  font-weight: 700;
+}
+.divider{
+  border: 1px rgb(196, 196, 196) solid;
+  height: 6em;
+  margin: auto 1em;
+}
+.ppcard--header div:nth-of-type(3){
+  margin: .25em 0 .75em 0 
+}
+.ppcard--header div:nth-of-type(3) h2{
+ font-size: x-large;
+ font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+.ppcard--header div:nth-of-type(3) p{
+  font-size: .9rem;
+  block-size: 1.2em;
+  margin: 0;
+  padding: 0;
+}
+.ppcard--header div:nth-of-type(4) {
+  /* background-color: blue; */
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:.25em;
+  width: 7em;
+}
+
+.ppcard--header div:nth-of-type(4) div {
+  width: 100%;
+  height: 2em;
+  margin: 0;
+}
+.codestatus{
+  background-color: tomato;
+  color: white;
+  font-weight: 700;
+  font-size: large;
+  padding: .5em;
+}
+
