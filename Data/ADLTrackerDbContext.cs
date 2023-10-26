@@ -28,11 +28,20 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
     {
         base.OnModelCreating(modelBuilder);
 
-        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole[]
         {
-            Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
-            Name = "Nurse",
-            NormalizedName = "nurse"
+            new IdentityRole
+            {
+                Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
+                Name = "Nurse",
+                NormalizedName = "nurse"
+            },
+            new IdentityRole
+            {
+                Id = "80cf5697-c2b9-4960-a0aa-e22d959573a1",
+                Name = "Tech",
+                NormalizedName = "tech"
+            },
         });
 
         modelBuilder.Entity<IdentityUser>().HasData(new IdentityUser[]
@@ -63,10 +72,30 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
         },
         });
 
-        modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>
+        modelBuilder.Entity<IdentityUserRole<string>>().HasData(new IdentityUserRole<string>[]
+        {
+            new IdentityUserRole<string>
         {
             RoleId = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
             UserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f"
+        },
+            new IdentityUserRole<string>
+        {
+            RoleId = "80cf5697-c2b9-4960-a0aa-e22d959573a1",
+            UserId = "f575a7b0-384c-4c94-abe1-945ec9d041a0"
+        },
+            new IdentityUserRole<string>
+        {
+            RoleId = "80cf5697-c2b9-4960-a0aa-e22d959573a1",
+            UserId = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060"
+        },
+            new IdentityUserRole<string>
+        {
+            RoleId = "80cf5697-c2b9-4960-a0aa-e22d959573a1",
+            UserId = "555401a5-2862-4e4c-89db-b462bc2d2e1c"
+        },
+
+
         });
 
         modelBuilder.Entity<Provider>().HasData(new Provider[]

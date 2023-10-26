@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ADLTracker.Migrations
 {
     [DbContext(typeof(ADLTrackerDbContext))]
-    [Migration("20231024165311_InitialCreate")]
+    [Migration("20231025150120_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -936,6 +936,12 @@ namespace ADLTracker.Migrations
                             Id = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35",
                             Name = "Nurse",
                             NormalizedName = "nurse"
+                        },
+                        new
+                        {
+                            Id = "80cf5697-c2b9-4960-a0aa-e22d959573a1",
+                            Name = "Tech",
+                            NormalizedName = "tech"
                         });
                 });
 
@@ -1032,52 +1038,52 @@ namespace ADLTracker.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "6503941b-a29b-4da9-be98-d32dd3c47f0d",
+                            ConcurrencyStamp = "82ba62ea-31bd-49d3-8eb9-d7817000cd9c",
                             Email = "good@nurse.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEG3NtlfGQlen4H5crrfvluIJA9zP0bu0zJnxKfeXITVa8TSG+VJ0emuN0ZXEgvcWMA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEFPGLnpVTfQT11lhbZzm3HCpxTvXh2NiIlccAWXhWT76XLbxI6S9EWBYfmXdMnsvRg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0a2bd277-8dd9-41a3-874c-44da3c33f432",
+                            SecurityStamp = "0bdc5205-8a2c-4bae-9d7e-1e086c5e88bf",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "f575a7b0-384c-4c94-abe1-945ec9d041a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "340967ca-19bb-4101-b4f7-de2d6b990a6d",
+                            ConcurrencyStamp = "d20aa2ce-192b-4a19-b62d-330403fdefe9",
                             Email = "good@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEFF+1Bvzqtc5lN7lcXOQ/2jZUE+/DlQvmZn8ZEtx2/bFqDFTdygqRdxP7/tMCRzIWw==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIlG3dHybQkNUkZt+pvb78AHCCeEJ9xZ58VEEh2eHRFWtgaqMQDr6987oOmf08lT8Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0613b255-c979-413b-ad55-da4d69f5dc5c",
+                            SecurityStamp = "8d565dc4-6ca0-49dd-8f7c-6262947829e8",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "e585e33a-7107-46aa-aa62-cf40f5e40164",
+                            ConcurrencyStamp = "0052fbfb-bd11-482e-98a6-65649d058c9f",
                             Email = "mid@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEEP75Cl0UrYoIG/UwD0GtM2XPKhDW3PwkH6ro5WAseyQJgdGDhGajP+6i3v34XL15Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAENTLcn8U6MsZobPludErFb6+RFP5tFKUJKqxnD9WoEKkQfOU+rc/GruS5HQzr2GvcA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0d88c357-c317-4d3d-9203-b48b2147ece2",
+                            SecurityStamp = "6d566ca0-2c4a-430c-a96f-0cc2f6f1998e",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "555401a5-2862-4e4c-89db-b462bc2d2e1c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "c655df25-ddc2-4226-890e-c86540b0cd10",
+                            ConcurrencyStamp = "db2bc654-7d9f-4cb4-9223-8b42c350e020",
                             Email = "bad@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEGv209D1fCRV6XA8bGcLAceFrsrwLHxP9SzXdFXPBFjTY4KxLGxLyEXrwRoLMPVjzA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJBzWqiq40e1aoyqKSqaWBNTO5450/gwuBLg8iGX7C0tY4CPPpaZ9g6suvSCTiT6tA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b48c6d5d-a5c2-437f-91df-d810eabb4f8d",
+                            SecurityStamp = "4be12017-f95a-44dd-abb7-47c7a2078de3",
                             TwoFactorEnabled = false
                         });
                 });
@@ -1148,6 +1154,21 @@ namespace ADLTracker.Migrations
                         {
                             UserId = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             RoleId = "c3aaeb97-d2ba-4a53-a521-4eea61e59b35"
+                        },
+                        new
+                        {
+                            UserId = "f575a7b0-384c-4c94-abe1-945ec9d041a0",
+                            RoleId = "80cf5697-c2b9-4960-a0aa-e22d959573a1"
+                        },
+                        new
+                        {
+                            UserId = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060",
+                            RoleId = "80cf5697-c2b9-4960-a0aa-e22d959573a1"
+                        },
+                        new
+                        {
+                            UserId = "555401a5-2862-4e4c-89db-b462bc2d2e1c",
+                            RoleId = "80cf5697-c2b9-4960-a0aa-e22d959573a1"
                         });
                 });
 
