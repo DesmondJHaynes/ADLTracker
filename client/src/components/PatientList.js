@@ -7,6 +7,8 @@ export const PatientList = ({
   assignedPatients,
   setPatientProvider,
   patientList,
+  setToggleProfile,
+  toggleProfile,
   userId,
 }) => {
   const [filteredList, setFilteredList] = useState();
@@ -44,7 +46,12 @@ export const PatientList = ({
 
   return (
     <>
-      <div className="toggle--patientList">
+      <div
+        className="toggle--patientList"
+        onClick={(e) => {
+          e.stopPropagation();
+        }}
+      >
         {acitveToggle ? (
           <>
             <button
@@ -87,6 +94,8 @@ export const PatientList = ({
           {patientList?.map((p) => (
             <div key={p.id}>
               <PatientCard
+                setToggleProfile={setToggleProfile}
+                toggleProfile={toggleProfile}
                 patient={p}
                 setPatientProfile={setPatientProfile}
                 assignedPatients={assignedPatients}
@@ -98,17 +107,23 @@ export const PatientList = ({
         </div>
       ) : (
         <div className="cards--patientList scroll">
-          {filteredList?.map((p) => (
-            <div key={p.id}>
-              <PatientCard
-                patient={p}
-                setPatientProfile={setPatientProfile}
-                assignedPatients={assignedPatients}
-                setPatientProvider={setPatientProvider}
-                userId={userId}
-              />
-            </div>
-          ))}
+          {filteredList.length === 0 ? (
+            <div>No patients assigned to you at this time.</div>
+          ) : (
+            filteredList?.map((p) => (
+              <div key={p.id}>
+                <PatientCard
+                  setToggleProfile={setToggleProfile}
+                  toggleProfile={toggleProfile}
+                  patient={p}
+                  setPatientProfile={setPatientProfile}
+                  assignedPatients={assignedPatients}
+                  setPatientProvider={setPatientProvider}
+                  userId={userId}
+                />
+              </div>
+            ))
+          )}
         </div>
       )}
     </>

@@ -15,6 +15,7 @@ export const Workspace = ({ user, setLoggedInUser }) => {
   const [patientProfile, setPatientProfile] = useState();
   const [patientList, setPatientList] = useState();
   const [indicatorChange, setIndicatorChange] = useState(false);
+  const [toggleProfile, setToggleProfile] = useState(false);
 
   useEffect(() => {
     getPatientProviders().then(setPatientProvider);
@@ -48,19 +49,32 @@ export const Workspace = ({ user, setLoggedInUser }) => {
 
   return (
     <div className="App-container">
-      <div className="container--patients flexCol center">
+      <div
+        className="container--patients flexCol center"
+        onClick={(e) => {
+          setToggleProfile(false);
+        }}
+      >
         <PatientList
           patientList={patientList}
+          setToggleProfile={setToggleProfile}
+          toggleProfile={toggleProfile}
           setPatientProfile={setPatientProfile}
           assignedPatients={assignedPatients}
           setPatientProvider={setPatientProvider}
           userId={user.id}
         />
       </div>
-      <div className="container--patientProfiles center">
+      <div
+        className="container--patientProfiles center"
+        onClick={(e) => {
+          setToggleProfile(false);
+        }}
+      >
         <UserNav user={user} setLoggedInUser={setLoggedInUser} />
         <PatientProfileCard
           userId={user.id}
+          toggleProfile={toggleProfile}
           patientProvider={patientProvider}
           patientProfile={patientProfile}
           refreshProfile={refreshProfile}

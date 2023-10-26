@@ -37,6 +37,7 @@ export const PatientProfileCard = ({
   refreshProfile,
   userId,
   patientProvider,
+  toggleProfile,
 }) => {
   const [CPList, setCPList] = useState([]);
   const [assistList, setAssistList] = useState([]);
@@ -147,7 +148,10 @@ export const PatientProfileCard = ({
 
   return (
     <>
-      <div className="defineShape">
+      <div
+        className={`defineShape ${toggleProfile ? "open-card" : ""}`}
+        onClick={(e) => e.stopPropagation()}
+      >
         <header>
           <div>
             <h2>{patientProfile.roomNumber}</h2>
@@ -412,6 +416,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalIntake}
         toggle={() => toggle(setModalIntake, modalIntake)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalIntake, modalIntake)}>
           Details!
@@ -456,6 +461,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalOutput}
         toggle={() => toggle(setModalOutput, modalOutput)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalOutput, modalOutput)}>
           Details!
@@ -501,6 +507,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalRemoveContact}
         toggle={() => toggle(setModalRemoveContact, modalRemoveContact)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader
           toggle={() => toggle(setModalRemoveContact, modalRemoveContact)}
@@ -536,6 +543,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalNewContact}
         toggle={() => toggle(setModalNewContact, modalNewContact)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalNewContact, modalNewContact)}>
           Place in contact precautions?
@@ -581,6 +589,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalRemoveTele}
         toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalRemoveTele, modalRemoveTele)}>
           Are You Sure?
@@ -608,6 +617,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalNewTele}
         toggle={() => toggle(setModalNewTele, modalNewTele)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalNewTele, modalNewTele)}>
           New Tele Box
@@ -639,6 +649,7 @@ export const PatientProfileCard = ({
       <Modal
         isOpen={modalAssist}
         toggle={() => toggle(setModalAssist, modalAssist)}
+        onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalAssist, modalAssist)}>
           Update Assist Level

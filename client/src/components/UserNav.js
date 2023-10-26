@@ -7,7 +7,8 @@ export const UserNav = ({ user, setLoggedInUser }) => {
       {user.roles[0]} : {user.lastName}, {user.firstName[0]}.
       <Button
         color="danger"
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           logout().then(() => {
             setLoggedInUser(null);
           });
