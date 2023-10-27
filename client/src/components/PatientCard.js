@@ -57,7 +57,7 @@ export const PatientCard = ({
       {patient.contactPrecaution.id !== 1 ? (
         <div className="precaution-tag--simple">
           <img
-            class="card-icon caution"
+            className="card-icon caution"
             src="https://static.thenounproject.com/png/4564847-200.png"
           ></img>
         </div>
@@ -67,7 +67,7 @@ export const PatientCard = ({
       {patient.fallRisk === true ? (
         <div className="fall-tag--simple flexCol">
           <img
-            class="card-icon"
+            className="card-icon"
             src="https://thenounproject.com/api/private/icons/4498028/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
           ></img>
         </div>
