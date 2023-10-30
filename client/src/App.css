@@ -235,7 +235,120 @@ LastWeight
   width: 1em;
   height: 1em;
 }
+.assist h3{
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-block: .2em;
+  border-radius: 3px;
+}
+.fall-risk{
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-block: .2em;
+  border-radius: 3px;
+  background-color: yellow ;
+}
+.assist div{
+  /* border-block: 1px rgb(176, 176, 176) solid; */
+  font-size: large;
+  font-weight: 600;
+  margin-bottom: .5em;
+  transition: 250ms;
+  color: red;
+}
+/*
+***************************
+Contact
+***************************
+*/
+.contact h3{
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-block: .2em;
+  border-radius: 3px;
+}
+.contact-options{
+  display: grid;
+  grid-template-columns: 1em 4em auto;
+  gap: .5em;
+  margin-bottom: .5em;
+  align-items: center;
+}
+.contact-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  margin-bottom: .5em;
+}
+.contact-title{
+  font-size: large;
+  font-weight: 600;
+  transition: 250ms;
+  color: red;
+}
 
+.precaution {
+  background-color: orange;
+}
+/*
+***************************
+Telemetry
+***************************
+*/
+.telemetry, .contact, .assist, .last-weight, .assigned-providers {
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  padding: .6em;
+  margin-bottom: .3em;
+  border: 1px solid rgb(184, 184, 184);
+  justify-content: center;
+}
+.telemetry--main{
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+.telemetry--main p{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  padding-left: .25em;
+}
+.teleSlider{
+  display: flex;
+  align-items: center;
+}
+.teleSlider input {
+  width: 3em;
+}
+.teleImage, .teleImage-x{
+  height: 1.5em;
+  margin-inline: .25em;
+}
+.teleImage-x{
+  height: 1em;
+  opacity: .3;
+}
+.teleImage-x:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.teleImage:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.noTele{
+  opacity: .6;
+}
+.telemetry--box-number{
+  display: flex;
+  justify-content: right;
+  padding-right: .25em;
+  font-weight: 600;
+  font-size: 1.1em;
+}
 
 /*
 ***************************
@@ -266,15 +379,12 @@ Shared
 .update-card-button > img{
   height: 1em;
 }
-.inner--container, .assigned-providers, .last-weight{
-  background-color: #ffffff;
-  border: 2px solid #b8dfff;
-  border-radius: 3px;
-  min-width: 70%; 
-  margin: 0 auto;
-  margin-bottom: .3em;
+.info-image{
+  height: 1em;;
 }
-
+.info-image:hover{
+  cursor: pointer;
+}
 /*
 ***************************
 Accordian

@@ -37,6 +37,9 @@ import { LastBath } from "./LastBath.js";
 import { LastBM } from "./LastBM.js";
 import { TotalIntake } from "./TotalIntake.js";
 import { TotalOutput } from "./TotalOutput.js";
+import { Telemetry } from "./Telemetry.js";
+import { Assist } from "./Assist.js"
+import { ContactStatus } from "./ContactStatus.js";
 
 export const PatientProfileCard = ({
   patientProfile,
@@ -56,7 +59,9 @@ export const PatientProfileCard = ({
   const [intakeList, setIntakeList] = useState("");
   const [output, setOutput] = useState("");
   const [outputList, setOutputList] = useState("");
+  const [info, setInfo] = useState();
 
+  const [modalInfo, setModalInfo] = useState(false);
   const [modalIntake, setModalIntake] = useState(false);
   const [modalOutput, setModalOutput] = useState(false);
   const [modalRemoveTele, setModalRemoveTele] = useState(false);
@@ -213,9 +218,10 @@ export const PatientProfileCard = ({
             <TotalOutput patientProfile={patientProfile} output={output} setOutput={setOutput} handleOutput={handleOutput} getOutputs={getOutputs} setOutputList={setOutputList} ModalOutput={modalOutput} setModalOutput={setModalOutput} toggle={toggle} />
           </Col>
           <Col>
-            <div className="inner--container">
-              <h3>Contact Precaution</h3>
-              <div>{patientProfile.contactPrecaution.type}</div>
+            {/* <div className="contact">
+              {patientProfile.contactPrecaution.id === 1 ? <h3 className="standard">Standard Precautions</h3> 
+              :<><h3 className="precaution">Contact Precaution</h3><div>{patientProfile.contactPrecaution.type}</div></>}
+              
               <Button
                 onClick={() =>
                   toggle(setModalRemoveContact, modalRemoveContact)
@@ -223,32 +229,10 @@ export const PatientProfileCard = ({
               >
                 Update
               </Button>
-            </div>
-            <div className="inner--container">
-              <h2 htmlFor="tele">Telemetry</h2>
-              <br />❌
-              <input
-                type="range"
-                max={"1"}
-                value={patientProfile.telemetry === true ? "1" : "0"}
-                onChange={(e) => {
-                  e.target.value === "0"
-                    ? toggle(setModalRemoveTele, modalRemoveTele)
-                    : toggle(setModalNewTele, modalNewTele);
-                }}
-              ></input>
-              {patientProfile.telemetry
-                ? `💟#${patientProfile.telemetryNumber}`
-                : `💟`}
-            </div>
-            <div className="inner--container">
-              <h3>Assist Level</h3>
-              <div>{patientProfile.assistType.type}</div>
-              <Button onClick={() => toggle(setModalAssist, modalAssist)}>
-                Update
-              </Button>
-              {patientProfile.assistTypeId > 1 ? <div>Fall Risk</div> : <></>}
-            </div>
+            </div> */}
+              <ContactStatus patientProfile={patientProfile} setModalInfo={setModalInfo} modalInfo={modalInfo} setInfo={setInfo} setModalRemoveContact={setModalRemoveContact} modalRemoveContact={modalRemoveContact} toggle={toggle}/>
+              <Assist patientProfile={patientProfile} setModalAssist={setModalAssist} modalAssist={modalAssist} toggle={toggle}/>
+              <Telemetry patientProfile={patientProfile} setModalRemoveTele={setModalRemoveTele} setModalNewTele={setModalNewTele} toggle={toggle}/>
           </Col>
         </Row>
       </div>
@@ -390,17 +374,21 @@ export const PatientProfileCard = ({
         <ModalBody>
           <p>Please select a Contact Type Listed Below</p>
           {CPList.map((cp) => (
-            <div key={cp.id}>
-              <Input
-                value={cp.id}
-                type="radio"
-                name="contactPrecautionId"
-                onChange={(e) => {
-                  setContactId(e.target.value);
-                }}
-              />{" "}
-              {cp.type}
-            </div>
+              <div className="contact-options" key={cp.id}>
+                <Input
+                  value={cp.id}
+                  type="radio"
+                  name="contactPrecautionId"
+                  onChange={(e) => {
+                    setContactId(e.target.value);
+                  }}
+                />{" "}
+                {cp.type}
+                <img onClick={() => {
+                  setInfo(cp);
+                  toggle(setModalInfo, modalInfo);
+                }}className={'info-image'} src="https://cdn-icons-png.flaticon.com/128/157/157933.png"/>
+              </div>
           ))}
         </ModalBody>
         <ModalFooter>
@@ -423,6 +411,14 @@ export const PatientProfileCard = ({
             Cancel
           </Button>
         </ModalFooter>
+      </Modal>
+      <Modal
+        isOpen={modalInfo}
+        toggle={() => toggle(setModalInfo, modalInfo)}
+        onClick={(e) => e.stopPropagation()}
+        info = {info}
+      >
+          <img src={`${info?.diagram}`}/>
       </Modal>
 
       <Modal
