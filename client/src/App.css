@@ -171,7 +171,7 @@ AssignedProviders
 ***************************
 */
 .assigned-providers{
-  padding: .5em
+  /* padding: .5em */
 }
 .assigned-providers button{
   border: none;
@@ -181,6 +181,7 @@ AssignedProviders
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding: 0;
 }
 .assigned-providers button>img{
   border: none;

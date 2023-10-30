@@ -8,7 +8,7 @@ export const AssignedProviders = ({patientProvider, patientProfile}) => {
 
     return(
         <section className="assigned-providers">
-              <button className="left" onClick={toggleAccordian}>Assigned Providers <img src="https://cdn-icons-png.flaticon.com/128/9126/9126125.png"/></button>
+              <button className="" onClick={toggleAccordian}>Assigned Providers <img src="https://cdn-icons-png.flaticon.com/128/9126/9126125.png"/></button>
               <div onClick={toggleAccordian} className={`accordian ${accordianOpen? "reveal" : ''}`}>
                 <div>
                 <ul className="left">
