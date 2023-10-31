@@ -3,9 +3,22 @@
 }
 .scroll{
   overflow: auto;
-  scrollbar-width: thin 
+  scrollbar-gutter: stable;
   ;
 }
+::-webkit-scrollbar{
+  width: .5em;
+}
+::-webkit-scrollbar-track{
+  opacity: 0;
+  margin-block: .5em;
+}
+::-webkit-scrollbar-thumb{
+  background-color: #eaeaea;
+  border-radius: 100vw;
+  
+}
+
 .flexRow{
   display: flex;
   flex-direction: row;
@@ -41,19 +54,27 @@
   margin-left: -1em;
 }
 .toggle--button{
-  padding: .5em 5.5vw;
-  border-radius: 6px;
-  border: 1px rgb(167, 167, 167) solid;
-  font-weight: 800;
-  color: grey;
+  padding: .5em 4em;
+  border-radius: 50vh;
+  border: 1px #eaeaea solid;
+  font-weight: 700;
+  color: #9b9b9b;
+  background-color: #eaeaea;
 }
 .myPatients--button{
   border-top-left-radius: 0;
   border-bottom-left-radius: 0;
+  transition: .25s;
 }
 .allPatients--button{
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
+  transition: .25s;
+}
+.selected{
+  background-color: rgb(255, 255, 255);
+  color: #00aeff;
+  border: 1px solid #00aeff;
 }
 .cards--patientList{
   flex: 0 1 auto;
@@ -61,21 +82,22 @@
 .patient--card{
   background-color: #ffffff;
   border-radius: 3px;
-  border: #acacac solid 2px;
+  border: #acacac solid 1px;
   margin: .5em auto;
   width: 70%;
   min-width: 25em;
   color: #808080;
-  transition: .2s;
+  transition: .1s;
 }
 .patient--card:hover{
-  border: #00aeff solid 2px;
+  border: #00aeff solid 1px;
+  box-shadow: 0 0 .2em rgba(0, 174, 255, .5) ;
   cursor: pointer;
   color: black;
 }
 
 .assigned-pt{
-  border: rgb(53, 53, 53) solid 2px;
+  border: rgb(53, 53, 53) solid 1px;
   color: rgb(48, 48, 48);
 }
 .patient--card div:nth-of-type(1){
@@ -96,9 +118,6 @@
   height: 5em;
   width: 5em;
 }
-.card-assigner:hover{
-  background: lightblue;
-}
 
 .card-assigner button{
   color:grey;
@@ -107,7 +126,6 @@
   font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   background-color: white;
   border: none;
-  /* border-radius: 50%; */
   width: 100%;
   height: 100%;
   transition: .25s
@@ -118,18 +136,15 @@
 .add-pt:hover{
   background: lightgreen;
 }
-
-.selected{
-  background-color: rgb(255, 255, 255);
-  color: #00aeff;
-  border: 1px solid #00aeff;
-  box-shadow: 0cap 0 2px #00aeff;  
-}
 .precaution-tag--simple{
+  display: flex;
+  justify-content: center;
   background-color: orange;
   padding: 0 .2em;
 }
 .fall-tag--simple{
+  display: flex;
+  justify-content: center;
   background-color: yellow;
   padding: 0 .1em;
 }
@@ -146,39 +161,326 @@
 .caution {
   width: 25px;
 }
+.bold{
+  font-weight: 500;
+}
 
+/*
+***************************
+AssignedProviders
+***************************
+*/
+.assigned-providers{
+  /* padding: .5em */
+}
+.assigned-providers button{
+  border: none;
+  background-color: inherit;
+  font-size: large;
+  font-weight: 500;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 0;
+}
+.assigned-providers button>img{
+  border: none;
+  background-color: inherit;
+  height: 1.5em;
 
+}
 
+/*
+***************************
+LastWeight
+***************************
+*/
 
-.inner--container{
-  background-color: #ffffff;
-  border: 2px solid #b8dfff;
-  border-radius: 3px;
+.last-weight{
   padding: .5em;
-  min-width: 70%; 
-  margin: 0 auto;
-  margin-bottom: 1.5em;
+}
+.last-weight-display{
+  justify-content: space-between;
+  align-content: center;
+  gap: 1em;
+  margin-bottom: .5em;
+}
+.last-weight-display p{
+  font-weight: 500;
+  font-size: medium;
+  margin: 0;
+}
+
+.input-lastweight{
+  gap: .25em;
+}
+.input-lastweight input{
+  width: 8em;
+  height: 2em;
+}
+.input-lastweight button{
+  height: 2em;
+  border-radius: 3px;
+  background-color: inherit;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.input-lastweight button:nth-of-type(1){
+  border: 2px solid #86c8ff;
+}
+.input-lastweight button:nth-of-type(2){
+  border: 2px solid tomato;
+}
+.input-lastweight button>img{
+  width: 1em;
+  height: 1em;
+}
+.assist h3{
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-block: .2em;
+  border-radius: 3px;
+}
+.fall-risk{
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-block: .2em;
+  border-radius: 3px;
+  background-color: yellow ;
+}
+.assist div{
+  /* border-block: 1px rgb(176, 176, 176) solid; */
+  font-size: large;
+  font-weight: 600;
+  margin-bottom: .5em;
+  transition: 250ms;
+  color: red;
+}
+/*
+***************************
+Contact
+***************************
+*/
+.contact h3{
+  font-size: 1.5rem;
+  font-weight: 600;
+  padding-block: .2em;
+  border-radius: 3px;
+}
+.contact-options{
+  display: grid;
+  grid-template-columns: 1em 4em auto;
+  gap: .5em;
+  margin-bottom: .5em;
+  align-items: center;
+}
+.contact-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .5em;
+  margin-bottom: .5em;
+}
+.contact-title{
+  font-size: large;
+  font-weight: 600;
+  transition: 250ms;
+  color: red;
+}
+
+.precaution {
+  background-color: orange;
+}
+/*
+***************************
+Telemetry
+***************************
+*/
+.telemetry, .contact, .assist, .last-weight, .assigned-providers {
+  display: flex;
+  flex-direction: column;
+  border-radius: 3px;
+  padding: .6em;
+  margin-bottom: .3em;
+  border: 1px solid rgb(184, 184, 184);
+  justify-content: center;
+}
+.telemetry--main{
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+}
+.telemetry--main p{
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  padding-left: .25em;
+}
+.teleSlider{
+  display: flex;
+  align-items: center;
+}
+.teleSlider input {
+  width: 3em;
+}
+.teleImage, .teleImage-x{
+  height: 1.5em;
+  margin-inline: .25em;
+}
+.teleImage-x{
+  height: 1em;
+  opacity: .3;
+}
+.teleImage-x:hover{
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.teleImage:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+.noTele{
+  opacity: .6;
+}
+.telemetry--box-number{
+  display: flex;
+  justify-content: right;
+  padding-right: .25em;
+  font-weight: 600;
+  font-size: 1.1em;
+}
+
+/*
+***************************
+Shared
+***************************
+*/
+.detailed-view-button{
+  font-weight: 500;
+  border: none;
+  border-radius: 3px;
+  background-color:#00aeff;
+  margin-top: .5em;
+  width: 100%;
+  padding-block: .5em;
+}
+.update-card-button{
+  font-weight: 500;
+  border: rgb(53, 53, 53) solid 1px ;
+  border-radius: 2px;
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  height: 2em;
+  width: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.update-card-button > img{
+  height: 1em;
+}
+.info-image{
+  height: 1em;;
+}
+.info-image:hover{
+  cursor: pointer;
+}
+/*
+***************************
+Accordian
+***************************
+*/
+.accordian{
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: opacity 700ms, grid-template-rows 500ms;
+  opacity: 0;
+}
+.accordian div {
+  overflow: hidden;
+}
+.reveal{
+  grid-template-rows: 1fr;
+  opacity: 1;
 }
 
 .defineShape{
   position: absolute;
-  left: 12.5%;
+  left: 10%;
   top: 100%;
-  width: 75%;
+  padding: 1em;
+  width: 80%;
   margin: 0, auto;
   height: 88vh;
-  box-shadow: .5em 0em 8px rgba(0, 0, 0, 0.3);
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
-  /* scrollbar-width: thin; */
   overflow-x: hidden;
-  border: rgb(228, 228, 228) 1px solid;
+  border: rgb(228, 228, 228) 2px solid;
   border-radius: 4px;
-  transition: 1s;
+  transition: .5s;
   opacity: 0;
 }
 
 .open-card{
   top: 12%;
   opacity: 1;
+}
+
+.ppcard--header{
+  border: 2px #eaeaea solid;
+  border-radius: 3px;
+  margin-bottom: 1em;
+}
+.ppcard--header div:nth-of-type(1){
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .5em;
+  margin-left: 1em;
+}
+.ppcard--header div:nth-of-type(1) :nth-child(1){
+  font-size: x-large;
+  font-weight: 700;
+}
+.divider{
+  border: 1px rgb(196, 196, 196) solid;
+  height: 6em;
+  margin: auto 1em;
+}
+.ppcard--header div:nth-of-type(3){
+  margin: .25em 0 .75em 0 
+}
+.ppcard--header div:nth-of-type(3) h2{
+ font-size: x-large;
+ font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+.ppcard--header div:nth-of-type(3) p{
+  font-size: .9rem;
+  block-size: 1.2em;
+  margin: 0;
+  padding: 0;
+}
+.ppcard--header div:nth-of-type(4) {
+  margin-left: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:.25em;
+  width: 7em;
+}
+
+.ppcard--header div:nth-of-type(4) div {
+  width: 100%;
+  height: 2em;
+  margin: 0;
+}
+.codestatus{
+  background-color: tomato;
+  color: white;
+  font-weight: 700;
+  font-size: large;
+  padding: .5em;
 }

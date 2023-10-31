@@ -324,6 +324,7 @@ public class ADLTrackerDbContext : IdentityDbContext<IdentityUser>
             {
                 Id = 1,
                 Type = "Standard",
+                Diagram = "https://t3.gstatic.com/images?q=tbn:ANd9GcR2bxhfh2iWTct175RQ46-j_FqSzICUro3Oznj9n2P0ZPPfSgmo"
             },
             new ContactPrecaution
             {

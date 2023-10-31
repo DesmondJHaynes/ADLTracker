@@ -31,6 +31,15 @@ import {
   DeleteIntake,
   getIntakes,
 } from "../managers/intakeManager.js";
+import { AssignedProviders } from "./AssignedProviders.js";
+import { LastWeight } from "./LastWeight.js";
+import { LastBath } from "./LastBath.js";
+import { LastBM } from "./LastBM.js";
+import { TotalIntake } from "./TotalIntake.js";
+import { TotalOutput } from "./TotalOutput.js";
+import { Telemetry } from "./Telemetry.js";
+import { Assist } from "./Assist.js"
+import { ContactStatus } from "./ContactStatus.js";
 
 export const PatientProfileCard = ({
   patientProfile,
@@ -50,7 +59,9 @@ export const PatientProfileCard = ({
   const [intakeList, setIntakeList] = useState("");
   const [output, setOutput] = useState("");
   const [outputList, setOutputList] = useState("");
+  const [info, setInfo] = useState();
 
+  const [modalInfo, setModalInfo] = useState(false);
   const [modalIntake, setModalIntake] = useState(false);
   const [modalOutput, setModalOutput] = useState(false);
   const [modalRemoveTele, setModalRemoveTele] = useState(false);
@@ -152,231 +163,65 @@ export const PatientProfileCard = ({
         className={`defineShape ${toggleProfile ? "open-card" : ""}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <header>
+        <header className="ppcard--header flexRow">
           <div>
-            <h2>{patientProfile.roomNumber}</h2>
-            <h2>{patientProfile.codeStatus.type}</h2>
+            <h2>R. {patientProfile.roomNumber}</h2>
+            <h2 className="codestatus">{patientProfile.codeStatus.type}</h2>
           </div>
 
           <div className="divider"></div>
 
-          <div>
+          <div className="left">
             <h2>
               {patientProfile.patient.lastName},{" "}
               {patientProfile.patient.firstName}
             </h2>
-            <p>DOB: {formatDate(patientProfile.patient.dob)}</p>
+            <p><span className="bold">DOB:</span> {formatDate(patientProfile.patient.dob)}</p>
             <p>
-              {patientProfile.patient.age}/
-              {patientProfile.patient.gender.simple}
+            <span className="bold">{patientProfile.patient.age}/
+              {patientProfile.patient.gender.simple}</span>
             </p>
-            <p>Diagnosis: {patientProfile.diagnosis} </p>
-            <p>Admit: {formatDate(patientProfile.admissionDate)} </p>
+            <p><span className="bold">Dx:</span> {patientProfile.diagnosis} </p>
+            <p><span className="bold">Admit:</span> {formatDate(patientProfile.admissionDate)} </p>
           </div>
 
-          <div className="absolute">
+          <div>
             {patientProfile.contactPrecaution.id === 1 ? (
               <div></div>
             ) : (
-              <div className="precaution-tag--simple"></div>
+              <div className="precaution-tag--simple flexCol">
+          <img
+            className="card-icon caution"
+            src="https://static.thenounproject.com/png/4564847-200.png"
+          ></img>
+        </div>
             )}
             {patientProfile.fallRisk === true ? (
-              <div className="fall-tag--simple"></div>
+              <div className="fall-tag--simple flexCol">
+              <img
+                className="card-icon"
+                src="https://thenounproject.com/api/private/icons/4498028/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                ></img>
+            </div>
             ) : (
-              <div></div>
-            )}
+              <div className="fall-tag--holder"></div>
+              )}
           </div>
         </header>
         <Row>
           <Col>
-            <div className="inner--container">
-              <select>
-                <option name={"provider"} value={0}>
-                  Assigned Providers
-                </option>
-                {patientProvider.map((pp) => {
-                  if (pp.patientProfileId === patientProfile.id) {
-                    return (
-                      <option
-                        key={`provider--${pp.providerId}`}
-                        value={pp.providerId}
-                      >
-                        {pp.provider.lastName}, {pp.provider.firstName}
-                      </option>
-                    );
-                  }
-                })}
-              </select>
-            </div>
-            <div className="inner--container">
-              <div>
-                <Label htmlFor="lastweight">Last Weight</Label>
-                <p name="lastweight">{patientProfile.weight} kg</p>
-              </div>
-              <div>
-                <div className="hidden">
-                  <input
-                    value={weight}
-                    type="number"
-                    placeholder={`${patientProfile.weight} kg`}
-                    onChange={(e) => {
-                      setWeight(e.target.value);
-                    }}
-                  />{" "}
-                  <button
-                    name="weight"
-                    onClick={(e) => {
-                      handleChange(e.target.name, weight, updateWeight).then(
-                        () => setWeight("")
-                      );
-                    }}
-                  >
-                    ✔️
-                  </button>
-                  <button>✖️</button>
-                </div>
-                <div>icon</div>
-              </div>
-            </div>
-            <div className="inner--container">
-              {" "}
-              <div>
-                <Label htmlFor="lastBath">Last Bath</Label>
-                <p name="lastBath">{formatDate(patientProfile.lastBath)}</p>
-              </div>
-              <div>
-                <div className="hidden">
-                  <input
-                    value={lastBath}
-                    type="date"
-                    max={today}
-                    onChange={(e) => {
-                      setLastBath(e.target.value);
-                    }}
-                  />{" "}
-                  <button
-                    name="lastBath"
-                    onClick={(e) => {
-                      handleChange(
-                        e.target.name,
-                        lastBath,
-                        updateLastBath
-                      ).then(() => setLastBath(""));
-                    }}
-                  >
-                    ✔️
-                  </button>
-                  <button>✖️</button>
-                </div>
-                <div>icon</div>
-              </div>
-            </div>
-            <div className="inner--container">
-              {" "}
-              <div>
-                <Label htmlFor="lastBM">Last BM</Label>
-                <p name="lastBM">{formatDate(patientProfile.lastBM)}</p>
-              </div>
-              <div>
-                <div className="hidden">
-                  <input
-                    value={lastBM}
-                    type="date"
-                    max={today}
-                    onChange={(e) => {
-                      setLastBM(e.target.value);
-                    }}
-                  />{" "}
-                  <button
-                    name="lastBM"
-                    onClick={(e) => {
-                      handleChange(e.target.name, lastBM, updateLastBM).then(
-                        () => setLastBM("")
-                      );
-                    }}
-                  >
-                    ✔️
-                  </button>
-                  <button>✖️</button>
-                </div>
-                <div>icon</div>
-              </div>
-            </div>
-            <div className="inner--container">
-              {" "}
-              <div>
-                <Label htmlFor="total Intake">Total Intake(24hr)</Label>
-                <p name="total Intake">{patientProfile.totalIntake} mL</p>
-              </div>
-              <div>
-                <div className="hidden">
-                  <input
-                    type="number"
-                    value={intake}
-                    placeholder="0 mL"
-                    onChange={(e) => setIntake(e.target.value)}
-                  />
-                  <button
-                    onClick={() => {
-                      handleIntake(intake);
-                    }}
-                  >
-                    ✔️
-                  </button>
-                  <button onClick={() => setIntake("")}>✖️</button>
-                  <button
-                    onClick={() => {
-                      getIntakes(patientProfile.id)
-                        .then(setIntakeList)
-                        .then(() => toggle(setModalIntake, modalIntake));
-                    }}
-                  >
-                    Detailed View
-                  </button>
-                </div>
-                <div>icon</div>
-              </div>
-            </div>
-            <div className="inner--container">
-              {" "}
-              <div>
-                <Label htmlFor="total Output">Total Output(24hr)</Label>
-                <p name="total Output">{patientProfile.totalOutput} mL</p>
-              </div>
-              <div>
-                <div className="hidden">
-                  <input
-                    type="number"
-                    value={output}
-                    placeholder="0 mL"
-                    onChange={(e) => setOutput(e.target.value)}
-                  />
-                  <button
-                    onClick={() => {
-                      handleOutput(output);
-                    }}
-                  >
-                    ✔️
-                  </button>
-                  <button onClick={() => setOutput("")}>✖️</button>
-                  <button
-                    onClick={() => {
-                      getOutputs(patientProfile.id)
-                        .then(setOutputList)
-                        .then(() => toggle(setModalOutput, modalOutput));
-                    }}
-                  >
-                    Detailed View
-                  </button>
-                </div>
-                <div>icon</div>
-              </div>
-            </div>
+            <AssignedProviders patientProvider={patientProvider} patientProfile={patientProfile} />
+            <LastWeight patientProfile={patientProfile} weight={weight} setWeight={setWeight} updateWeight={updateWeight} handleChange={handleChange} />
+            <LastBath patientProfile={patientProfile} lastBath={lastBath} setLastBath={setLastBath} handleChange={handleChange} today={today} formatDate={formatDate}/>
+            <LastBM patientProfile={patientProfile} lastBM={lastBM} setLastBM={setLastBM} handleChange={handleChange} today={today} formatDate={formatDate}/>
+            <TotalIntake patientProfile={patientProfile} intake={intake} setIntake={setIntake} handleIntake={handleIntake} getIntakes={getIntakes} setIntakeList={setIntakeList} ModalIntake={modalIntake} setModalIntake={setModalIntake} toggle={toggle} />
+            <TotalOutput patientProfile={patientProfile} output={output} setOutput={setOutput} handleOutput={handleOutput} getOutputs={getOutputs} setOutputList={setOutputList} ModalOutput={modalOutput} setModalOutput={setModalOutput} toggle={toggle} />
           </Col>
           <Col>
-            <div className="inner--container">
-              <h3>Contact Precaution</h3>
-              <div>{patientProfile.contactPrecaution.type}</div>
+            {/* <div className="contact">
+              {patientProfile.contactPrecaution.id === 1 ? <h3 className="standard">Standard Precautions</h3> 
+              :<><h3 className="precaution">Contact Precaution</h3><div>{patientProfile.contactPrecaution.type}</div></>}
+              
               <Button
                 onClick={() =>
                   toggle(setModalRemoveContact, modalRemoveContact)
@@ -384,32 +229,10 @@ export const PatientProfileCard = ({
               >
                 Update
               </Button>
-            </div>
-            <div className="inner--container">
-              <h2 htmlFor="tele">Telemetry</h2>
-              <br />❌
-              <input
-                type="range"
-                max={"1"}
-                value={patientProfile.telemetry === true ? "1" : "0"}
-                onChange={(e) => {
-                  e.target.value === "0"
-                    ? toggle(setModalRemoveTele, modalRemoveTele)
-                    : toggle(setModalNewTele, modalNewTele);
-                }}
-              ></input>
-              {patientProfile.telemetry
-                ? `💟#${patientProfile.telemetryNumber}`
-                : `💟`}
-            </div>
-            <div className="inner--container">
-              <h3>Assist Level</h3>
-              <div>{patientProfile.assistType.type}</div>
-              <Button onClick={() => toggle(setModalAssist, modalAssist)}>
-                Update
-              </Button>
-              {patientProfile.assistTypeId > 1 ? <div>Fall Risk</div> : <></>}
-            </div>
+            </div> */}
+              <ContactStatus patientProfile={patientProfile} setModalInfo={setModalInfo} modalInfo={modalInfo} setInfo={setInfo} setModalRemoveContact={setModalRemoveContact} modalRemoveContact={modalRemoveContact} toggle={toggle}/>
+              <Assist patientProfile={patientProfile} setModalAssist={setModalAssist} modalAssist={modalAssist} toggle={toggle}/>
+              <Telemetry patientProfile={patientProfile} setModalRemoveTele={setModalRemoveTele} setModalNewTele={setModalNewTele} toggle={toggle}/>
           </Col>
         </Row>
       </div>
@@ -551,17 +374,21 @@ export const PatientProfileCard = ({
         <ModalBody>
           <p>Please select a Contact Type Listed Below</p>
           {CPList.map((cp) => (
-            <div key={cp.id}>
-              <Input
-                value={cp.id}
-                type="radio"
-                name="contactPrecautionId"
-                onChange={(e) => {
-                  setContactId(e.target.value);
-                }}
-              />{" "}
-              {cp.type}
-            </div>
+              <div className="contact-options" key={cp.id}>
+                <Input
+                  value={cp.id}
+                  type="radio"
+                  name="contactPrecautionId"
+                  onChange={(e) => {
+                    setContactId(e.target.value);
+                  }}
+                />{" "}
+                {cp.type}
+                <img onClick={() => {
+                  setInfo(cp);
+                  toggle(setModalInfo, modalInfo);
+                }}className={'info-image'} src="https://cdn-icons-png.flaticon.com/128/157/157933.png"/>
+              </div>
           ))}
         </ModalBody>
         <ModalFooter>
@@ -584,6 +411,14 @@ export const PatientProfileCard = ({
             Cancel
           </Button>
         </ModalFooter>
+      </Modal>
+      <Modal
+        isOpen={modalInfo}
+        toggle={() => toggle(setModalInfo, modalInfo)}
+        onClick={(e) => e.stopPropagation()}
+        info = {info}
+      >
+          <img src={`${info?.diagram}`}/>
       </Modal>
 
       <Modal
