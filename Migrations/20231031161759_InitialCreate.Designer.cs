@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ADLTracker.Migrations
 {
     [DbContext(typeof(ADLTrackerDbContext))]
-    [Migration("20231025150120_InitialCreate")]
+    [Migration("20231031161759_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -129,6 +129,7 @@ namespace ADLTracker.Migrations
                         new
                         {
                             Id = 1,
+                            Diagram = "https://t3.gstatic.com/images?q=tbn:ANd9GcR2bxhfh2iWTct175RQ46-j_FqSzICUro3Oznj9n2P0ZPPfSgmo",
                             Type = "Standard"
                         },
                         new
@@ -1038,52 +1039,52 @@ namespace ADLTracker.Migrations
                         {
                             Id = "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "82ba62ea-31bd-49d3-8eb9-d7817000cd9c",
+                            ConcurrencyStamp = "66859960-c512-424f-98ae-79a4d3c89985",
                             Email = "good@nurse.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEFPGLnpVTfQT11lhbZzm3HCpxTvXh2NiIlccAWXhWT76XLbxI6S9EWBYfmXdMnsvRg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDDSOYvilavMA1nneFrspiGuWF4n786NJVvuKl0aI+p+a6VM4k/Gfqgy4B4MFBO+mw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "0bdc5205-8a2c-4bae-9d7e-1e086c5e88bf",
+                            SecurityStamp = "d30f16e4-0f22-434a-acd0-292461ca264d",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "f575a7b0-384c-4c94-abe1-945ec9d041a0",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "d20aa2ce-192b-4a19-b62d-330403fdefe9",
+                            ConcurrencyStamp = "25b718b0-ccdc-41ba-9b38-15c63488805b",
                             Email = "good@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEIlG3dHybQkNUkZt+pvb78AHCCeEJ9xZ58VEEh2eHRFWtgaqMQDr6987oOmf08lT8Q==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEDc1UG7Uj9outAcSUCimDPmoyyv0oqf6ei7tV2KTGIRq7ebMFw4mQspkxevFseK6pQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8d565dc4-6ca0-49dd-8f7c-6262947829e8",
+                            SecurityStamp = "579a5d7f-9909-4df3-a526-6c62207612fb",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "ef18a47a-3a66-4ced-a1a2-75c6acf0b060",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0052fbfb-bd11-482e-98a6-65649d058c9f",
+                            ConcurrencyStamp = "dcbab922-229b-418c-acba-0482a00d9489",
                             Email = "mid@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAENTLcn8U6MsZobPludErFb6+RFP5tFKUJKqxnD9WoEKkQfOU+rc/GruS5HQzr2GvcA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOtGsyw1vJj7Obw5Nd/I/3dEuhkAv5wNxKUKfGreBHqWbB9v6B4nEQ9+cflSp+wZSg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "6d566ca0-2c4a-430c-a96f-0cc2f6f1998e",
+                            SecurityStamp = "f6704ba8-4234-4c4b-bbe4-ac57e4e559ea",
                             TwoFactorEnabled = false
                         },
                         new
                         {
                             Id = "555401a5-2862-4e4c-89db-b462bc2d2e1c",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "db2bc654-7d9f-4cb4-9223-8b42c350e020",
+                            ConcurrencyStamp = "126e9e38-8b21-4789-a9b2-3f6cbcccd68f",
                             Email = "bad@tech.comx",
                             EmailConfirmed = false,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAIAAYagAAAAEJBzWqiq40e1aoyqKSqaWBNTO5450/gwuBLg8iGX7C0tY4CPPpaZ9g6suvSCTiT6tA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEE3KIxfyfDF6YnkAJixdn5U5kI0Kdd9Xe7ULvfVX+RjXdfXbYxWvAlqubsLXmqb6zA==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "4be12017-f95a-44dd-abb7-47c7a2078de3",
+                            SecurityStamp = "39bf15c1-c33d-41cc-8bbe-d52277d7c9fd",
                             TwoFactorEnabled = false
                         });
                 });
