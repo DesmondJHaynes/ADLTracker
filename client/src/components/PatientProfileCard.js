@@ -38,7 +38,7 @@ import { LastBM } from "./LastBM.js";
 import { TotalIntake } from "./TotalIntake.js";
 import { TotalOutput } from "./TotalOutput.js";
 import { Telemetry } from "./Telemetry.js";
-import { Assist } from "./Assist.js"
+import { Assist } from "./Assist.js";
 import { ContactStatus } from "./ContactStatus.js";
 
 export const PatientProfileCard = ({
@@ -176,13 +176,23 @@ export const PatientProfileCard = ({
               {patientProfile.patient.lastName},{" "}
               {patientProfile.patient.firstName}
             </h2>
-            <p><span className="bold">DOB:</span> {formatDate(patientProfile.patient.dob)}</p>
             <p>
-            <span className="bold">{patientProfile.patient.age}/
-              {patientProfile.patient.gender.simple}</span>
+              <span className="bold">DOB:</span>{" "}
+              {formatDate(patientProfile.patient.dob)}
             </p>
-            <p><span className="bold">Dx:</span> {patientProfile.diagnosis} </p>
-            <p><span className="bold">Admit:</span> {formatDate(patientProfile.admissionDate)} </p>
+            <p>
+              <span className="bold">
+                {patientProfile.patient.age}/
+                {patientProfile.patient.gender.simple}
+              </span>
+            </p>
+            <p>
+              <span className="bold">Dx:</span> {patientProfile.diagnosis}{" "}
+            </p>
+            <p>
+              <span className="bold">Admit:</span>{" "}
+              {formatDate(patientProfile.admissionDate)}{" "}
+            </p>
           </div>
 
           <div>
@@ -190,49 +200,98 @@ export const PatientProfileCard = ({
               <div></div>
             ) : (
               <div className="precaution-tag--simple flexCol">
-          <img
-            className="card-icon caution"
-            src="https://static.thenounproject.com/png/4564847-200.png"
-          ></img>
-        </div>
+                <img
+                  className="card-icon caution"
+                  src="https://static.thenounproject.com/png/4564847-200.png"
+                ></img>
+              </div>
             )}
             {patientProfile.fallRisk === true ? (
               <div className="fall-tag--simple flexCol">
-              <img
-                className="card-icon"
-                src="https://thenounproject.com/api/private/icons/4498028/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
+                <img
+                  className="card-icon"
+                  src="https://thenounproject.com/api/private/icons/4498028/edit/?backgroundShape=SQUARE&backgroundShapeColor=%23000000&backgroundShapeOpacity=0&exportSize=752&flipX=false&flipY=false&foregroundColor=%23000000&foregroundOpacity=1&imageFormat=png&rotation=0"
                 ></img>
-            </div>
+              </div>
             ) : (
               <div className="fall-tag--holder"></div>
-              )}
+            )}
           </div>
         </header>
         <Row>
           <Col>
-            <AssignedProviders patientProvider={patientProvider} patientProfile={patientProfile} />
-            <LastWeight patientProfile={patientProfile} weight={weight} setWeight={setWeight} updateWeight={updateWeight} handleChange={handleChange} />
-            <LastBath patientProfile={patientProfile} lastBath={lastBath} setLastBath={setLastBath} handleChange={handleChange} today={today} formatDate={formatDate}/>
-            <LastBM patientProfile={patientProfile} lastBM={lastBM} setLastBM={setLastBM} handleChange={handleChange} today={today} formatDate={formatDate}/>
-            <TotalIntake patientProfile={patientProfile} intake={intake} setIntake={setIntake} handleIntake={handleIntake} getIntakes={getIntakes} setIntakeList={setIntakeList} ModalIntake={modalIntake} setModalIntake={setModalIntake} toggle={toggle} />
-            <TotalOutput patientProfile={patientProfile} output={output} setOutput={setOutput} handleOutput={handleOutput} getOutputs={getOutputs} setOutputList={setOutputList} ModalOutput={modalOutput} setModalOutput={setModalOutput} toggle={toggle} />
+            <AssignedProviders
+              patientProvider={patientProvider}
+              patientProfile={patientProfile}
+            />
+            <LastWeight
+              patientProfile={patientProfile}
+              weight={weight}
+              setWeight={setWeight}
+              updateWeight={updateWeight}
+              handleChange={handleChange}
+            />
+            <LastBath
+              patientProfile={patientProfile}
+              lastBath={lastBath}
+              setLastBath={setLastBath}
+              handleChange={handleChange}
+              today={today}
+              formatDate={formatDate}
+            />
+            <LastBM
+              patientProfile={patientProfile}
+              lastBM={lastBM}
+              setLastBM={setLastBM}
+              handleChange={handleChange}
+              today={today}
+              formatDate={formatDate}
+            />
+            <TotalIntake
+              patientProfile={patientProfile}
+              intake={intake}
+              setIntake={setIntake}
+              handleIntake={handleIntake}
+              getIntakes={getIntakes}
+              setIntakeList={setIntakeList}
+              ModalIntake={modalIntake}
+              setModalIntake={setModalIntake}
+              toggle={toggle}
+            />
+            <TotalOutput
+              patientProfile={patientProfile}
+              output={output}
+              setOutput={setOutput}
+              handleOutput={handleOutput}
+              getOutputs={getOutputs}
+              setOutputList={setOutputList}
+              ModalOutput={modalOutput}
+              setModalOutput={setModalOutput}
+              toggle={toggle}
+            />
           </Col>
           <Col>
-            {/* <div className="contact">
-              {patientProfile.contactPrecaution.id === 1 ? <h3 className="standard">Standard Precautions</h3> 
-              :<><h3 className="precaution">Contact Precaution</h3><div>{patientProfile.contactPrecaution.type}</div></>}
-              
-              <Button
-                onClick={() =>
-                  toggle(setModalRemoveContact, modalRemoveContact)
-                }
-              >
-                Update
-              </Button>
-            </div> */}
-              <ContactStatus patientProfile={patientProfile} setModalInfo={setModalInfo} modalInfo={modalInfo} setInfo={setInfo} setModalRemoveContact={setModalRemoveContact} modalRemoveContact={modalRemoveContact} toggle={toggle}/>
-              <Assist patientProfile={patientProfile} setModalAssist={setModalAssist} modalAssist={modalAssist} toggle={toggle}/>
-              <Telemetry patientProfile={patientProfile} setModalRemoveTele={setModalRemoveTele} setModalNewTele={setModalNewTele} toggle={toggle}/>
+            <ContactStatus
+              patientProfile={patientProfile}
+              setModalInfo={setModalInfo}
+              modalInfo={modalInfo}
+              setInfo={setInfo}
+              setModalRemoveContact={setModalRemoveContact}
+              modalRemoveContact={modalRemoveContact}
+              toggle={toggle}
+            />
+            <Assist
+              patientProfile={patientProfile}
+              setModalAssist={setModalAssist}
+              modalAssist={modalAssist}
+              toggle={toggle}
+            />
+            <Telemetry
+              patientProfile={patientProfile}
+              setModalRemoveTele={setModalRemoveTele}
+              setModalNewTele={setModalNewTele}
+              toggle={toggle}
+            />
           </Col>
         </Row>
       </div>
@@ -242,7 +301,7 @@ export const PatientProfileCard = ({
         onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalIntake, modalIntake)}>
-          Details!
+          24 Hour Fluid Intake Log
         </ModalHeader>
         <ModalBody>
           {intakeList ? (
@@ -263,10 +322,15 @@ export const PatientProfileCard = ({
                     <td>
                       {i.providerId === userId ? (
                         <Button
+                          className="delete-button"
                           color="danger"
-                          onClick={() => handleIntakeDelete(i.id)}
+                          onClick={() => {
+                            handleIntakeDelete(i.id).then(() =>
+                              refreshProfile(patientProfile.id)
+                            );
+                          }}
                         >
-                          x
+                          <img src="https://cdn-icons-png.flaticon.com/128/1828/1828774.png" />
                         </Button>
                       ) : (
                         <></>
@@ -287,7 +351,7 @@ export const PatientProfileCard = ({
         onClick={(e) => e.stopPropagation()}
       >
         <ModalHeader toggle={() => toggle(setModalOutput, modalOutput)}>
-          Details!
+          24 Hour Urine Output Log
         </ModalHeader>
         <ModalBody>
           {outputList ? (
@@ -308,10 +372,15 @@ export const PatientProfileCard = ({
                     <td>
                       {o.providerId === userId ? (
                         <Button
+                          className="delete-button"
                           color="danger"
-                          onClick={() => handleOutputDelete(o.id)}
+                          onClick={() => {
+                            handleOutputDelete(o.id).then(() =>
+                              refreshProfile(patientProfile.id)
+                            );
+                          }}
                         >
-                          x
+                          <img src="https://cdn-icons-png.flaticon.com/128/1828/1828774.png" />
                         </Button>
                       ) : (
                         <></>
@@ -374,21 +443,25 @@ export const PatientProfileCard = ({
         <ModalBody>
           <p>Please select a Contact Type Listed Below</p>
           {CPList.map((cp) => (
-              <div className="contact-options" key={cp.id}>
-                <Input
-                  value={cp.id}
-                  type="radio"
-                  name="contactPrecautionId"
-                  onChange={(e) => {
-                    setContactId(e.target.value);
-                  }}
-                />{" "}
-                {cp.type}
-                <img onClick={() => {
+            <div className="contact-options" key={cp.id}>
+              <Input
+                value={cp.id}
+                type="radio"
+                name="contactPrecautionId"
+                onChange={(e) => {
+                  setContactId(e.target.value);
+                }}
+              />{" "}
+              {cp.type}
+              <img
+                onClick={() => {
                   setInfo(cp);
                   toggle(setModalInfo, modalInfo);
-                }}className={'info-image'} src="https://cdn-icons-png.flaticon.com/128/157/157933.png"/>
-              </div>
+                }}
+                className={"info-image"}
+                src="https://cdn-icons-png.flaticon.com/128/157/157933.png"
+              />
+            </div>
           ))}
         </ModalBody>
         <ModalFooter>
@@ -416,9 +489,9 @@ export const PatientProfileCard = ({
         isOpen={modalInfo}
         toggle={() => toggle(setModalInfo, modalInfo)}
         onClick={(e) => e.stopPropagation()}
-        info = {info}
+        info={info}
       >
-          <img src={`${info?.diagram}`}/>
+        <img src={`${info?.diagram}`} />
       </Modal>
 
       <Modal
@@ -466,6 +539,9 @@ export const PatientProfileCard = ({
             placeholder="000"
             max="999"
             onChange={(e) => setBoxNumber(e.target.value)}
+            onKeyDown={(e) =>
+              e.key === "Enter" ? handleNewTele(boxNumber) : null
+            }
           />
         </ModalBody>
         <ModalFooter>

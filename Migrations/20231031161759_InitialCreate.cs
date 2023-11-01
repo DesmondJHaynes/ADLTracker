@@ -388,10 +388,10 @@ namespace ADLTracker.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "db2bc654-7d9f-4cb4-9223-8b42c350e020", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEJBzWqiq40e1aoyqKSqaWBNTO5450/gwuBLg8iGX7C0tY4CPPpaZ9g6suvSCTiT6tA==", null, false, "4be12017-f95a-44dd-abb7-47c7a2078de3", false, null },
-                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "82ba62ea-31bd-49d3-8eb9-d7817000cd9c", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEFPGLnpVTfQT11lhbZzm3HCpxTvXh2NiIlccAWXhWT76XLbxI6S9EWBYfmXdMnsvRg==", null, false, "0bdc5205-8a2c-4bae-9d7e-1e086c5e88bf", false, null },
-                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "0052fbfb-bd11-482e-98a6-65649d058c9f", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAENTLcn8U6MsZobPludErFb6+RFP5tFKUJKqxnD9WoEKkQfOU+rc/GruS5HQzr2GvcA==", null, false, "6d566ca0-2c4a-430c-a96f-0cc2f6f1998e", false, null },
-                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "d20aa2ce-192b-4a19-b62d-330403fdefe9", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEIlG3dHybQkNUkZt+pvb78AHCCeEJ9xZ58VEEh2eHRFWtgaqMQDr6987oOmf08lT8Q==", null, false, "8d565dc4-6ca0-49dd-8f7c-6262947829e8", false, null }
+                    { "555401a5-2862-4e4c-89db-b462bc2d2e1c", 0, "126e9e38-8b21-4789-a9b2-3f6cbcccd68f", "bad@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEE3KIxfyfDF6YnkAJixdn5U5kI0Kdd9Xe7ULvfVX+RjXdfXbYxWvAlqubsLXmqb6zA==", null, false, "39bf15c1-c33d-41cc-8bbe-d52277d7c9fd", false, null },
+                    { "dbc40bc6-0829-4ac5-a3ed-180f5e916a5f", 0, "66859960-c512-424f-98ae-79a4d3c89985", "good@nurse.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDDSOYvilavMA1nneFrspiGuWF4n786NJVvuKl0aI+p+a6VM4k/Gfqgy4B4MFBO+mw==", null, false, "d30f16e4-0f22-434a-acd0-292461ca264d", false, null },
+                    { "ef18a47a-3a66-4ced-a1a2-75c6acf0b060", 0, "dcbab922-229b-418c-acba-0482a00d9489", "mid@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEOtGsyw1vJj7Obw5Nd/I/3dEuhkAv5wNxKUKfGreBHqWbB9v6B4nEQ9+cflSp+wZSg==", null, false, "f6704ba8-4234-4c4b-bbe4-ac57e4e559ea", false, null },
+                    { "f575a7b0-384c-4c94-abe1-945ec9d041a0", 0, "25b718b0-ccdc-41ba-9b38-15c63488805b", "good@tech.comx", false, false, null, null, null, "AQAAAAIAAYagAAAAEDc1UG7Uj9outAcSUCimDPmoyyv0oqf6ei7tV2KTGIRq7ebMFw4mQspkxevFseK6pQ==", null, false, "579a5d7f-9909-4df3-a526-6c62207612fb", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -419,7 +419,7 @@ namespace ADLTracker.Migrations
                 columns: new[] { "Id", "Diagram", "Type" },
                 values: new object[,]
                 {
-                    { 1, null, "Standard" },
+                    { 1, "https://t3.gstatic.com/images?q=tbn:ANd9GcR2bxhfh2iWTct175RQ46-j_FqSzICUro3Oznj9n2P0ZPPfSgmo", "Standard" },
                     { 2, "https://www.brevis.com/image/lg/cpr7r2.jpg", "Contact" },
                     { 3, "https://brevis.com/images/cprmdro.jpg", "Contact+" },
                     { 4, "https://brevis.com/images/dpr14.jpg", "Droplet" },

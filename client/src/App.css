@@ -16,7 +16,6 @@
 ::-webkit-scrollbar-thumb{
   background-color: #eaeaea;
   border-radius: 100vw;
-  
 }
 
 .flexRow{
@@ -151,9 +150,6 @@
 .fall-tag--holder{
   padding: 0 1em;
 }
-.collapse{
-  animation-duration: 100ms;
-}
 .card-icon {
   width: 30px;
   margin: auto 0;
@@ -163,6 +159,23 @@
 }
 .bold{
   font-weight: 500;
+}
+.placeholder-image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* border: 1px solid; */
+  width: 40%;
+  opacity: .5;
+}
+.placeholder-text {
+  font-size: 3em;
+  margin-block: .2em;
+  padding: 0;
+}
+.placeholder-image img{
+  width: 90%;
 }
 
 /*
@@ -288,7 +301,6 @@ Contact
   transition: 250ms;
   color: red;
 }
-
 .precaution {
   background-color: orange;
 }
@@ -380,6 +392,9 @@ Shared
 .update-card-button > img{
   height: 1em;
 }
+.delete-button img{
+ width: .75em;
+}
 .info-image{
   height: 1em;;
 }
@@ -394,7 +409,7 @@ Accordian
 .accordian{
   display: grid;
   grid-template-rows: 0fr;
-  transition: opacity 700ms, grid-template-rows 500ms;
+  transition: opacity 500ms, grid-template-rows 250ms;
   opacity: 0;
 }
 .accordian div {
@@ -404,7 +419,9 @@ Accordian
   grid-template-rows: 1fr;
   opacity: 1;
 }
-
+.size-down{
+  transform: scale(.8);
+}
 .defineShape{
   position: absolute;
   left: 10%;

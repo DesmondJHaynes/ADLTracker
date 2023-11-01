@@ -72,6 +72,13 @@ export const Workspace = ({ user, setLoggedInUser }) => {
         }}
       >
         <UserNav user={user} setLoggedInUser={setLoggedInUser} />
+        <div className="placeholder-image">
+          <h2 className="placeholder-text">
+            Select A Patient <br />
+            To Get Started
+          </h2>
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Bimetrical_icon_clipboard_black.svg/1200px-Bimetrical_icon_clipboard_black.svg.png" />
+        </div>
         <PatientProfileCard
           userId={user.id}
           toggleProfile={toggleProfile}
