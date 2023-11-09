@@ -183,10 +183,8 @@ export const PatientProfileCard = ({
               {formatDate(patientProfile.patient.dob)}
             </p>
             <p>
-              <span className="bold">
-                {patientProfile.patient.age}/
-                {patientProfile.patient.gender.simple}
-              </span>
+              <span className="bold">Age/Gender:</span>{" "}
+              {patientProfile.patient.age}/{patientProfile.patient.gender.type}
             </p>
             <p>
               <span className="bold">Dx:</span> {patientProfile.diagnosis}{" "}

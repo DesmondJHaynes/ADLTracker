@@ -108,7 +108,12 @@ export const PatientList = ({
       ) : (
         <div className="cards--patientList scroll">
           {filteredList.length === 0 ? (
-            <div>No patients assigned to you at this time.</div>
+            <div>
+              <span className="bold">
+                No patients assigned to you at this time.
+              </span>
+              <p>Select a patient from "All Patients" List</p>
+            </div>
           ) : (
             filteredList?.map((p) => (
               <div key={p.id}>
