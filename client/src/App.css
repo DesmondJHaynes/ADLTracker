@@ -46,6 +46,11 @@
   position: relative;
   overflow:hidden;
 }
+.user-title{
+  margin-left: auto;
+  margin-right: 2em;
+  font-weight: 700;
+}
 .toggle--patientList{
   margin-top: 1em;
   margin-bottom: 3em;
@@ -169,7 +174,8 @@
   opacity: .5;
 }
 .placeholder-text {
-  font-size: 3em;
+  font-size: 4em;
+  font-weight: 700;
   margin-block: .2em;
   padding: 0;
 }

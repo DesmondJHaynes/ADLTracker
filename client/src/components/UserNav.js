@@ -4,7 +4,9 @@ import { logout } from "../managers/authManager.js";
 export const UserNav = ({ user, setLoggedInUser }) => {
   return (
     <Navbar>
-      {user.roles[0]} : {user.lastName}, {user.firstName[0]}.
+      <div className="user-title">
+        {user.lastName}, {user.firstName[0]}. | {user.roles[0]}
+      </div>
       <Button
         color="danger"
         onClick={(e) => {
