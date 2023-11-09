@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import "./MediaQueries.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Spinner } from "reactstrap";
 import { tryGetLoggedInUser } from "./managers/authManager.js";

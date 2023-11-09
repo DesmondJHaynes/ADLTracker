@@ -25,17 +25,18 @@ export const AssignedProviders = ({ patientProvider, patientProfile }) => {
         className={`accordian ${accordianOpen ? "reveal" : ""}`}
       >
         <div>
-          <ul className="left">
+          <div className="assigned-providers--list left">
             {patientProvider.map((pp) => {
               if (pp.patientProfileId === patientProfile.id) {
                 return (
-                  <li key={`provider--${pp.providerId}`} value={pp.providerId}>
-                    {pp.provider.lastName}, {pp.provider.firstName}
-                  </li>
+                  <p key={`provider--${pp.providerId}`} value={pp.providerId}>
+                    {pp.provider.roles} | {pp.provider.lastName},{" "}
+                    {pp.provider.firstName}
+                  </p>
                 );
               }
             })}
-          </ul>
+          </div>
         </div>
       </div>
     </section>

@@ -86,7 +86,9 @@ export const PatientProfileCard = ({
 
   const today = new Date().toLocaleDateString("fr-ca");
 
-  const toggle = (setter, modal) => setter(!modal);
+  function toggle(setter, modal) {
+    setter(!modal);
+  }
 
   function formatDate(dateTime) {
     const dateOnly = dateTime.split("T")[0];
@@ -295,6 +297,13 @@ export const PatientProfileCard = ({
           </Col>
         </Row>
       </div>
+
+      {/********************
+       *
+       * Modals...consider refactor for a more condensed method of displaying various modals
+       *
+       * *******************/}
+
       <Modal
         isOpen={modalIntake}
         toggle={() => toggle(setModalIntake, modalIntake)}
@@ -485,13 +494,14 @@ export const PatientProfileCard = ({
           </Button>
         </ModalFooter>
       </Modal>
+
       <Modal
         isOpen={modalInfo}
         toggle={() => toggle(setModalInfo, modalInfo)}
         onClick={(e) => e.stopPropagation()}
         info={info}
       >
-        <img src={`${info?.diagram}`} />
+        <img className="modal-image" src={`${info?.diagram}`} />
       </Modal>
 
       <Modal
