@@ -4,7 +4,6 @@
 .scroll{
   overflow: auto;
   scrollbar-gutter: stable;
-  ;
 }
 ::-webkit-scrollbar{
   width: .5em;
@@ -84,7 +83,7 @@
   border: #acacac solid 1px;
   margin: .5em auto;
   width: 70%;
-  min-width: 25em;
+  /* min-width: 25em; */
   color: #808080;
   transition: .1s;
 }
@@ -96,8 +95,8 @@
 }
 
 .assigned-pt{
-  border: rgb(53, 53, 53) solid 1px;
-  color: rgb(48, 48, 48);
+  border: #353535 solid 1px;
+  color: black;
 }
 .patient--card div:nth-of-type(1){
   padding: .5em 1em;
@@ -183,10 +182,28 @@
 AssignedProviders
 ***************************
 */
-.assigned-providers{
-  /* padding: .5em */
+.assigned-providers--list{
+  margin: .25em;
+  border: 1px solid #cfcfcf;
+  border-radius: 4px;
+  padding: 0;
 }
-.assigned-providers button{
+.assigned-providers--list > p{
+  font-weight: 400;
+  padding: .5em;
+  border-block-end: 1px solid #cfcfcf;;
+  /* background-color: yellow; */
+  margin: 0;
+}
+.assigned-providers--list > p:nth-last-child(-n +1){
+  border-block-end: none;
+  padding: .5em;
+  /* background-color: orange; */
+  margin: 0;
+
+}
+
+.assigned-providers > button{
   border: none;
   background-color: inherit;
   font-size: large;
@@ -315,7 +332,7 @@ Telemetry
   border-radius: 3px;
   padding: .6em;
   margin-bottom: .3em;
-  border: 1px solid rgb(184, 184, 184);
+  border: 1px solid #a3a3a3;;
   justify-content: center;
 }
 .telemetry--main{
@@ -370,12 +387,20 @@ Shared
 */
 .detailed-view-button{
   font-weight: 500;
-  border: none;
+  border: 1px solid #00aeff;
   border-radius: 3px;
-  background-color:#00aeff;
+  background-color:white;
+  color: #00aeff;
   margin-top: .5em;
   width: 100%;
   padding-block: .5em;
+  transition: background-color 250ms;
+}
+.detailed-view-button:hover{
+  background-color: #00aeff;
+  border: white 1px solid;
+  color: white;
+
 }
 .update-card-button{
   font-weight: 500;
@@ -391,6 +416,7 @@ Shared
 }
 .update-card-button > img{
   height: 1em;
+  opacity: .8;
 }
 .delete-button img{
  width: .75em;
@@ -400,6 +426,20 @@ Shared
 }
 .info-image:hover{
   cursor: pointer;
+}
+.update-button{
+  border: 1px solid  #00aeff;;
+  background-color: inherit;
+  padding: .25em;
+  font-weight: 500;
+  border-radius: 3px;
+  color:  #00aeff;;
+  transition: background-color 250ms;
+}
+.update-button:hover{
+    background-color: #00aeff;
+    border: white 1px solid;
+    color: white;
 }
 /*
 ***************************
@@ -433,7 +473,7 @@ Accordian
   background-color: rgb(255, 255, 255);
   overflow-y: scroll;
   overflow-x: hidden;
-  border: rgb(228, 228, 228) 2px solid;
+  border: #353535 1px solid;
   border-radius: 4px;
   transition: .5s;
   opacity: 0;
@@ -445,7 +485,7 @@ Accordian
 }
 
 .ppcard--header{
-  border: 2px #eaeaea solid;
+  border: 1px #a3a3a3 solid;
   border-radius: 3px;
   margin-bottom: 1em;
 }
@@ -461,7 +501,7 @@ Accordian
   font-weight: 700;
 }
 .divider{
-  border: 1px rgb(196, 196, 196) solid;
+  border: 1px #cfcfcf solid;
   height: 6em;
   margin: auto 1em;
 }
@@ -501,3 +541,4 @@ Accordian
   font-size: large;
   padding: .5em;
 }
+

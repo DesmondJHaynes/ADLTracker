@@ -44,9 +44,12 @@ export const ContactStatus = ({
         </>
       )}
 
-      <Button onClick={() => toggle(setModalRemoveContact, modalRemoveContact)}>
+      <button
+        className="update-button"
+        onClick={() => toggle(setModalRemoveContact, modalRemoveContact)}
+      >
         Update
-      </Button>
+      </button>
     </div>
   );
 };

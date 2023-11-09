@@ -1,0 +1,195 @@
+@media (max-width: 430px) {
+    .App {
+        text-align: center;
+      }
+    .App-container {
+        display: flex;
+        height: 100dvh;
+        width: 200svw;
+        border: black solid 1px;
+    }
+    .scroll{
+        overflow: auto;
+        scrollbar-gutter: stable;
+      }
+    .container--patients{
+        /* border: 1px solid red; */
+        /* min-width: 400px; */
+        width: 100svw;
+        height: 100vh;
+      }
+      .container--patientProfiles{
+        /* border: 1px solid blue; */
+        width: 100svw;
+        position: relative;
+        overflow:hidden;
+      }
+
+      /* ------------ Toggle Patient List View ------------ */
+      .toggle--patientList{
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-inline: auto;
+      }
+      .toggle--button{
+        padding: .5em 4em;
+        border-radius: 50vh;
+        border: 1px #eaeaea solid;
+        font-weight: 700;
+        color: #9b9b9b;
+        background-color: #eaeaea;
+        font-size: small;
+      }
+      .myPatients--button{
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        transition: .25s;
+      }
+      .allPatients--button{
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        transition: .25s;
+      }
+      .selected{
+        background-color: rgb(255, 255, 255);
+        color: #00aeff;
+        border: 1px solid #00aeff;
+      }
+
+    /* ------------ Patient List ------------ */
+      .cards--patientList{
+        flex: 0 1 auto;
+      }
+      .patient--card{
+        background-color: #ffffff;
+        border-radius: 3px;
+        border: #acacac solid 1px;
+        margin: .5em auto;
+        width: 95%;
+        color: #808080;
+        transition: .1s;
+      }
+      .assigned-pt{
+        border: black solid 1px;
+        color: black;
+      }
+      .patient-shortinfo--card p{
+        margin: 0;
+        font-weight: 600;
+        font-size: small;
+      }
+      .patient--card div:nth-of-type(1){
+        padding: .5em;
+    }
+      .card-assigner{
+        border-left: 1px rgb(196, 196, 196) solid;
+        background-color: green;
+        margin: auto 0;
+        height: 4em;
+        width: 4em;
+      }
+      .card-assigner button{
+        color:grey;
+        font-weight: 800;
+        font-size: 2rem;
+        font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        background-color: white;
+        border: none;
+        width: 100%;
+        height: 100%;
+        transition: .25s
+      }
+      .remove-pt{
+        background: white;
+      }
+      .add-pt:hover{
+        background: white;
+      }
+
+    /* ------------ Patient Profile Card ------------ */
+    
+    .defineShape{
+        position: absolute;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translate(-50%, 0);
+        padding: 1em;
+        width: 98%;
+        height: 88vh;
+        background-color: rgb(255, 255, 255);
+        overflow-y: scroll;
+        overflow-x: hidden;
+        border: #353535 1px solid;
+        border-radius: 4px;
+        transition: .5s;
+        opacity: 0;
+    }
+    .open-card{
+        top: 12%;
+        opacity: 1;
+    }
+    
+    /* ------------ PPC. Header ------------ */
+
+      .ppcard--header{
+        border: 1px #a3a3a3 solid;
+        border-radius: 3px;
+        margin-bottom: 1em;
+      }
+      .ppcard--header div:nth-of-type(1){
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: .25em;
+        margin-left: .5em;
+      }
+      .ppcard--header div:nth-of-type(1) :nth-child(1){
+        font-size: large;
+        font-weight: 700;
+      }
+      .divider{
+        border: 1px #cfcfcf solid;
+        height: 6em;
+        margin: auto .5em;
+      }
+      .ppcard--header div:nth-of-type(3){
+        margin: .75em 0; 
+      }
+      .ppcard--header div:nth-of-type(3) h2{
+       font-size: medium;
+       font-weight: 700;
+        margin: 0;
+        padding: 0;
+      }
+      .ppcard--header div:nth-of-type(3) p{
+        font-size: .8rem;
+        block-size: auto;
+        margin: 0;
+        padding: 0;
+      }
+      .ppcard--header div:nth-of-type(4) {
+        margin-left: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap:.25em;
+        width: 7em;
+      }
+      .ppcard--header div:nth-of-type(4) div {
+        width: 100%;
+        height: 2em;
+        margin: 0;
+      }
+      .codestatus{
+        background-color: tomato;
+        color: white;
+        font-weight: 700;
+        font-size: large;
+        padding: .5em;
+      }
+      .modal-image{
+        width: 400px;
+        margin: 0 auto;
+      }
+}
