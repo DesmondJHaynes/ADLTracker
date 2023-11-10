@@ -19,3 +19,6 @@ https://dbdiagram.io/d/ADL-Tracker-651ac4a5ffbf5169f0de62dc
 
 ## WIREFRAME
 https://miro.com/app/board/uXjVMgtJ20I=/?share_link_id=720614588422
+
+## Application Demo
+https://www.loom.com/share/ad1dc28ab4394ad08675fca50c3bcf00?sid=fca3e8ad-9951-4cd0-99c5-4b63a526d332
